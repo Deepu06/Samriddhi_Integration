@@ -17,6 +17,7 @@ const { createBuyOrder, getAllOrders } = require("../controllers/BuyOrderControl
 const { createCart, updateCart, updateCartAddItems } = require("../controllers/CartController");
 const { getSales } = require("../controllers/SaleController");
 const { isAuthenticatedUser, isAdmin } = require("../middleware/auth");
+const { createAggregation } = require("../controllers/OrderAggregationController");
 const router = express.Router();
 
 router.route("/addcircle").post(registerCirlce)
@@ -50,3 +51,8 @@ router.route("/sales").get(getSales)
 // to place an order by circle admin with buyer reference
 router.route("/buyorder").post(isAdmin, createBuyOrder).get(getAllOrders)
 module.exports = router;
+
+
+// Aggregation of a single type product, for multiple users.. i/p - array of buyOrders id..
+// here there is aggregation happens only for one type of product at once
+router.route("/buyordersAggregate").post(createAggregation)

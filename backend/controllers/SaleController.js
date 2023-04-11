@@ -9,13 +9,6 @@ exports.createSale = catchAsyncErrors(async (req, res, next) => {
     if (!user) {
         return next(new ErrorHandler("No Seller found with this email-id!"))
     }
-    const sale = new Sale()
-    sale.circleId = req.circle._id
-    sale.circle = req.circle.circlename
-    sale.circleemail = req.circle.circleemail
-    sale.sellerId = user._id
-    sale.seller = user.name
-    sale.selleremail = user.email
 
     const products = req.body.products
 
@@ -23,16 +16,20 @@ exports.createSale = catchAsyncErrors(async (req, res, next) => {
         let counter = products.length
         await new Promise(async (resolve, reject) => {
             (products.forEach(async (element) => {
-                // console.log(element);
-                const obj = {
-                    name: element.name,
-                    category: element.category,
-                    price: element.price,
-                    quantity: element.quantity,
-                    minorder: element.minorder
-                }
-                // console.log(obj);
-                sale.products.push(obj)
+                const sale = new Sale()
+                sale.circleId = req.circle._id
+                sale.circle = req.circle.circlename
+                sale.circleemail = req.circle.circleemail
+                sale.sellerId = user._id
+                sale.seller = user.name
+                sale.selleremail = user.email
+                sale.product.name = element.name,
+                    sale.product.category = element.category,
+                    sale.product.minprice = element.minprice,
+                    sale.product.maxprice = element.maxprice,
+                    sale.product.quantity = element.quantity,
+                    sale.product.minorder = element.minorder
+                await sale.save()
                 --counter;
                 // condition to resolve the promise i.e if all products are added successfully..
                 if (counter == 0)
@@ -41,10 +38,10 @@ exports.createSale = catchAsyncErrors(async (req, res, next) => {
         })
     }
     fun().then(async () => {
-        await sale.save()
+        // await sale.save()
         res.status(201).json({
             success: true,
-            sale,
+            // sale,
         });
     }).catch((err) => {
         return next(new ErrorHandler(err));

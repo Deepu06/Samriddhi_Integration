@@ -17,6 +17,7 @@ const { addProduct, getAllProducts, updateProduct, deleteProduct, getSingleProdu
 const { isSAuthenticatedUser, isSAdmin, isSameUser } = require("../middleware/auth");
 const { createSale, getSales } = require("../controllers/SaleController");
 const { getAllOrders } = require("../controllers/BuyOrderController");
+const { createAggregation } = require("../controllers/OrderAggregationController");
 const router = express.Router();
 
 router.route("/addcircle").post(registerCirlce)
@@ -48,7 +49,11 @@ router.route("/product/:id").put(isSAuthenticatedUser, isSameUser, updateProduct
 
 
 // seller announcing sale..
-router.route("/sale").post(isSAdmin, createSale).get(getSales)
+router.route("/sales").post(isSAdmin, createSale).get(getSales)
 // to get all active buyOrders from buyers..
 router.route("/buyorder").get(getAllOrders)
 module.exports = router;
+
+// Aggregation of a single type product, for multiple users.. i/p - array of buyOrders id..
+// here there is aggregation happens only for one type of product at once
+router.route("/buyordersAggregate").post(createAggregation)

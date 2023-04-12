@@ -11,6 +11,7 @@ exports.registerCirlce = catchAsyncErrors(async (req, res, next) => {
     //     req.body
     // );
 
+    // console.log("in register");
     const user = new BuyingCirlce(
         req.body
     )

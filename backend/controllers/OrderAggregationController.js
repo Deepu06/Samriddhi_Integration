@@ -1,6 +1,5 @@
 const BuyOrdersAggregation = require("../models/BuyOrdersAggregationModel");
 const BuyOrders = require("../models/BuyOrderModel");
-const BuyingCircleMembers = require("../models/BuyingCircleMembersModel")
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 
@@ -40,7 +39,7 @@ exports.createAggregation = catchAsyncErrors(async (req, res, next) => {
                     name: order.buyer,
                     reference: order._id,
                     price: req.body.price,
-                    qunatity: order.product.quantity,
+                    quantity: order.product.quantity,
                     totalprice: order.product.quantity * req.body.price,
                 }
                 Order.users.push(obj)

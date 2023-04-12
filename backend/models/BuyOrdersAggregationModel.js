@@ -47,7 +47,7 @@ const buyOrdersAggregationSchema = new mongoose.Schema({
                 type: Number,
                 required: true
             },
-            qunatity: {
+            quantity: {
                 type: Number,
                 required: true
             },

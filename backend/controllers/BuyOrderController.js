@@ -53,5 +53,6 @@ exports.getAllOrders = catchAsyncErrors(async (req, res) => {
     const orders = await BuyOrder.find()
     res.status(200).json({
         success: true,
+        orders
     })
 })

@@ -18,6 +18,7 @@ const { isSAuthenticatedUser, isSAdmin, isSameUser } = require("../middleware/au
 const { createSale, getSales } = require("../controllers/SaleController");
 const { getAllOrders } = require("../controllers/BuyOrderController");
 const { createAggregation } = require("../controllers/OrderAggregationController");
+const { orderMatch } = require("../controllers/OrderMatchController");
 const router = express.Router();
 
 router.route("/addcircle").post(registerCirlce)
@@ -57,3 +58,9 @@ module.exports = router;
 // Aggregation of a single type product, for multiple users.. i/p - array of buyOrders id..
 // here there is aggregation happens only for one type of product at once
 router.route("/buyordersAggregate").post(createAggregation)
+
+
+// Checking for order match of Aggregated order with sale,,  for quantity and price match and place order and update sale cart qunatity
+// Checking orderMatch and placing order.
+
+router.route("/placeorder").post(orderMatch)

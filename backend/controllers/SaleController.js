@@ -5,11 +5,11 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 
 // 1-Creating a sale by admin with seller Reference..
 exports.createSale = catchAsyncErrors(async (req, res, next) => {
-    const user = await SellingCircleMembers.findOne({ email: req.body.email })
-    if (!user) {
+    if (!req.user) {
         return next(new ErrorHandler("No Seller found with this email-id!"))
     }
-
+    // console.log(req.user);
+    // console.log(req.circle);
     const products = req.body.products
 
     async function fun() {
@@ -20,9 +20,9 @@ exports.createSale = catchAsyncErrors(async (req, res, next) => {
                 sale.circleId = req.circle._id
                 sale.circle = req.circle.circlename
                 sale.circleemail = req.circle.circleemail
-                sale.sellerId = user._id
-                sale.seller = user.name
-                sale.selleremail = user.email
+                sale.sellerId = req.user._id
+                sale.seller = req.user.name
+                sale.selleremail = req.user.email
                 sale.product.name = element.name,
                     sale.product.category = element.category,
                     sale.product.minprice = element.minprice,
@@ -30,6 +30,7 @@ exports.createSale = catchAsyncErrors(async (req, res, next) => {
                     sale.product.quantity = element.quantity,
                     sale.product.minorder = element.minorder
                 await sale.save()
+                req.user.sales.push(sale._id)
                 --counter;
                 // condition to resolve the promise i.e if all products are added successfully..
                 if (counter == 0)
@@ -38,7 +39,7 @@ exports.createSale = catchAsyncErrors(async (req, res, next) => {
         })
     }
     fun().then(async () => {
-        // await sale.save()
+        await req.user.save()
         res.status(201).json({
             success: true,
             // sale,

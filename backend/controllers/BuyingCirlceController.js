@@ -4,6 +4,7 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ErrorHandler = require("../utils/errorhandler")
 const sendToken = require("../utils/jwtToken");
 const crypto = require("crypto");
+const { log } = require("console");
 
 // Register a Circle
 exports.registerCirlce = catchAsyncErrors(async (req, res, next) => {
@@ -37,7 +38,7 @@ exports.registerCirlceMember = catchAsyncErrors(async (req, res, next) => {
         req.body
     );
     // console.log(req.circle._id);
-    user.circle=req.circle._id
+    user.circle = req.circle._id
     await user.save();
     circle.members.push(user)
     await circle.save();
@@ -291,3 +292,13 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
         user
     });
 });
+
+// getting all orders of a single user
+exports.getMyOrders = catchAsyncErrors(async (req, res, next) => {
+    const ans = await BuyingCirlceMembers.findById(req.user._id).populate("orders")
+    // console.log(ans.orders);
+
+    res.status(200).json({
+        orders: ans.orders
+    })
+})

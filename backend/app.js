@@ -25,11 +25,14 @@ app.use(fileUpload());
 
 const BuyingCircle=require("./routes/BuyingCirlceRoute");
 const SellingCircle = require("./routes/SellingCircleRoute");
+
+app.use("/api/buyer", BuyingCircle);
+app.use("/api/seller", SellingCircle);
+
 app.get("/",(req,res)=>{
     res.send("Welcome to Samriddhi Backend App...)")
 })
-app.use("/api/buyer", BuyingCircle);
-app.use("/api/seller", SellingCircle);
+
 
 
 // app.use(express.static(path.join(__dirname, "../frontend/build")));

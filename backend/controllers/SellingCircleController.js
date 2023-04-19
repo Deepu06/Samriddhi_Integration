@@ -280,3 +280,14 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
         user
     });
 });
+
+// getting all sales of a single user
+exports.getMySales = catchAsyncErrors(async (req, res, next) => {
+    console.log("in controller");
+    const ans = await SellingCirlceMembers.findById(req.user._id).populate("sales")
+    // console.log(ans.orders);
+
+    res.status(200).json({
+        sales: ans
+    })
+})

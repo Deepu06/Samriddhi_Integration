@@ -37,7 +37,7 @@ exports.createAggregation = catchAsyncErrors(async (req, res, next) => {
                 totalQuantity += order.product.quantity
                 const obj = {
                     name: order.buyer,
-                    reference: order._id,
+                    reference: order.buyerId,
                     price: req.body.price,
                     quantity: order.product.quantity,
                     totalprice: order.product.quantity * req.body.price,
@@ -66,5 +66,11 @@ exports.createAggregation = catchAsyncErrors(async (req, res, next) => {
     }).catch((error) => {
         return next(new ErrorHandler(error))
     })
+})
+
+//  2- to get all aggregated Orders..
+exports.getAggregatedOrders = catchAsyncErrors(async (req, res, next) => {
+    const allOrders = await BuyOrdersAggregation.find()
+    res.status(200).json({ "Aggregated-Orders": allOrders })
 })
 

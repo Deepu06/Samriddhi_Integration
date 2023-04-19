@@ -26,28 +26,29 @@ const BuyingCircleSchema = new mongoose.Schema({
         required: [true, "Please Enter Your Password"],
         minLength: [8, "Password should be greater than 8 characters"],
     },
-    location: {
-        address: {
-            type: String,
-            required: true,
-        },
-        city: {
-            type: String,
-            required: true,
-        },
-        pincode: {
-            type: Number,
-            required: true,
-            maxLength: [6, "PinCode cannot exceed 6 characters"],
-            minLength: [6, "Picode should have atleast 6 characters"],
-        }
+    address: {
+        type: String,
+        required: true,
     },
-    members:[
-            {
-              type: mongoose.Schema.ObjectId,
-              ref: "BuyingCircleMembers",
-              required: true,
-            }
+    pincode: {
+        type: Number,
+        required: true,
+        minLength: [6, "Picode should have atleast 6 characters"],
+    },
+    community: {
+        type: String,
+        // required: true
+    },
+    area: {
+        type: String,
+        required: true
+    },
+    members: [
+        {
+            type: mongoose.Schema.ObjectId,
+            ref: "BuyingCircleMembers",
+            required: true,
+        }
     ]
 }, { timestamps: true });
 

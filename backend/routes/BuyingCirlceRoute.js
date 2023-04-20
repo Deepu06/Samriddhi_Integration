@@ -68,7 +68,7 @@ router.route("/orders").get(getOrders)
 
 // to confirm order match by a buyer for finalising the order
 // change it to post**
-router.route("/confirmorder/:id").get(isAuthenticatedUser, isValiduser, confirmOrder)
+router.route("/confirmorder/:id").post(isAuthenticatedUser, isValiduser, confirmOrder)
 
 // to check if the order match is confirmes by all users i.e by both sellers and all buyers associated with that particular order
 router.route("/isorderconfirmed/:id").get(isOrderConfirmed)

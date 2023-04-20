@@ -1,6 +1,7 @@
 const BuyOrdersAggregation = require("../models/BuyOrdersAggregationModel");
 const Sale = require("../models/SaleModel")
 const OrderMatch = require("../models/OrderMatchModel")
+// const OrderMatch = require("../models/Orders")
 const ConfirmOrder = require("../models/ConfirmOrderModel");
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
@@ -23,6 +24,10 @@ exports.orderMatch = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler("Order Mis-Match ,between order request and sale, they are off differnt category and product!"))
     }
 
+
+    if (order.quantity > sale.product.quantity) {
+        return next(new ErrorHandler("Order Requirement quantity is greater than available sale qunatity so can't place order!!"))
+    }
 
     if (order.quantity < sale.product.minorder || order.price < sale.product.minprice) {
         return next(new ErrorHandler("Order Mis-Match There is either No minimum order match or price match between sale and order.."))
@@ -51,8 +56,24 @@ exports.orderMatch = catchAsyncErrors(async (req, res, next) => {
         })
     }
 
+    const order_confirm = new ConfirmOrder()
     fun().then(async () => {
+        // await newOrder.save()
+        order_confirm.noofbuyers = order.users.length
+        order_confirm.noofsellers = 1
+        order_confirm.noofusers = order.users.length + 1
+        order_confirm.order = newOrder._id
+        await order_confirm.save()
         await newOrder.save()
+        newOrder.confirmorder = order_confirm._id
+        await newOrder.save()
+
+        res.status(201).json({
+            "message": "order placed successfully",
+            newOrder,
+            order_confirm
+        })
+
     }).catch((error) => {
         return next(new ErrorHandler(error))
     })
@@ -60,21 +81,16 @@ exports.orderMatch = catchAsyncErrors(async (req, res, next) => {
     // sale.product.quantity -= order.quantity
     // await sale.save()
 
-    const order_confirm = new ConfirmOrder()
-    order_confirm.noofbuyers = order.users.length
-    order_confirm.noofsellers = 1
-    order_confirm.noofusers = order.users.length + 1
-    order_confirm.order = newOrder._id
-    await order_confirm.save()
+    // const order_confirm = new ConfirmOrder()
+    // order_confirm.noofbuyers = order.users.length
+    // order_confirm.noofsellers = 1
+    // order_confirm.noofusers = order.users.length + 1
+    // order_confirm.order = newOrder._id
+    // await order_confirm.save()
 
-    newOrder.confirmorder = order_confirm._id
-    // await newOrder.save()
+    // newOrder.confirmorder = order_confirm._id
 
-    res.status(201).json({
-        "message": "order placed successfully",
-        newOrder,
-        order_confirm
-    })
+
 })
 
 // 2- get all orders
@@ -89,6 +105,7 @@ exports.getOrders = catchAsyncErrors(async (req, res, next) => {
 // 3- to confirm order match by a seller for finalising the order
 // and finally the order is confirmed by both buyers and sellers then proceed to next phase of delivery
 exports.confirmOrder = catchAsyncErrors(async (req, res, next) => {
+    // console.log("inorder");
     const id = req.params.id
     const confirmorder = await ConfirmOrder.findOne({ order: id })
     // console.log(req.user._id);

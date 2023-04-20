@@ -9,7 +9,7 @@ const Product = require("../models/productModel")
 const ConfirmOrder = require("../models/ConfirmOrderModel")
 
 exports.isSAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
-  console.log("in isSa");
+  // console.log("in isSa");
   const { token } = req.cookies;
 
   if (!token) {
@@ -29,6 +29,8 @@ exports.isSAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   next()
 });
 exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
+  // console.log("in iBSa");
+
   const { token } = req.cookies;
 
   if (!token) {
@@ -45,7 +47,6 @@ exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   req.circle = await BuyingCircle.findById(req.user.circle)
   // console.log(req.circle);
   next();
-
 });
 
 exports.isSAdmin = catchAsyncErrors(async (req, res, next) => {
@@ -112,12 +113,17 @@ exports.isSameUser = catchAsyncErrors(async (req, res, next) => {
 
 exports.isValiduser = catchAsyncErrors(async (req, res, next) => {
   // console.log(req.user);
+  // console.log("in valid");
   const id = req.params.id
   const order = await ConfirmOrder.findOne({ order: id }).populate("order")
+  // console.log("order is");
+  // console.log(order);
   if (!order) {
     return next(new ErrorHander("This order doesn't exists, Invalid Order"))
   }
   // console.log(order);
+  // console.log("user is");
+  // console.log(req.user);
   req.order = order
   // console.log(order.order.users);
   if (!order.order.users.includes(req.user._id)) {

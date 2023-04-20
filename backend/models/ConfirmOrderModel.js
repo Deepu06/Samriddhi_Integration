@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const confirmOrderSchema = new mongoose.Schema({
     order: {
         type: mongoose.Schema.ObjectId,
-        ref: "Order",
+        ref: "OrderMatch",
         // required:true
     },
     noofusers: {

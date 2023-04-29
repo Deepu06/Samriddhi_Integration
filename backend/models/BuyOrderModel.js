@@ -47,6 +47,16 @@ const buyOrderSchema = new mongoose.Schema({
             required: true,
             default: 1
         },
+    },
+    isSelected: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    isDelivered: {
+        type: Boolean,
+        default: false,
+        required: true
     }
 
 }, { timestamps: true })

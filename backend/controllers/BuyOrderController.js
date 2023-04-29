@@ -7,7 +7,7 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 exports.createBuyOrder = catchAsyncErrors(async (req, res, next) => {
 
     // const user = await BuyingCircleMembers.findOne({ email: req.body.email })
-    console.log(req.user);
+    // console.log(req.user);
     if (!req.user) {
         return next(new ErrorHandler("No buyer found with this email-id!"))
     }
@@ -46,6 +46,7 @@ exports.createBuyOrder = catchAsyncErrors(async (req, res, next) => {
         })
     }
     fun().then(async () => {
+        console.log(req.user);
         await req.user.save()
         res.status(201).json({
             success: true,
@@ -58,7 +59,7 @@ exports.createBuyOrder = catchAsyncErrors(async (req, res, next) => {
 
 // 2- getting all current active buyorders..
 exports.getAllOrders = catchAsyncErrors(async (req, res) => {
-    const orders = await BuyOrder.find()
+    const orders = await BuyOrder.find({ isSelected: false })
     res.status(200).json({
         success: true,
         orders

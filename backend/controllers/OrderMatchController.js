@@ -213,6 +213,9 @@ exports.confirmTransportOrder = catchAsyncErrors(async (req, res, next) => {
         })
     }
     else {
+        const order = await OrderMatch.findById(notification.order)
+        order.transporter = notification.transporter
+        await order.save()
         notification.isSelected = true
         await notification.save()
         res.status(200).json({

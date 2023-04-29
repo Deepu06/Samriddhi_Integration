@@ -32,6 +32,8 @@ exports.createAggregation = catchAsyncErrors(async (req, res, next) => {
                 if (!order || order0.product.name != order.product.name || order0.product.category != order.product.category) {
                     return reject("Error!!, All products should be off same catgeroy to aggregate!")
                 }
+                order.isSelected = true
+                await order.save()
                 // console.log(order);
                 // console.log(order0.product.name, order.product.name, order0.product.category , order.product.category);
                 totalQuantity += order.product.quantity
@@ -41,6 +43,7 @@ exports.createAggregation = catchAsyncErrors(async (req, res, next) => {
                     price: req.body.price,
                     quantity: order.product.quantity,
                     totalprice: order.product.quantity * req.body.price,
+                    buyorderid: element
                 }
                 Order.users.push(obj)
                 // console.log(obj);

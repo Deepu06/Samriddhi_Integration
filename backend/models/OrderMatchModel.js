@@ -16,6 +16,14 @@ const orderMatchSchema = new mongoose.Schema({
         // required:true,
     }, users: {
         type: []
+    },
+    transporter: {
+        type: mongoose.Schema.ObjectId,
+        ref: "TransportCircleMembers"
+    },
+    isDelivered:{
+        type:Boolean,
+        default:false
     }
 
 }, { timestamps: true })

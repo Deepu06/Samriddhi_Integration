@@ -6,6 +6,8 @@ const ErrorHandler = require("../utils/errorhandler")
 const sendToken = require("../utils/jwtToken");
 const FinalorderModel = require("../models/FinalorderModel");
 const OrderMatchModel = require("../models/OrderMatchModel");
+const BuyOrdersAggregationModel = require("../models/BuyOrdersAggregationModel");
+const BuyOrderModel = require("../models/BuyOrderModel");
 
 // get all existing transport circles
 exports.getAllTransportcircles = catchAsyncErrors(async (req, res, next) => {
@@ -127,5 +129,36 @@ exports.transportRequest = catchAsyncErrors(async (req, res, next) => {
     // console.log("out");
     res.status(200).json({
         message: "Request for transportation is recorded and waiting for seller to confirm it."
+    })
+})
+
+// acknowledging that order is delivered to all users successfuly
+exports.isDeliverd = catchAsyncErrors(async (req, res, next) => {
+    const id = req.params.id
+    const order = await OrderMatchModel.findById(id).populate("order").populate("sale")
+    order.isDelivered = true
+    const aggregatedOrder = await BuyOrdersAggregationModel.findById(order.order._id)
+    aggregatedOrder.isDelivered = true
+    await aggregatedOrder.save()
+    const users = aggregatedOrder.users
+    // console.log(users);
+    let counter = users.length
+    async function fun() {
+        await new Promise(async (resolve, reject) => {
+            (users.forEach(async (element) => {
+                const order = await BuyOrderModel.findById(element.buyorderid)
+                // console.log(order);
+                order.isDelivered = true
+                await order.save()
+                counter--
+                if (counter == 0)
+                    return resolve("sucess")
+            }))
+        })
+    }
+    await fun()
+    res.status(200).json({
+        message: "Order delivery Status is Suceessfully recorded.",
+        order
     })
 })

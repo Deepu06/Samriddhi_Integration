@@ -51,8 +51,17 @@ const buyOrdersAggregationSchema = new mongoose.Schema({
                 type: Number,
                 required: true
             },
+            buyorderid: {
+                type: mongoose.Schema.ObjectId,
+                ref: "BuyOrder"
+            }
         }
     ]
+    , isDelivered: {
+        type: Boolean,
+        default: false,
+        required: true
+    }
 
 }, { timestamps: true })
 module.exports = mongoose.model("BuyOrdersAggregation", buyOrdersAggregationSchema)

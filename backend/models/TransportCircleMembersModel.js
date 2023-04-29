@@ -4,27 +4,35 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
-const SellingCircleSchema = new mongoose.Schema({
-    circlename: {
+const TransportCircleMembersSchema = new mongoose.Schema({
+    name: {
         type: String,
-        required: [true, "Please Enter Cirlce Name"],
-        maxLength: [30, "Circle Name cannot exceed 30 characters"],
-        minLength: [4, "Circle Name should have more than 4 characters"],
+        required: [true, "Please Enter Your Name"],
+        maxLength: [30, "Name cannot exceed 30 characters"],
+        minLength: [4, "Name should have more than 4 characters"],
     },
-    circleemail: {
+    email: {
         type: String,
         required: [true, "Please Enter Your Email"],
         unique: [true, "Please Enter Unqiue Email"],
         validate: [validator.isEmail, "Please Enter a valid Email"],
     },
-    admin: {
-        type: String,
-        required: [true, "Please Enter Circle Admin name"],
-    },
     password: {
         type: String,
         required: [true, "Please Enter Your Password"],
         minLength: [8, "Password should be greater than 8 characters"],
+    },
+    circlename: {
+        type: String,
+        required: true
+    },
+    circleemail: {
+        type: String,
+        required: true
+    },
+    circle: {
+        type: mongoose.Schema.ObjectId,
+        ref: "TransportCirlce",
     },
     address: {
         type: String,
@@ -44,16 +52,13 @@ const SellingCircleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    members:[
-            {
-              type: mongoose.Schema.ObjectId,
-              ref: "SellingCircleMembers",
-              required: true,
-            }
-    ]
-}, { timestamps: true });
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
+}, {
+    timestamps: true
+});
 
-SellingCircleSchema.pre("save", async function (next) {
+TransportCircleMembersSchema.pre("save", async function (next) {
     if (!this.isModified("password")) {
         next();
     }
@@ -62,7 +67,7 @@ SellingCircleSchema.pre("save", async function (next) {
 });
 
 // JWT TOKEN
-SellingCircleSchema.methods.getJWTToken = function () {
+TransportCircleMembersSchema.methods.getJWTToken = function () {
     return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE,
     });
@@ -70,12 +75,12 @@ SellingCircleSchema.methods.getJWTToken = function () {
 
 // Compare Password
 
-SellingCircleSchema.methods.comparePassword = async function (password) {
+TransportCircleMembersSchema.methods.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
 };
 
 // Generating Password Reset Token
-SellingCircleSchema.methods.getResetPasswordToken = function () {
+TransportCircleMembersSchema.methods.getResetPasswordToken = function () {
     // Generating Token
     const resetToken = crypto.randomBytes(20).toString("hex");
 
@@ -90,4 +95,4 @@ SellingCircleSchema.methods.getResetPasswordToken = function () {
     return resetToken;
 };
 
-module.exports = mongoose.model("SellingCirlce", SellingCircleSchema);
+module.exports = mongoose.model("TransportCircleMembers", TransportCircleMembersSchema);

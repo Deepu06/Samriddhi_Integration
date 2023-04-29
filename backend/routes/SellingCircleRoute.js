@@ -12,15 +12,21 @@ const { registerCirlce,
     getUserDetails,
     getMyDetails,
     updateProfile,
-    getMySales
+    getMySales,
+    getAllSellingCircles,
+    transportNotifictaions,
+    getAllBuyingNotifications
 } = require("../controllers/SellingCircleController");
 const { addProduct, getAllProducts, updateProduct, deleteProduct, getSingleProduct } = require("../controllers/ProductController");
 const { isSAuthenticatedUser, isSAdmin, isSameUser, isValiduser } = require("../middleware/auth");
 const { createSale, getSales } = require("../controllers/SaleController");
 const { getAllOrders } = require("../controllers/BuyOrderController");
 const { createAggregation, getAggregatedOrders } = require("../controllers/OrderAggregationController");
-const { orderMatch, getOrders, confirmOrder, isOrderConfirmed } = require("../controllers/OrderMatchController");
+const { orderMatch, confirmOrder, isOrderConfirmed, getMatchedOrders, isOrderValidConfirmed, sellerConfirmOrder, confirmTransportOrder } = require("../controllers/OrderMatchController");
+const { placeOrder, getAllFinalOrders } = require("../controllers/FinalOrderController");
 const router = express.Router();
+
+router.route("/circles").get(getAllSellingCircles)
 
 router.route("/addcircle").post(registerCirlce)
 router.route("/addcirclemember").post(isSAdmin, registerCirlceMember)
@@ -57,23 +63,39 @@ router.route("/buyorders").get(getAllOrders)
 
 // Aggregation of a single type product, for multiple users.. i/p - array of buyOrders id..
 // here there is aggregation happens only for one type of product at once
-router.route("/buyordersAggregate").post(createAggregation).get(getAggregatedOrders)
+router.route("/buyordersAggregate").post(isSAuthenticatedUser, createAggregation).get(getAggregatedOrders)
 
 
 // Checking for order match of Aggregated order with sale,,  for quantity and price match and place order and update sale cart qunatity
 // Checking orderMatch and placing order.
 
-router.route("/ordermatch").post(orderMatch)
+router.route("/ordermatch").post(isSAuthenticatedUser, orderMatch)
 
-// to get all orders
-router.route("/orders").get(getOrders)
+// to get all Matched-orders
+router.route("/matchedorders").get(getMatchedOrders)
 
 
 // to confirm order match by a seller for finalising the order
 // change it to post**
-router.route("/confirmorder/:id").post(isSAuthenticatedUser, isValiduser, confirmOrder)
+router.route("/confirmorder/:id").post(isSAuthenticatedUser, isValiduser, sellerConfirmOrder)
 
 // to check if the order match is confirmes by all users i.e by both sellers and all buyers associated with that particular order
 router.route("/isorderconfirmed/:id").get(isOrderConfirmed)
 
+// placing final order by seller
+// this is final order which reduces the stock and proceeds to the next phase of transport and delivery to the buyers..
+// ** post request
+router.route("/placeorder/:id").post(isSAuthenticatedUser, isValiduser, isOrderValidConfirmed, placeOrder)
+
+//  to get all final orders
+router.route("/orders").get(getAllFinalOrders)
+
+
+// getting all the requested notifications from transporters for tranporting orders.
+router.route("/mytransportnotifications").get(isSAuthenticatedUser, transportNotifictaions)
+
+// getting all the order notifications to confirm the order.
+router.route("/mynotifications").get(isSAuthenticatedUser, getAllBuyingNotifications)
+
+router.route("/confirmtransportorder/:id").post(isSAuthenticatedUser, confirmTransportOrder)
 module.exports = router;

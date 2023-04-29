@@ -19,7 +19,7 @@ const BuyingCircleSchema = new mongoose.Schema({
     },
     admin: {
         type: String,
-        required: [true, "Please Enter Your Email"],
+        required: [true, "Please Enter Circle Admin name"],
     },
     password: {
         type: String,

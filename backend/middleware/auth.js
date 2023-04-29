@@ -2,12 +2,15 @@ const ErrorHander = require("../utils/errorhandler");
 const catchAsyncErrors = require("./catchAsyncErrors");
 const jwt = require("jsonwebtoken");
 const BuyingCircle = require("../models/BuyingCircleModel");
-const BuyingCircleMembersModel = require("../models/BuyingCircleMembersModel");
+const TransportCircle = require("../models/TransportCircleModel");
 const SellingCircle = require("../models/SellingCircleModel");
+const BuyingCircleMembersModel = require("../models/BuyingCircleMembersModel");
 const SellingCircleMembersModel = require("../models/SellingCircleMembersModel");
+const TransportCircleMembersModel = require("../models/TransportCircleMembersModel");
 const Product = require("../models/productModel")
 const ConfirmOrder = require("../models/ConfirmOrderModel")
 
+// is the user a selling circle member
 exports.isSAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   // console.log("in isSa");
   const { token } = req.cookies;
@@ -28,6 +31,8 @@ exports.isSAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   req.circle = await SellingCircle.findById(user.circle)
   next()
 });
+
+// is the user a buying circle member
 exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   // console.log("in iBSa");
 
@@ -49,6 +54,29 @@ exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   next();
 });
 
+// is the user a Transport circle member
+exports.isTAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
+
+  const { token } = req.cookies;
+
+  if (!token) {
+    return next(new ErrorHander("Please Login to access this resource", 401));
+  }
+
+  const decodedData = jwt.verify(token, process.env.JWT_SECRET);
+  const user = await TransportCircleMembersModel.findById(decodedData.id);
+  if (!user) {
+    return next(new ErrorHander("you are not Authorized to use this service!"))
+  }
+  req.user = user
+  // console.log(req.user);
+  req.circle = await TransportCircle.findById(req.user.circle)
+  // console.log(req.circle);
+  next();
+});
+
+
+// is Selling circle admin
 exports.isSAdmin = catchAsyncErrors(async (req, res, next) => {
   const { token } = req.cookies;
 
@@ -72,6 +100,7 @@ exports.isSAdmin = catchAsyncErrors(async (req, res, next) => {
   next();
 });
 
+// is buying circle admin
 exports.isAdmin = catchAsyncErrors(async (req, res, next) => {
   const { token } = req.cookies;
 
@@ -95,6 +124,27 @@ exports.isAdmin = catchAsyncErrors(async (req, res, next) => {
   next();
 });
 
+// is tranport circle admin
+exports.isTAdmin = catchAsyncErrors(async (req, res, next) => {
+  const { token } = req.cookies;
+
+  if (!token) {
+    return next(new ErrorHander("Please Login to access this resource", 401));
+  }
+
+  const decodedData = jwt.verify(token, process.env.JWT_SECRET);
+
+  req.circle = await TransportCircle.findById(decodedData.id);
+  if (!req.circle) {
+    return next(new ErrorHander("You are not admin, To avail this service", 401));
+  }
+
+  // here some work need to be done clash bw adding circle member and getting detail and removing menber
+  //   if(req.circle.circlename!=req.body.circlename || req.circle.circleemail!=req.body.circleemail ){
+  //     return next(new ErrorHander("You can only process your circle members data!!", 401));
+  // }
+  next();
+});
 
 exports.isSameUser = catchAsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.params.id)
@@ -111,6 +161,7 @@ exports.isSameUser = catchAsyncErrors(async (req, res, next) => {
   next();
 })
 
+// to check if the user is a part of this order or not
 exports.isValiduser = catchAsyncErrors(async (req, res, next) => {
   // console.log(req.user);
   // console.log("in valid");
@@ -131,3 +182,4 @@ exports.isValiduser = catchAsyncErrors(async (req, res, next) => {
   }
   next()
 })
+

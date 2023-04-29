@@ -56,7 +56,7 @@ const SellingCircleMembersSchema = new mongoose.Schema({
     resetPasswordExpire: Date,
     sales: [{
         type: mongoose.Schema.ObjectId,
-        ref: "Sales"
+        ref: "Sale"
     }]
 }, {
     timestamps: true

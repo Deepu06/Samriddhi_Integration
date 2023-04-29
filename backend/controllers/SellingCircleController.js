@@ -1,9 +1,11 @@
 const SellingCirlce = require("../models/SellingCircleModel")
 const SellingCirlceMembers = require("../models/SellingCircleMembersModel")
+const Notifications = require("../models/NotificationsModel")
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ErrorHandler = require("../utils/errorhandler")
 const sendToken = require("../utils/jwtToken");
 const crypto = require("crypto");
+const TransportNotificationsModel = require("../models/NotificationsModel");
 
 // Register a Circle
 exports.registerCirlce = catchAsyncErrors(async (req, res, next) => {
@@ -283,11 +285,45 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
 
 // getting all sales of a single user
 exports.getMySales = catchAsyncErrors(async (req, res, next) => {
-    console.log("in controller");
+    // console.log("in controller");
     const ans = await SellingCirlceMembers.findById(req.user._id).populate("sales")
-    // console.log(ans.orders);
+    // console.log(ans.sales);
 
     res.status(200).json({
-        sales: ans
+        sales: ans.sales
     })
 })
+
+// getting all existing selling circles
+exports.getAllSellingCircles = catchAsyncErrors(async (req, res, next) => {
+    const circles = await SellingCirlce.find({}, { circlename: 1 })
+    // console.log(circles);
+
+    // circles.forEach(ele => {
+    //     console.log(ele.circlename);
+    // })
+
+    res.status(200).json({
+        circles
+    })
+})
+
+
+// getting all the transport notifications of a seller
+exports.transportNotifictaions = catchAsyncErrors(async (req, res, next) => {
+    // console.log(req.user);
+    const notifications = await TransportNotificationsModel.find({ seller: req.user._id, isSelected: false })
+    res.status(200).json(
+        notifications
+    )
+})
+
+// getting all the order notifications to confirm the order.
+exports.getAllBuyingNotifications = catchAsyncErrors(async (req, res, next) => {
+    const myNotifiactions = await Notifications.find({ seller: req.user._id, isSelected: false, type: "order" })
+    res.status(200).json({
+        myNotifiactions
+    })
+})
+
+// 

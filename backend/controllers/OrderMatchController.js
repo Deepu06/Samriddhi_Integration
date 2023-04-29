@@ -5,6 +5,7 @@ const OrderMatch = require("../models/OrderMatchModel")
 const ConfirmOrder = require("../models/ConfirmOrderModel");
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const Notifications = require("../models/NotificationsModel")
 
 // 1- Checking for order match of Aggregated order with sale for quantity and price match and place order and update sale cart qunatity
 exports.orderMatch = catchAsyncErrors(async (req, res, next) => {
@@ -40,7 +41,12 @@ exports.orderMatch = catchAsyncErrors(async (req, res, next) => {
     // await newOrder.save()
 
     newOrder.users.push(sale.sellerId)
-
+    await newOrder.save()
+    const notification = new Notifications()
+    notification.type = "order"
+    notification.seller = sale.sellerId
+    notification.order = newOrder
+    await notification.save()
     async function fun() {
         let users = order.users
         let counter = users.length
@@ -49,11 +55,18 @@ exports.orderMatch = catchAsyncErrors(async (req, res, next) => {
 
                 // console.log(element);
                 newOrder.users.push(element.reference)
+                const notification = new Notifications()
+                notification.type = "order"
+                notification.buyer = element.reference
+                notification.seller = sale.sellerId
+                notification.order = newOrder
+                await notification.save()
                 counter--
                 if (counter == 0) return resolve("success")
             })
             )
-        })
+        }
+        )
     }
 
     const order_confirm = new ConfirmOrder()
@@ -69,7 +82,7 @@ exports.orderMatch = catchAsyncErrors(async (req, res, next) => {
         await newOrder.save()
 
         res.status(201).json({
-            "message": "order placed successfully",
+            "message": "order Matched successfully, Now users should confirm for confirmation",
             newOrder,
             order_confirm
         })
@@ -95,16 +108,16 @@ exports.orderMatch = catchAsyncErrors(async (req, res, next) => {
 
 // 2- get all orders
 
-exports.getOrders = catchAsyncErrors(async (req, res, next) => {
+exports.getMatchedOrders = catchAsyncErrors(async (req, res, next) => {
     const orders = await OrderMatch.find().populate("order").populate("sale")
     res.status(200).json({
         orders
     })
 })
 
-// 3- to confirm order match by a seller for finalising the order
-// and finally the order is confirmed by both buyers and sellers then proceed to next phase of delivery
-exports.confirmOrder = catchAsyncErrors(async (req, res, next) => {
+// 3- to confirm order match by a seller and all buyers (associated with the sale) for finalising the order
+// and finally the order is confirmed by both buyers and sellers then proceed to next phase of placing final order
+exports.buyerConfirmOrder = catchAsyncErrors(async (req, res, next) => {
     // console.log("inorder");
     const id = req.params.id
     const confirmorder = await ConfirmOrder.findOne({ order: id })
@@ -116,6 +129,34 @@ exports.confirmOrder = catchAsyncErrors(async (req, res, next) => {
         confirmorder.users.push(req.user._id)
         confirmorder.counter += 1
         await confirmorder.save()
+        const notification = await Notifications.findOne({ buyer: req.user._id, type: "order", isSelected: false, order: id })
+        notification.isSelected = true
+        await notification.save()
+        res.status(200).json({
+            message: `Dear ${name} Order Confirmation from your side is sucessfully recorded`,
+            success: true
+        })
+    } else {
+        res.status(200).json({
+            message: `Dear ${name} You have already confirmed your order`
+        })
+    }
+})
+exports.sellerConfirmOrder = catchAsyncErrors(async (req, res, next) => {
+    // console.log("inorder");
+    const id = req.params.id
+    const confirmorder = await ConfirmOrder.findOne({ order: id })
+    // console.log(req.user._id);
+    // console.log(confirmorder.users.includes(req.user._id));
+
+    const name = req.user.name
+    if (!confirmorder.users.includes(req.user._id)) {
+        confirmorder.users.push(req.user._id)
+        confirmorder.counter += 1
+        await confirmorder.save()
+        const notification = await Notifications.findOne({ seller: req.user._id, type: "order", isSelected: false, order: id })
+        notification.isSelected = true
+        await notification.save()
         res.status(200).json({
             message: `Dear ${name} Order Confirmation from your side is sucessfully recorded`,
             success: true
@@ -140,6 +181,42 @@ exports.isOrderConfirmed = catchAsyncErrors(async (req, res, next) => {
     else {
         res.status(200).json({
             message: `This order is not yet confirmed by all users and , number of confirmed users - ${order.counter} , number of users yet to confirm - ${order.noofusers - order.counter}`
+        })
+    }
+})
+
+
+exports.isOrderValidConfirmed = catchAsyncErrors(async (req, res, next) => {
+    const id = req.params.id
+    const order = await ConfirmOrder.findOne({ order: id })
+    // console.log(order);
+    if (order.counter == order.noofusers && order.users.length == order.noofusers) {
+        next()
+    }
+    else {
+        res.status(200).json({
+            message: `This order is not yet confirmed by all users and , number of confirmed users - ${order.counter} , number of users yet to confirm - ${order.noofusers - order.counter}`
+        })
+    }
+})
+
+// to confirm transform orders by Sellers..
+exports.confirmTransportOrder = catchAsyncErrors(async (req, res, next) => {
+    const id = req.params.id
+    const notification = await Notifications.findById(id)
+    if (!notification) {
+        return next(new ErrorHandler("No such transport order found wrong id given!"))
+    }
+    if (notification.isSelected == true) {
+        res.status(200).json({
+            message: `Dear ${req.user.name} you have already confirmed for this tranport order`
+        })
+    }
+    else {
+        notification.isSelected = true
+        await notification.save()
+        res.status(200).json({
+            message: `Dear ${req.user.name} Confirmation for transport order from your side is recorded.`
         })
     }
 })

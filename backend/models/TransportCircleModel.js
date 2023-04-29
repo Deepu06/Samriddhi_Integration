@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
-const SellingCircleSchema = new mongoose.Schema({
+const TransportCircleSchema = new mongoose.Schema({
     circlename: {
         type: String,
         required: [true, "Please Enter Cirlce Name"],
@@ -33,7 +33,6 @@ const SellingCircleSchema = new mongoose.Schema({
     pincode: {
         type: Number,
         required: true,
-        maxLength: [6, "PinCode cannot exceed 6 characters"],
         minLength: [6, "Picode should have atleast 6 characters"],
     },
     community: {
@@ -44,16 +43,16 @@ const SellingCircleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    members:[
-            {
-              type: mongoose.Schema.ObjectId,
-              ref: "SellingCircleMembers",
-              required: true,
-            }
+    members: [
+        {
+            type: mongoose.Schema.ObjectId,
+            ref: "TransportCircleMembers",
+            required: true,
+        }
     ]
 }, { timestamps: true });
 
-SellingCircleSchema.pre("save", async function (next) {
+TransportCircleSchema.pre("save", async function (next) {
     if (!this.isModified("password")) {
         next();
     }
@@ -62,7 +61,7 @@ SellingCircleSchema.pre("save", async function (next) {
 });
 
 // JWT TOKEN
-SellingCircleSchema.methods.getJWTToken = function () {
+TransportCircleSchema.methods.getJWTToken = function () {
     return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE,
     });
@@ -70,12 +69,12 @@ SellingCircleSchema.methods.getJWTToken = function () {
 
 // Compare Password
 
-SellingCircleSchema.methods.comparePassword = async function (password) {
+TransportCircleSchema.methods.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
 };
 
 // Generating Password Reset Token
-SellingCircleSchema.methods.getResetPasswordToken = function () {
+TransportCircleSchema.methods.getResetPasswordToken = function () {
     // Generating Token
     const resetToken = crypto.randomBytes(20).toString("hex");
 
@@ -90,4 +89,4 @@ SellingCircleSchema.methods.getResetPasswordToken = function () {
     return resetToken;
 };
 
-module.exports = mongoose.model("SellingCirlce", SellingCircleSchema);
+module.exports = mongoose.model("TransportCirlce", TransportCircleSchema);

@@ -48,6 +48,15 @@ app.get("/selectCircles", (req, res) => {
     paath = path.join(paath, "frontend", "selectCircles.html")
     res.sendFile(paath)
 })
+
+app.get("/memberCircleSelection", (req, res) => {
+    let paath = process.cwd()
+    paath = path.join(paath, "frontend", "memberCircleSelection.html")
+    res.sendFile(paath)
+})
+
+
+
 app.get("/background", (req, res) => {
     let paath = process.cwd()
     paath = path.join(paath, "frontend", "img", "background.jpg")
@@ -69,6 +78,8 @@ app.get("/img_transport", (req, res) => {
     res.sendFile(paath)
 })
 
+// --------------------ADMIN-------------------
+
 app.get("/adminBuyerLogin", (req, res) => {
     let paath = process.cwd()
     paath = path.join(paath, "frontend", "Admin", "Buyer", "login.html")
@@ -83,6 +94,42 @@ app.get("/adminBuyerRegister", (req, res) => {
 app.get("/adminBuyerDashboard", (req, res) => {
     let paath = process.cwd()
     paath = path.join(paath, "frontend", "Admin", "Buyer", "BuyingCircleDashboard.html")
+    res.sendFile(paath)
+})
+
+
+
+// ------------------MEMBERS-----------------
+
+app.get("/memberBuyerLogin", (req, res) => {
+    let paath = process.cwd()
+    paath = path.join(paath, "frontend", "Members", "Buyer", "login.html")
+    res.sendFile(paath)
+})
+app.get("/memberSellerLogin", (req, res) => {
+    let paath = process.cwd()
+    paath = path.join(paath, "frontend", "Members", "Seller", "login.html")
+    res.sendFile(paath)
+})
+app.get("/memberTransportLogin", (req, res) => {
+    let paath = process.cwd()
+    paath = path.join(paath, "frontend", "Members", "Transport", "login.html")
+    res.sendFile(paath)
+})
+
+app.get("/BuyerDashboard", (req, res) => {
+    let paath = process.cwd()
+    paath = path.join(paath, "frontend", "Members", "Buyer", "BuyerDashboard.html")
+    res.sendFile(paath)
+})
+app.get("/SellerDashboard", (req, res) => {
+    let paath = process.cwd()
+    paath = path.join(paath, "frontend", "Members", "Seller", "SellerDashboard.html")
+    res.sendFile(paath)
+})
+app.get("/TransportDashboard", (req, res) => {
+    let paath = process.cwd()
+    paath = path.join(paath, "frontend", "Members", "Transport", "TransportDashboard.html")
     res.sendFile(paath)
 })
 

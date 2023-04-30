@@ -28,7 +28,7 @@ const router = express.Router();
 router.route("/circles").get(getAllBuyingCircles)
 router.route("/addcircle").post(registerCirlce)
 router.route("/addcirclemember").post(isAdmin, registerCirlceMember)
-// router.route("/getmembers").get(isAuthenticatedUser, isAdmin, membersOfCircle)
+//router.route("/getmembers").get(isAuthenticatedUser, isAdmin, membersOfCircle)  // it was commented
 router.route("/adminlogin").post(adminLogin)
 router.route("/adminlogout").get(Logout)
 router.route("/admin/:id").get(isAdmin, getUserDetails).delete(isAdmin, deleteCircleMember);

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- <div class="container mt-5">
+        <h2>Registration Form</h2>
+        <form id="registrationForm" action="api/buyer/addcircle" method="post">
+            <div class="form-group">
+                <label for="circlename">Circle Name</label>
+                <input type="text" class="form-control" id="circlename" placeholder="Enter Circle Name" required>
+                <small class="text-danger" id="circlenameError"></small>
+            </div>
+            <div class="form-group">
+                <label for="circleemail">Circle Email</label>
+                <input type="email" class="form-control" id="circleemail" placeholder="Enter Circle Email" required>
+                <small class="text-danger" id="circleemailError"></small>
+            </div>
+            <div class="form-group">
+                <label for="admin">Admin Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter Name" required>
+                <small class="text-danger" id="nameError"></small>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter Password" required>
+                <small class="text-danger" id="passwordError"></small>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" class="form-control" id="address" placeholder="Enter Address" required>
+                <small class="text-danger" id="addressError"></small>
+            </div>
+            <div class="form-group">
+                <label for="pincode">Pincode</label>
+                <input type="text" class="form-control" id="pincode" placeholder="Enter Pincode" required>
+                <small class="text-danger" id="pincodeError"></small>
+            </div>
+            
+            <div class="form-group">
+                <label for="area">Area</label>
+                <input type="text" class="form-control" id="area" placeholder="Enter Area">
+                <small class="text-danger" id="areaError"></small>
+            </div>
+            
+            <button type="submit" onclick="myFunction()" class="btn btn-primary">Register</button>
+            <script>
+                function myFunction() {
+                  alert("Successfully registered!");
+                }
+            </script>
+            <a href="adminBuyerLogin" class="btn btn-secondary">Login</a>
+            
+        </form>
+    </div> -->
+
+    <div class="container">
+        <h2>Registration Form</h2>
+        <form action="api/buyer/addcircle" method="post">
+            <div class="mb-3">
+                <label for="circlename" class="form-label">Enter Circle name</label>
+                <input type="text" class="form-control" id="circlename" name="circlename"
+                    placeholder="circle name should be unique">
+            </div>
+            <div class="mb-3">
+                <label for="circleemail" class="form-label">Enter Circle Email</label>
+                <input type="text" class="form-control" id="circleemail" name="circleemail"
+                    placeholder="circle Email should be unique">
+            </div>
+            <div class="mb-3">
+                <label for="admin" class="form-label">Enter Circle admin</label>
+                <input type="text" class="form-control" id="admin" name="admin" placeholder="circle admin">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Enter Circle Password</label>
+                <input type="password" class="form-control" id="password" name="password"
+                    placeholder="Password should have atleast 6 characters">
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Enter Circle Addres</label>
+                <input type="text" class="form-control" id="address" name="address" placeholder="circle Addres">
+            </div>
+            <div class="mb-3">
+                <label for="area" class="form-label">Enter Circle Area</label>
+                <input type="text" class="form-control" id="area" name="area" placeholder="Circle Area">
+            </div>
+            <div class="mb-3">
+                <label for="pincode" class="form-label">Enter Circle Address pincode</label>
+                <input type="number" class="form-control" id="pincode" name="pincode" placeholder="pincode">
+            </div>
+            <button type="submit" onclick="myFunction()" class="btn btn-primary">Register</button>
+            <script>
+                function myFunction() {
+                  alert("Successfully registered!");
+                }
+            </script>
+            <a href="adminBuyerLogin" class="btn btn-secondary">Login</a>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim
+    

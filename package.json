@@ -1,7 +1,6 @@
 {
   "name": "samriddhi",
   "version": "1.0.0",
-  "description": "",
   "main": "backend/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -23,5 +22,14 @@
     "nodemailer": "^6.9.1",
     "stripe": "^11.13.0",
     "validator": "^13.9.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nhemanth127/SamriddhiBackend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Nhemanth127/SamriddhiBackend/issues"
+  },
+  "homepage": "https://github.com/Nhemanth127/SamriddhiBackend#readme",
+  "description": ""
 }

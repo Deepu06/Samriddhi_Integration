@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Buying Circle Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-3">Buying Circle Admin Login</h2>
+        <form id="registrationForm" action="adminBuyerDashboard" method="post">
+            <div class="form-group">
+                <label for="circlename">Circle name</label>
+                <input type="text" class="form-control" id="admin" name="admin" placeholder="Enter circle name" required>
+            </div>
+            <div class="form-group">
+                <label for="circleemail">Circle Email</label>
+                <input type="email" class="form-control" id="admin" name="admin" placeholder="Enter Circle Email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-bottom: 40px;" >Login</button>
+            
+        </form>
+        <form id="registrationForm" action="adminBuyerRegister" style="padding-top: 0px ;">
+            <div class="form-group">
+                <label for="">Don't have an account?</label>
+            </div>
+            <button type="submit" class="btn btn-primary" >Register</button>
+            
+        </form>
+    </div>
+</body>
+
+</html> 

@@ -31,16 +31,59 @@ app.use("/api/buyer", BuyingCircle);
 app.use("/api/seller", SellingCircle);
 app.use("/api/transport", TransportCircle)
 
-app.get("/", (req, res) => {
-    res.send("Welcome to Samriddhi Backend App...)")
-})
+// app.get("/", (req, res) => {
+//     res.send("Welcome to Samriddhi Backend App...)")
+// })
 
-app.get("/data", (req, res) => {
+app.get("/", (req, res) => {
     let paath = process.cwd()
-    paath = path.join(paath, "frontend", "static", "data.html")
+    paath = path.join(paath, "frontend", "index.html")
     // console.log(paath);
     res.sendFile(paath)
     // console.log(path);
+})
+
+app.get("/selectCircles", (req, res) => {
+    let paath = process.cwd()
+    paath = path.join(paath, "frontend", "selectCircles.html")
+    res.sendFile(paath)
+})
+app.get("/background", (req, res) => {
+    let paath = process.cwd()
+    paath = path.join(paath, "frontend", "img", "background.jpg")
+    res.sendFile(paath)
+})
+app.get("/img_buyer", (req, res) => {
+    let paath = process.cwd()
+    paath = path.join(paath, "frontend", "img", "buyer.jpg")
+    res.sendFile(paath)
+})
+app.get("/img_seller", (req, res) => {
+    let paath = process.cwd()
+    paath = path.join(paath, "frontend", "img", "seller.png")
+    res.sendFile(paath)
+})
+app.get("/img_transport", (req, res) => {
+    let paath = process.cwd()
+    paath = path.join(paath, "frontend", "img", "transport.png")
+    res.sendFile(paath)
+})
+
+app.get("/adminBuyerLogin", (req, res) => {
+    let paath = process.cwd()
+    paath = path.join(paath, "frontend", "Admin", "Buyer", "login.html")
+    res.sendFile(paath)
+})
+app.get("/adminBuyerRegister", (req, res) => {
+    let paath = process.cwd()
+    paath = path.join(paath, "frontend", "Admin", "Buyer", "Register.html")
+    res.sendFile(paath)
+})
+
+app.get("/adminBuyerDashboard", (req, res) => {
+    let paath = process.cwd()
+    paath = path.join(paath, "frontend", "Admin", "Buyer", "BuyingCircleDashboard.html")
+    res.sendFile(paath)
 })
 
 

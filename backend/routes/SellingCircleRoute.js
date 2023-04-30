@@ -28,15 +28,15 @@ const router = express.Router();
 
 router.route("/circles").get(getAllSellingCircles)
 
-router.route("/addcircle").post(registerCirlce)
-router.route("/addcirclemember").post(isSAdmin, registerCirlceMember)
+router.route("/addcircle").post(registerCirlce)   //done
+router.route("/addcirclemember").post(isSAdmin, registerCirlceMember)   //done
 // router.route("/getmembers").get(isSAuthenticatedUser, isSAdmin, membersOfCircle)
-router.route("/getmembers").get(membersOfCircle)
+router.route("/getmembers").get(membersOfCircle)  //done
 router.route("/adminlogin").post(adminLogin)
 router.route("/adminlogout").get(Logout)
 router.route("/admin/:id").get(isSAdmin, getUserDetails).delete(isSAdmin, deleteCircleMember);
 
-router.route("/login").post(Login)
+router.route("/login").post(Login)  //member login using email(his/her) and password
 router.route("/logout").get(Logout)
 router.get("/me", isSAuthenticatedUser, getMyDetails);
 router.get("/mysales", isSAuthenticatedUser, getMySales);

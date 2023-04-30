@@ -10,18 +10,18 @@
 <body>
     <div class="container mt-5">
         <h2 class="text-center mb-3">Buying Circle Admin Login</h2>
-        <form id="registrationForm" action="api/buyer/adminlogin" method="post">
+        <form id="registrationForm" action="/adminBuyerDashboard" >
             <div class="form-group">
                 <label for="circlename">Circle name</label>
-                <input type="text" class="form-control" id="admin" name="admin" placeholder="Enter circle name" required>
+                <input type="text" class="form-control" id="admin" name="admin" placeholder="Enter circle name" >
             </div>
             <div class="form-group">
                 <label for="circleemail">Circle Email</label>
-                <input type="email" class="form-control" id="admin" name="admin" placeholder="Enter Circle Email" required>
+                <input type="email" class="form-control" id="admin" name="admin" placeholder="Enter Circle Email" >
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="password" required>
+                <input type="password" class="form-control" id="password" name="password" placeholder="password" >
             </div>
             <button type="submit" class="btn btn-primary"  style="margin-bottom: 40px;" >Login</button>
             <!-- formaction="/adminBuyerDashboard" -->

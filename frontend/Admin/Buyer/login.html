@@ -10,14 +10,14 @@
 <body>
     <div class="container mt-5">
         <h2 class="text-center mb-3">Buying Circle Admin Login</h2>
-        <form id="registrationForm" action="/adminBuyerDashboard" >
+        <form id="registrationForm" action="/api/buyer/adminlogin" method="post">
             <div class="form-group">
                 <label for="circlename">Circle name</label>
-                <input type="text" class="form-control" id="admin" name="admin" placeholder="Enter circle name" >
+                <input type="text" class="form-control" id="circlename" name="circlename" placeholder="Enter circle name" >
             </div>
             <div class="form-group">
                 <label for="circleemail">Circle Email</label>
-                <input type="email" class="form-control" id="admin" name="admin" placeholder="Enter Circle Email" >
+                <input type="email" class="form-control" id="circleemail" name="circleemail" placeholder="Enter Circle Email" >
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
@@ -34,6 +34,82 @@
             
         </form>
     </div>
+
+<!-- <script>
+    const form = document.querySelector('#registrationForm');
+
+    form.addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent the default form submission behavior
+
+  console.log(id)
+  const url = '/api/buyer/adminlogin';
+const data = {
+  circlename: 'John Doe',
+  circleemail: 'johndoe@example.com',
+  password: 'password'
+};
+
+fetch(url, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(data)
+})
+.then(response => response.json())
+.then(data => {
+  console.log(data);
+})
+.catch(error => {
+  console.error(error);
+});
+
+
+});
+
+</script> -->
+
+
+<script>
+    const loginForm = document.querySelector('#registrationForm');
+  
+    loginForm.addEventListener('submit', event => {
+      event.preventDefault(); // Prevent form from submitting and refreshing page
+  
+      const circlename = document.querySelector('#circlename').value;
+      const circleemail = document.querySelector('#circleemail').value;
+      const password = document.querySelector('#password').value;
+  
+      // Send authentication request to backend server
+      fetch('/api/buyer/adminlogin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          circlename: circlename,
+          circleemail: circleemail,
+          password: password
+        })
+      })
+      .then(response => {
+        if (response.ok) {
+          // Authentication succeeded, redirect to dashboard page
+          window.location.href = "/adminBuyerDashboard";
+        } else {
+          // Authentication failed, show error message
+          alert('Invalid username or password');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred during login');
+      });
+    });
+  </script>
+
 </body>
+
+
 
 </html> 

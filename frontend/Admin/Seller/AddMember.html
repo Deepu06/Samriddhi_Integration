@@ -2,127 +2,97 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <title>Registration Form</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta charset="utf-8">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>
 
-<<<<<<< HEAD
-  <div class="container">
-    <h2>Registration Form</h2>
-    <form action="api/buyer/addcircle" method="post" id="registercircle">
-      <div class="mb-3">
-        <label for="name" class="form-label">Enter Member name</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="member name">
-=======
-<!-- Navigation bar -->
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <a class="navbar-brand" href="#">Seller Admin Dashboard</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Logout</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+    <div class="container">
+        <h2>Seller Add Member Form</h2>
+        <form action="api/seller/addcircle" method="post" id="registercircle">
+            <div class="mb-3">
+                <label for="name" class="form-label">Enter Member name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="member name">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Enter Member Email</label>
+                <input type="text" class="form-control" id="email" name="email"
+                    placeholder="Member Email should be unique">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Enter Member Password</label>
+                <input type="password" class="form-control" id="password" name="password"
+                    placeholder="Password should have atleast 8 characters">
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Enter Member Address</label>
+                <input type="text" class="form-control" id="address" name="address" placeholder="circle Addres">
+            </div>
+            <div class="mb-3">
+                <label for="area" class="form-label">Enter Area</label>
+                <input type="text" class="form-control" id="area" name="area" placeholder="Member Area">
+            </div>
+            <div class="mb-3">
+                <label for="pincode" class="form-label">Enter Member Address pincode</label>
+                <input type="number" class="form-control" id="pincode" name="pincode" placeholder="pincode">
+            </div>
+            <div class="mb-3">
+                <label for="community" class="form-label">Enter Member community</label>
+                <input type="text" class="form-control" id="community" name="community" placeholder="community">
+            </div>
+            <button type="submit"  class="btn btn-primary">Register</button>
 
-<!-- Main content -->
-<div class="container-fluid mt-3">
-  <div class="row">
-    <div class="col-md-2">
-      <!-- Sidebar menu -->
-      <div class="list-group">
-        <a href="adminSellerDashboard" class="list-group-item list-group-item-action active">Dashboard</a>
-        <a href="SellingAdminDashboardAddMember" class="list-group-item list-group-item-action">Add Member</a>
-        <a href="SellingAdminDashboardBuyOrder" class="list-group-item list-group-item-action">Buy Order</a>
-        <a href="SellingAdminDashboardSales" class="list-group-item list-group-item-action">Sales</a>
-        <a href="SellingAdminDashboardMatchedOrders" class="list-group-item list-group-item-action">Matced Orders</a>
-        <a href="SellingAdminDashboardFinalOrders" class="list-group-item list-group-item-action">Final Orders</a>
-        <a href="SellingAdminDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated Orders</a>        
->>>>>>> 3be3a5e1b0fd9f1990a317379f15196654c88148
-      </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Enter Member Email</label>
-        <input type="text" class="form-control" id="email" name="email" placeholder="Member Email should be unique">
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Enter Member Password</label>
-        <input type="password" class="form-control" id="password" name="password"
-          placeholder="Password should have atleast 8 characters">
-      </div>
-      <div class="mb-3">
-        <label for="address" class="form-label">Enter Member Address</label>
-        <input type="text" class="form-control" id="address" name="address" placeholder="circle Addres">
-      </div>
-      <div class="mb-3">
-        <label for="area" class="form-label">Enter Area</label>
-        <input type="text" class="form-control" id="area" name="area" placeholder="Member Area">
-      </div>
-      <div class="mb-3">
-        <label for="pincode" class="form-label">Enter Member Address pincode</label>
-        <input type="number" class="form-control" id="pincode" name="pincode" placeholder="pincode">
-      </div>
-      <div class="mb-3">
-        <label for="community" class="form-label">Enter Member community</label>
-        <input type="text" class="form-control" id="community" name="community" placeholder="community">
-      </div>
-      <button type="submit" onclick="myFunction()" class="btn btn-primary">Register</button>
+            <a href="adminSellerLogin" class="btn btn-secondary">Login</a>
+        </form>
+    </div>
+    <script>
+        const registrationForm = document.querySelector('#registercircle');
 
-      <a href="adminBuyerLogin" class="btn btn-secondary">Login</a>
-    </form>
-  </div>
-  <script>
-    const registrationForm = document.querySelector('#registercircle');
+        registrationForm.addEventListener('submit', event => {
+            event.preventDefault(); // Prevent form from submitting and refreshing page
 
-    registrationForm.addEventListener('submit', event => {
-      event.preventDefault(); // Prevent form from submitting and refreshing page
+            const name = document.querySelector('#name').value;
+            const email = document.querySelector('#email').value;
+            const password = document.querySelector('#password').value;
+            const address = document.querySelector('#address').value;
+            const area = document.querySelector('#area').value;
+            const pincode = document.querySelector('#pincode').value;
+            const community = document.querySelector('#community').value;
 
-      const name = document.querySelector('#name').value;
-      const email = document.querySelector('#email').value;
-      const password = document.querySelector('#password').value;
-      const address = document.querySelector('#address').value;
-      const area = document.querySelector('#area').value;
-      const pincode = document.querySelector('#pincode').value;
-      const community = document.querySelector('#community').value;
-
-      // Send authentication request to backend server
-      fetch('/api/seller/addcirclemember', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          password: password,
-          address: address,
-          area: area,
-          pincode: pincode,
-          community: community,
-        })
-      })
-        .then(response => {
-          if (response.ok) {
-            // Authentication succeeded, redirect to dashboard page
-            alert("Member Registered to the Circle Successfully")
-            window.location.href = "/adminSellerDashboard";
-          } else {
-            // Authentication failed, show error message
-            alert('Please provide valid data following all conditions and email should be unqiue');
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          alert('An error occurred during Registraion');
+            // Send authentication request to backend server
+            fetch('/api/seller/addcirclemember', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    password: password,
+                    address: address,
+                    area: area,
+                    pincode: pincode,
+                    community: community,
+                })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Authentication succeeded, redirect to dashboard page
+                        alert("Member Registered to the Circle Successfully")
+                        window.location.href = "/adminSellerDashboard";
+                    } else {
+                        // Authentication failed, show error message
+                        alert('Please provide valid data following all conditions and email should be unqiue');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred during Registraion');
+                });
         });
-    });
-  </script>
+    </script>
 
 
 </body>

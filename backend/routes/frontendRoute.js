@@ -66,11 +66,42 @@ router.route("/adminBuyerDashboard").get((req, res) => {
     res.sendFile(path)
 })
 
-router.route("/adminBuyerDashboard/addmember").get((req, res) => {
+router.route("/BuyerAdminDashboardMembers").get((req, res) => {
     let path = process.cwd()
-    path = Path.join(path, "frontend", "Admin", "Buyer", "BuyingAdminDashboardAddmember.html")
+    path = Path.join(path, "frontend", "Admin", "Buyer", "Members.html")
     res.sendFile(path)
 })
+router.route("/BuyerAdminDashboardAddMember").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Admin", "Buyer", "AddMember.html")
+    res.sendFile(path)
+})
+router.route("/BuyerAdminDashboardBuyOrder").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Admin", "Buyer", "BuyOrder.html")
+    res.sendFile(path)
+})
+router.route("/BuyerAdminDashboardBuyRequest").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Admin", "Buyer", "BuyRequest.html")
+    res.sendFile(path)
+})
+router.route("/BuyerAdminDashboardMatchedOrders").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Admin", "Buyer", "MatchedOrders.html")
+    res.sendFile(path)
+})
+router.route("/BuyerAdminDashboardFinalOrders").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Admin", "Buyer", "FinalOrders.html")
+    res.sendFile(path)
+})
+router.route("/BuyerAdminDashboardAggregatedOrders").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Admin", "Buyer", "AggregatedOrders.html")
+    res.sendFile(path)
+})
+
 
 // -------------------- Selling Circle admin ADMIN-------------------
 

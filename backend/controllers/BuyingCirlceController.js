@@ -26,23 +26,25 @@ exports.registerCirlce = catchAsyncErrors(async (req, res, next) => {
 
 // Register a CircleMember
 exports.registerCirlceMember = catchAsyncErrors(async (req, res, next) => {
-    const { circleemail, circlename } = req.body;
-    const circle = await BuyingCirlce.findOne({ circleemail, circlename })
-    // console.log(circle);
-    if (!circle) {
-        return next(new ErrorHandler("the given circle doesn't exist , wromg circle name or email", 401));
-    }
-    // const user = await BuyingCirlceMembers.create(
-    //     req.body
-    // );
+    // const { circleemail, circlename } = req.body;
+    // const circle = await BuyingCirlce.findOne({ circleemail, circlename })
+    // // console.log(circle);
+    // if (!circle) {
+    //     return next(new ErrorHandler("the given circle doesn't exist , wromg circle name or email", 401));
+    // }
+    // // const user = await BuyingCirlceMembers.create(
+    // //     req.body
+    // // );
     const user = new BuyingCirlceMembers(
         req.body
     );
     // console.log(req.circle._id);
     user.circle = req.circle._id
+    user.circleemail = req.circle.circleemail
+    user.circlename = req.circle.circlename
     await user.save();
-    circle.members.push(user)
-    await circle.save();
+    req.circle.members.push(user)
+    await req.circle.save();
     sendToken(user, 201, res);
 
 });
@@ -50,11 +52,14 @@ exports.registerCirlceMember = catchAsyncErrors(async (req, res, next) => {
 // Get all the members of a circle
 
 exports.membersOfCircle = catchAsyncErrors(async (req, res, next) => {
-    const { circleemail, circlname } = req.body;
+    // const { circleemail, circlname } = req.body;
+    const circleemail = req.circle.circleemail
+    const circlename = req.circle.circlename
     const circle = await BuyingCirlce.find({
         circleemail,
-        circlname
+        circlename
     }).populate("members")
+    // console.log(circle);
     if (!circle) {
         return next(new ErrorHandler("the given circle doesn't exist , wromg circle name or email", 401));
     }

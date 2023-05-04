@@ -81,7 +81,7 @@ router.route("/adminSellerRegister").get((req, res) => {
 
 router.route("/adminSellerDashboard").get((req, res) => {
     let path = process.cwd()
-    path = Path.join(path, "frontend", "Admin", "Seller", "BuyingCircleDashboard.html")
+    path = Path.join(path, "frontend", "Admin", "Seller", "SellingCircleDashboard.html")
     res.sendFile(path)
 })
 

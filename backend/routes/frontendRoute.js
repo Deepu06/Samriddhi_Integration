@@ -66,11 +66,11 @@ router.route("/adminBuyerDashboard").get((req, res) => {
     res.sendFile(path)
 })
 
-router.route("/BuyerAdminDashboardMembers").get((req, res) => {
-    let path = process.cwd()
-    path = Path.join(path, "frontend", "Admin", "Buyer", "Members.html")
-    res.sendFile(path)
-})
+// router.route("/BuyerAdminDashboardMembers").get((req, res) => {
+//     let path = process.cwd()
+//     path = Path.join(path, "frontend", "Admin", "Buyer", "Members.html")
+//     res.sendFile(path)
+// })
 router.route("/BuyerAdminDashboardAddMember").get((req, res) => {
     let path = process.cwd()
     path = Path.join(path, "frontend", "Admin", "Buyer", "AddMember.html")
@@ -123,11 +123,11 @@ router.route("/adminSellerDashboard").get((req, res) => {
 })
 
 //Selling Admin Dashboard pages routing
-router.route("/SellingAdminDashboardMembers").get((req, res) => {
-    let path = process.cwd()
-    path = Path.join(path, "frontend", "Admin", "Seller", "Members.html")
-    res.sendFile(path)
-})
+// router.route("/SellingAdminDashboardMembers").get((req, res) => {
+//     let path = process.cwd()
+//     path = Path.join(path, "frontend", "Admin", "Seller", "Members.html")
+//     res.sendFile(path)
+// })
 router.route("/SellingAdminDashboardAddMember").get((req, res) => {
     let path = process.cwd()
     path = Path.join(path, "frontend", "Admin", "Seller", "AddMember.html")
@@ -140,7 +140,7 @@ router.route("/SellingAdminDashboardBuyOrder").get((req, res) => {
 })
 router.route("/SellingAdminDashboardSales").get((req, res) => {
     let path = process.cwd()
-    path = Path.join(path, "frontend", "Admin", "Seller", "Sales.html")
+    path = Path.join(path, "frontend", "Admin", "Buyer", "Sales.html")
     res.sendFile(path)
 })
 router.route("/SellingAdminDashboardMatchedOrders").get((req, res) => {

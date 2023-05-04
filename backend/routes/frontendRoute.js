@@ -86,6 +86,25 @@ router.route("/adminSellerDashboard").get((req, res) => {
 })
 
 
+// This is for Transport routing
+router.route("/adminTransportLogin").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Admin", "Transport", "login.html")
+    res.sendFile(path)
+})
+router.route("/adminTransportRegister").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Admin", "Transport", "Register.html")
+    res.sendFile(path)
+})
+
+router.route("/adminTransportDashboard").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Admin", "Transport", "TransportCircleDashboard.html")
+    res.sendFile(path)
+})
+
+
 
 // ------------------MEMBERS-----------------
 

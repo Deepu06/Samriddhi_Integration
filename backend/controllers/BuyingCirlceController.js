@@ -63,7 +63,7 @@ exports.membersOfCircle = catchAsyncErrors(async (req, res, next) => {
         circleemail,
         circlename
     }).populate("members")
-    // console.log(circle);
+    console.log(circle);
     if (!circle) {
         return next(new ErrorHandler("the given circle doesn't exist , wromg circle name or email", 401));
     }

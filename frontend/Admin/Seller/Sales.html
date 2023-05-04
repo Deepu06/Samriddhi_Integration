@@ -49,55 +49,11 @@
 
       <div class="col-md-9">
         <!-- Main content area -->
-        <h2>Welcome to the Seller Admin Dashboard</h2>
-        <div>
-          <h4 style="text-align: center;">Members Details</h4>
-          <table class="table table-striped mt-4">
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Area</th>
-                <th>Pincode</th>
-                <th>No of Sales</th>
-              </tr>
-            </thead>
-            <tbody id="membersbody">
-              <!-- Table rows will be dynamically populated here -->
-            </tbody>
-          </table>
-        </div>
+        <h2 style="text-align: center;">Sales</h2>
       </div>
 
     </div>
-  </div>
-  <script>
-    buildMembers()
-    async function buildMembers() {
-      const response = await fetch("/api/seller/getmembers")
-      const data = await response.json()
-      const members = data.circle[0].members
-      // console.log(data);
-      // console.log(data.circle);
-      // console.log(members);
-      for (let i = 0; i < members.length; i++) {
-        let row = `<tr>
-          <td>${i + 1}</td> 
-          <td>${members[i].name}</td> 
-          <td>${members[i].email}</td> 
-          <td>${members[i].address}</td> 
-          <td>${members[i].area}</td> 
-          <td>${members[i].pincode}</td> 
-          <td>${members[i].sales.length}</td> 
-          </tr>
-        `
-        membersbody.innerHTML += row
-      }
-    }
 
-  </script>
 </body>
 
 </html>

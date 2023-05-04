@@ -6,6 +6,7 @@ const ErrorHandler = require("../utils/errorhandler")
 const sendToken = require("../utils/jwtToken");
 const crypto = require("crypto");
 const TransportNotificationsModel = require("../models/NotificationsModel");
+const { log } = require("util");
 
 // Register a Circle
 exports.registerCirlce = catchAsyncErrors(async (req, res, next) => {
@@ -31,6 +32,8 @@ exports.registerCirlceMember = catchAsyncErrors(async (req, res, next) => {
     // if (!circle) {
     //     return next(new ErrorHandler("the given circle doesn't exist , wromg circle name or email", 401));
     // }
+    // console.log("in..");
+    // console.log(req.circle);
     const user = new SellingCirlceMembers(
         req.body
     );
@@ -38,9 +41,14 @@ exports.registerCirlceMember = catchAsyncErrors(async (req, res, next) => {
     user.circle = req.circle._id
     user.circleemail = req.circle.circleemail
     user.circlename = req.circle.circlename
+    // console.log(user);
     await user.save();
+    // console.log("out");
     req.circle.members.push(user)
     await req.circle.save();
+    // console.log("out2");
+    // console.log(req.circle);
+
     res.status(200).json({
         message: "Added user to circle successfully",
         user
@@ -52,12 +60,14 @@ exports.registerCirlceMember = catchAsyncErrors(async (req, res, next) => {
 // Get all the members of a circle
 
 exports.membersOfCircle = catchAsyncErrors(async (req, res, next) => {
+    // console.log("in");
     const circleemail = req.circle.circleemail
     const circlename = req.circle.circlename
     const circle = await SellingCirlce.find({
         circleemail,
         circlename
     }).populate("members")
+    // console.log(circle);
     if (!circle) {
         return next(new ErrorHandler("the given circle doesn't exist , wromg circle name or email", 401));
     }

@@ -45,7 +45,11 @@ exports.registerCirlceMember = catchAsyncErrors(async (req, res, next) => {
     await user.save();
     req.circle.members.push(user)
     await req.circle.save();
-    sendToken(user, 201, res);
+    // sendToken(user, 201, res);
+    res.status(200).json({
+        message:"Added user to circle successfully",
+        user
+    })
 
 });
 

@@ -66,6 +66,12 @@ router.route("/adminBuyerDashboard").get((req, res) => {
     res.sendFile(path)
 })
 
+router.route("/adminBuyerDashboard/addmember").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Admin", "Buyer", "BuyingAdminDashboardAddmember.html")
+    res.sendFile(path)
+})
+
 // -------------------- Selling Circle admin ADMIN-------------------
 
 router.route("/adminSellerLogin").get((req, res) => {

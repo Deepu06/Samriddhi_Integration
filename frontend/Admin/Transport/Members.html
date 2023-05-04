@@ -33,41 +33,53 @@
       <!-- Sidebar menu -->
       <div class="list-group">
         <a href="BuyingCircleDashboard.html" class="list-group-item list-group-item-action">Dashboard</a>
-        <a href="AddCircle.html" class="list-group-item list-group-item-action active">Add Circle</a>
-        <a href="Members.html" class="list-group-item list-group-item-action">Members</a>
+        <a href="AddCircle.html" class="list-group-item list-group-item-action">Add Circle</a>
+        <a href="Members.html" class="list-group-item list-group-item-action active">Members</a>
         <a href="AddMember.html" class="list-group-item list-group-item-action">Add member</a>
         <a href="#" class="list-group-item list-group-item-action">Final Orders</a>
         <a href="#" class="list-group-item list-group-item-action">Aggregate Orders</a>
       </div>
     </div>
-    <div class="col-md-9">
-     <div>
-        <div class="container">
-            <h1>Add circle</h1>
-            <form method="post">
-              <div class="form-group">
-                <label for="name">Circle Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="name"
-                  placeholder="Enter circle name"
-                />
-              </div>
-              <div class="form-group">
-                <label for="email">Circle Email</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  placeholder="Enter circle email"
-                />
-              </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-          </div>
+    <div class="col-md-6">
+      <!-- Main content area -->
+      <h2>Buying Circle Members</h2>
+      <div>
+        <br>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone No</th>
+                    <th>Joining Date</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- Table rows will be dynamically populated here -->
+            </tbody>
+        </table>
     </div>
     
+    <script>
+    // JSON data
+    var jsonData = [
+        { Name: "Ramu", Email: "ramu@gmail.com", PhNo: 1237123, JoinDate: "10/07/2022"},
+        { Name: "Krishna", Email: "krishna@gmail.com", PhNo: 6751673, JoinDate: "05/10/2022"},
+        { Name: "Vijay", Email: "vijay@gmail.com", PhNo: 376128, JoinDate: "26/03/2002"}
+    ];
+    
+    // Parse JSON data and dynamically populate the table
+    var tableBody = document.getElementById("table-body");
+    jsonData.forEach(function(ele) {
+        var row = document.createElement("tr");
+        row.innerHTML = "<td>" + ele.Name + "</td>" +
+                        "<td>" + ele.Email + "</td>" +
+                        "<td>" + ele.PhNo + "</td>" +
+                        "<td>" + ele.JoinDate + "</td>";
+        tableBody.appendChild(row);
+        
+    });
+    </script>
     </div>
   </div>
   

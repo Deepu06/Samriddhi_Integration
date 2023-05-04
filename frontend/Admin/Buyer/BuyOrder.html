@@ -50,33 +50,62 @@
         <!-- Main content area -->
         <h2 style="text-align: center;">Buy Order Details</h2>
         <hr>
-        <h4 style="text-align: center; margin-top: 1em;" ">Buy Order Requests From Same Circle</h2>
+        <h4 style="text-align: center; margin-top: 1em;" ">Buy Order Requests From Users Of All Circle</h2>
           <div class=" container mt-5">
           <table class="table table-striped ">
             <thead>
               <tr>
+                <th>No</th>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Area</th>
-                <th>Pincode</th>
-                <th>No of Orders</th>
+                <th>Circle</th>
+                <th>Buyer</th>
+                <th>Buyer Email</th>
+                <th>Category</th>
+                <th>Product</th>
+                <th>Maximum Price</th>
+                <th>Quantity</th>
+                <th>Is Delivered</th>
+
               </tr>
             </thead>
-            <tbody id="membersbody">
+            <tbody id="ordersbody">
               <!-- Table rows will be dynamically populated here -->
             </tbody>
           </table>
       </div>
-      <hr>
-      <hr>
-      <h4 style="text-align: center;">Buy Order Requests From Other Circles</h2>
-        <!-- <h1>all buy requests here</h1> -->
+
+      <!-- <h1>all buy requests here</h1> -->
     </div>
 
   </div>
+  <script>
+    buildOrders()
+    async function buildOrders() {
+      const response = await fetch("/api/buyer/buyorders")
+      const data = await response.json()
+      const orders = data.orders
+      // console.log(data);
+      console.log(orders);
+      for (let i = 0; i < orders.length; i++) {
+        let row = `<tr>
+          <td>${i + 1}</td> 
+          <td>${orders[i]._id}</td> 
+          <td>${orders[i].circle}</td> 
+          <td>${orders[i].buyer}</td> 
+          <td>${orders[i].buyeremail}</td> 
+          <td>${orders[i].product.category}</td> 
+          <td>${orders[i].product.name}</td> 
+          <td>${orders[i].product.maxprice}</td> 
+          <td>${orders[i].product.quantity}</td> 
+          <td>${orders[i].isDelivered}</td> 
+           
+          </tr>
+        `
+        ordersbody.innerHTML += row
+      }
+    }
 
+  </script>
 </body>
 
 </html>

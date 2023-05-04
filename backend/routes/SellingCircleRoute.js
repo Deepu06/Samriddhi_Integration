@@ -30,7 +30,7 @@ router.route("/circles").get(getAllSellingCircles)
 
 router.route("/addcircle").post(registerCirlce)   //done
 router.route("/addcirclemember").post(isSAdmin, registerCirlceMember)   //done
-// router.route("/getmembers").get(isSAuthenticatedUser, isSAdmin, membersOfCircle)
+router.route("/getmembers").get(isSAdmin, membersOfCircle)
 router.route("/getmembers").get(membersOfCircle)  //done
 router.route("/adminlogin").post(adminLogin)
 router.route("/adminlogout").get(Logout)

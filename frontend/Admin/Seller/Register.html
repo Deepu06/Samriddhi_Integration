@@ -63,7 +63,7 @@
             const pincode = document.querySelector('#pincode').value;
 
             // Send authentication request to backend server
-            fetch('/api/buyer/addcircle', {
+            fetch('/api/seller/addcircle', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -82,7 +82,7 @@
                     if (response.ok) {
                         // Authentication succeeded, redirect to dashboard page
                         alert("Circle Registered Successfully")
-                        window.location.href = "/adminBuyerlogin";
+                        window.location.href = "/adminSellerlogin";
                     } else {
                         // Authentication failed, show error message
                         alert('Please provide valid data and email should be unqiue');

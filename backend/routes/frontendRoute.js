@@ -24,6 +24,7 @@ router.route("/memberCircleSelection").get((req, res) => {
 })
 
 
+// Images Routing...
 
 router.route("/background").get((req, res) => {
     let path = process.cwd()
@@ -46,7 +47,7 @@ router.route("/img_transport").get((req, res) => {
     res.sendFile(path)
 })
 
-// --------------------ADMIN-------------------
+// -------------------- Buying Circle admin ADMIN-------------------
 
 router.route("/adminBuyerLogin").get((req, res) => {
     let path = process.cwd()
@@ -62,6 +63,25 @@ router.route("/adminBuyerRegister").get((req, res) => {
 router.route("/adminBuyerDashboard").get((req, res) => {
     let path = process.cwd()
     path = Path.join(path, "frontend", "Admin", "Buyer", "BuyingCircleDashboard.html")
+    res.sendFile(path)
+})
+
+// -------------------- Selling Circle admin ADMIN-------------------
+
+router.route("/adminSellerLogin").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Admin", "Seller", "login.html")
+    res.sendFile(path)
+})
+router.route("/adminSellerRegister").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Admin", "Seller", "Register.html")
+    res.sendFile(path)
+})
+
+router.route("/adminSellerDashboard").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Admin", "Seller", "BuyingCircleDashboard.html")
     res.sendFile(path)
 })
 

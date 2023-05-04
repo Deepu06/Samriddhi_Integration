@@ -9,11 +9,16 @@ const TransportNotificationsModel = require("../models/NotificationsModel");
 
 // Register a Circle
 exports.registerCirlce = catchAsyncErrors(async (req, res, next) => {
+    console.log("in selling circle");
+    console.log(req.body);
     const user = new SellingCirlce(
         req.body
     )
+    console.log(user);
 
     await user.save()
+    console.log("user is");
+    console.log(user);
     sendToken(user, 201, res);
 
 });

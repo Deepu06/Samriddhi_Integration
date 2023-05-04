@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Seller Admin Dashboard</title>
   <meta charset="utf-8">
@@ -9,47 +10,93 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+
 <body>
 
-<!-- Navigation bar -->
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <a class="navbar-brand" href="#">Seller Admin Dashboard</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Logout</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-<!-- Main content -->
-<div class="container-fluid mt-3">
-  <div class="row">
-    <div class="col-md-2">
-      <!-- Sidebar menu -->
-      <div class="list-group">
-        <a href="adminSellerDashboard" class="list-group-item list-group-item-action active">Dashboard</a>
-        <a href="SellingAdminDashboardMembers" class="list-group-item list-group-item-action">Members</a>
-        <a href="SellingAdminDashboardAddMember" class="list-group-item list-group-item-action">Add Member</a>
-        <a href="SellingAdminDashboardBuyOrder" class="list-group-item list-group-item-action">Buy Order</a>
-        <a href="SellingAdminDashboardSales" class="list-group-item list-group-item-action">Sales</a>
-        <a href="SellingAdminDashboardMatchedOrders" class="list-group-item list-group-item-action">Matced Orders</a>
-        <a href="SellingAdminDashboardFinalOrders" class="list-group-item list-group-item-action">Final Orders</a>
-        <a href="SellingAdminDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated Orders</a>        
-      </div>
+  <!-- Navigation bar -->
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <a class="navbar-brand" href="#">Seller Admin Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Logout</a>
+        </li>
+      </ul>
     </div>
+  </nav>
+
+  <!-- Main content -->
+  <div class="container-fluid mt-3">
+    <div class="row">
+      <div class="col-md-2">
+        <!-- Sidebar menu -->
+        <div class="list-group">
+          <a href="adminSellerDashboard" class="list-group-item list-group-item-action active">Dashboard</a>
+          <a href="SellingAdminDashboardMembers" class="list-group-item list-group-item-action">Members</a>
+          <a href="SellingAdminDashboardAddMember" class="list-group-item list-group-item-action">Add Member</a>
+          <a href="SellingAdminDashboardBuyOrder" class="list-group-item list-group-item-action">Buy Order</a>
+          <a href="SellingAdminDashboardSales" class="list-group-item list-group-item-action">Sales</a>
+          <a href="SellingAdminDashboardMatchedOrders" class="list-group-item list-group-item-action">Matced Orders</a>
+          <a href="SellingAdminDashboardFinalOrders" class="list-group-item list-group-item-action">Final Orders</a>
+          <a href="SellingAdminDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated
+            Orders</a>
+        </div>
+      </div>
 
 
-    <div class="col-md-9">
-      <!-- Main content area -->
-      <h2 style="text-align: center;">Dashboard</h2>
-    </div> 
+      <div class="col-md-9">
+        <!-- Main content area -->
+        <h2>Welcome to the Seller Admin Dashboard</h2>
+        <div>
+          <h4 style="text-align: center;">Members Details</h4>
+          <table class="table table-striped mt-4">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Area</th>
+                <th>Pincode</th>
+                <th>No of Sales</th>
+              </tr>
+            </thead>
+            <tbody id="membersbody">
+              <!-- Table rows will be dynamically populated here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-</div>
+    </div>
+  </div>
+  <script>
+    buildMembers()
+    async function buildMembers() {
+      const response = await fetch("/api/seller/getmembers")
+      const data = await response.json()
+      const members = data.circle[0].members
+      // console.log(data);
+      // console.log(members);
+      for (let i = 0; i < members.length; i++) {
+        let row = `<tr>
+          <td>${i + 1}</td> 
+          <td>${members[i].name}</td> 
+          <td>${members[i].email}</td> 
+          <td>${members[i].address}</td> 
+          <td>${members[i].area}</td> 
+          <td>${members[i].pincode}</td> 
+          <td>${members[i].sales.length}</td> 
+          </tr>
+        `
+        membersbody.innerHTML += row
+      }
+    }
 
+  </script>
 </body>
+
 </html>

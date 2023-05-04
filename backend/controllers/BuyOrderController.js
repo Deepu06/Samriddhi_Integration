@@ -59,7 +59,8 @@ exports.createBuyOrder = catchAsyncErrors(async (req, res, next) => {
 
 // 2- getting all current active buyorders..
 exports.getAllOrders = catchAsyncErrors(async (req, res) => {
-    const orders = await BuyOrder.find({ isSelected: false })
+    // const orders = await BuyOrder.find({ isSelected: false })
+    const orders = await BuyOrder.find()
     res.status(200).json({
         success: true,
         orders

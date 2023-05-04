@@ -135,7 +135,7 @@ router.route("/SellingAdminDashboardAddMember").get((req, res) => {
 })
 router.route("/SellingAdminDashboardBuyOrder").get((req, res) => {
     let path = process.cwd()
-    path = Path.join(path, "frontend", "Admin", "Seller", "BuyOrder.html")
+    path = Path.join(path, "frontend", "Admin", "Buyer", "BuyOrder.html")
     res.sendFile(path)
 })
 router.route("/SellingAdminDashboardSales").get((req, res) => {

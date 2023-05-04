@@ -25,31 +25,38 @@ exports.registerCirlce = catchAsyncErrors(async (req, res, next) => {
 
 // Register a CircleMember
 exports.registerCirlceMember = catchAsyncErrors(async (req, res, next) => {
-    const { circleemail, circlename } = req.body;
-    const circle = await SellingCirlce.findOne({ circleemail, circlename })
-    // console.log(circle);
-    if (!circle) {
-        return next(new ErrorHandler("the given circle doesn't exist , wromg circle name or email", 401));
-    }
+    // const { circleemail, circlename } = req.body;
+    // const circle = await SellingCirlce.findOne({ circleemail, circlename })
+    // // console.log(circle);
+    // if (!circle) {
+    //     return next(new ErrorHandler("the given circle doesn't exist , wromg circle name or email", 401));
+    // }
     const user = new SellingCirlceMembers(
         req.body
     );
     // console.log(req.circle._id);
     user.circle = req.circle._id
+    user.circleemail = req.circle.circleemail
+    user.circlename = req.circle.circlename
     await user.save();
-    circle.members.push(user)
-    await circle.save();
-    sendToken(user, 201, res);
+    req.circle.members.push(user)
+    await req.circle.save();
+    res.status(200).json({
+        message: "Added user to circle successfully",
+        user
+    })
+    // sendToken(user, 201, res);
 
 });
 
 // Get all the members of a circle
 
 exports.membersOfCircle = catchAsyncErrors(async (req, res, next) => {
-    const { circleemail, circlname } = req.body;
+    const circleemail = req.circle.circleemail
+    const circlename = req.circle.circlename
     const circle = await SellingCirlce.find({
         circleemail,
-        circlname
+        circlename
     }).populate("members")
     if (!circle) {
         return next(new ErrorHandler("the given circle doesn't exist , wromg circle name or email", 401));
@@ -317,7 +324,7 @@ exports.getAllSellingCircles = catchAsyncErrors(async (req, res, next) => {
 // getting all the transport notifications of a seller
 exports.transportNotifictaions = catchAsyncErrors(async (req, res, next) => {
     // console.log(req.user);
-    const notifications = await TransportNotificationsModel.find({ seller: req.user._id, isSelected: false,type:"transport" })
+    const notifications = await TransportNotificationsModel.find({ seller: req.user._id, isSelected: false, type: "transport" })
     res.status(200).json(
         notifications
     )

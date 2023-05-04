@@ -1,5 +1,5 @@
 const express = require("express");
-const { registerCirlce, getAllTransportcircles, adminLogin, Logout, registerCirlceMember, Login, transportRequest, isDeliverd } = require("../controllers/TransportCircleController");
+const { registerCirlce, getAllTransportcircles, adminLogin, Logout, registerCirlceMember, Login, transportRequest, isDeliverd, membersOfCircle } = require("../controllers/TransportCircleController");
 const { isTAdmin, isTAuthenticatedUser } = require("../middleware/auth");
 const { getMatchedOrders } = require("../controllers/OrderMatchController");
 const { getAllFinalOrders } = require("../controllers/FinalOrderController");
@@ -11,14 +11,21 @@ const router = express.Router();
 // to get all existing transport circles
 router.route("/circles").get(getAllTransportcircles)
 
+
 // creating a transport circle
 router.route("/addcircle").post(registerCirlce)
+
+
 // admin login
 router.route("/adminlogin").post(adminLogin)
 // admin logout
 router.route("/adminlogout").get(Logout)
 // adding a member to transport circle by admin
 router.route("/addcirclemember").post(isTAdmin, registerCirlceMember)
+
+// getting members of a circle
+router.route("/getmembers").get(isTAdmin, membersOfCircle)
+
 // Member login
 router.route("/login").post(Login)
 // Member logout

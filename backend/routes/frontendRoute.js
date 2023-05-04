@@ -174,6 +174,11 @@ router.route("/adminTransportDashboard").get((req, res) => {
     res.sendFile(path)
 })
 
+router.route("/TransportAdminDashboardAddMember").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Admin", "Transport", "AddMember.html")
+    res.sendFile(path)
+})
 router.route("/TransportAdminDashboardBuyOrder").get((req, res) => {
     let path = process.cwd()
     path = Path.join(path, "frontend", "Admin", "Transport", "BuyOrder.html")
@@ -196,7 +201,7 @@ router.route("/TransportAdminDashboardFinalOrders").get((req, res) => {
 })
 router.route("/TransportAdminDashboardAggregatedOrders").get((req, res) => {
     let path = process.cwd()
-    path = Path.join(path, "frontend", "Admin", "Transport", "AggregatedOrders.html")
+    path = Path.join(path, "frontend", "Admin", "Buyer", "AggregatedOrders.html")
     res.sendFile(path)
 })
 

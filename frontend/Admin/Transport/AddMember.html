@@ -1,108 +1,98 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Transport Admin Dashboard</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  </head>
-  <body>
-    <!-- Navigation bar -->
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-      <a class="navbar-brand" href="#">Buyer Admin Dashboard</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#collapsibleNavbar"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Logout</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
 
-    <!-- Main content -->
-    <div class="container-fluid mt-3">
-      <div class="row">
-        <div class="col-md-2">
-          <!-- Sidebar menu -->
-          <div class="list-group">
-            <a href="BuyingCircleDashboard.html" class="list-group-item list-group-item-action">Dashboard</a>
-            <a href="AddCircle.html" class="list-group-item list-group-item-action">Add Circle</a>
-            <a href="Members.html" class="list-group-item list-group-item-action">Members</a>
-            <a href="AddMember.html" class="list-group-item list-group-item-action active">Add member</a>
-            <a href="#" class="list-group-item list-group-item-action">Final Orders</a>
-            <a href="#" class="list-group-item list-group-item-action">Aggregate Orders</a>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <!-- Main content area -->
-          <br />
-          <div class="container">
-            <h1>Add Transport Circle Members</h1>
-            <form method="get" action="">
-              <div class="form-group">
-                <label for="name">Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="name"
-                  placeholder="Enter your name"
-                />
-              </div>
-              <div class="form-group">
-                <label for="name">Circle Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="circlename"
-                  placeholder="Enter circle name"
-                />
-              </div>
-              <div class="form-group">
-                <label for="email">Email address</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  placeholder="Enter your email"
-                />
-              </div>
-              <div class="form-group">
-                <label for="phone">Phone number</label>
-                <input
-                  type="tel"
-                  class="form-control"
-                  id="phone"
-                  placeholder="Enter your phone number"
-                />
-              </div>
-              <div class="form-group">
-                <label for="date">Record date</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  id="date"
-                  placeholder="Enter the record date"
-                />
-              </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-          </div>
-        </div>
-      </div>
+<head>
+    <meta charset="utf-8">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Transport Add Member Form</h2>
+        <form action="api/transport/addcircle" method="post" id="registercircle">
+            <div class="mb-3">
+                <label for="name" class="form-label">Enter Member name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="member name">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Enter Member Email</label>
+                <input type="text" class="form-control" id="email" name="email"
+                    placeholder="Member Email should be unique">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Enter Member Password</label>
+                <input type="password" class="form-control" id="password" name="password"
+                    placeholder="Password should have atleast 8 characters">
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Enter Member Address</label>
+                <input type="text" class="form-control" id="address" name="address" placeholder="circle Addres">
+            </div>
+            <div class="mb-3">
+                <label for="area" class="form-label">Enter Area</label>
+                <input type="text" class="form-control" id="area" name="area" placeholder="Member Area">
+            </div>
+            <div class="mb-3">
+                <label for="pincode" class="form-label">Enter Member Address pincode</label>
+                <input type="number" class="form-control" id="pincode" name="pincode" placeholder="pincode">
+            </div>
+            <div class="mb-3">
+                <label for="community" class="form-label">Enter Member community</label>
+                <input type="text" class="form-control" id="community" name="community" placeholder="community">
+            </div>
+            <button type="submit"  class="btn btn-primary">Register</button>
+
+            <a href="adminTransportLogin" class="btn btn-secondary">Login</a>
+        </form>
     </div>
-  </body>
-</html>
+    <script>
+        const registrationForm = document.querySelector('#registercircle');
+
+        registrationForm.addEventListener('submit', event => {
+            event.preventDefault(); // Prevent form from submitting and refreshing page
+
+            const name = document.querySelector('#name').value;
+            const email = document.querySelector('#email').value;
+            const password = document.querySelector('#password').value;
+            const address = document.querySelector('#address').value;
+            const area = document.querySelector('#area').value;
+            const pincode = document.querySelector('#pincode').value;
+            const community = document.querySelector('#community').value;
+
+            // Send authentication request to backend server
+            fetch('/api/transport/addcirclemember', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    password: password,
+                    address: address,
+                    area: area,
+                    pincode: pincode,
+                    community: community,
+                })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Authentication succeeded, redirect to dashboard page
+                        alert("Member Registered to the Circle Successfully")
+                        window.location.href = "/adminTransportDashboard";
+                    } else {
+                        // Authentication failed, show error message
+                        alert('Please provide valid data following all conditions and email should be unqiue');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred during Registraion');
+                });
+        });
+    </script>
+
+
+</body>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Buyer Admin Dashboard</title>
+  <title>Seller Admin Dashboard</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -13,7 +13,7 @@
 
 <!-- Navigation bar -->
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <a class="navbar-brand" href="#">Buyer Admin Dashboard</a>
+  <a class="navbar-brand" href="#">Seller Admin Dashboard</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -32,57 +32,23 @@
     <div class="col-md-2">
       <!-- Sidebar menu -->
       <div class="list-group">
-        <a href="BuyingCircleDashboard.html" class="list-group-item list-group-item-action">Dashboard</a>
-        <a href="AddCircle.html" class="list-group-item list-group-item-action">Add Circle</a>
-        <a href="Members.html" class="list-group-item list-group-item-action active">Members</a>
-        <a href="AddMember.html" class="list-group-item list-group-item-action">Add member</a>
-        <a href="#" class="list-group-item list-group-item-action">Final Orders</a>
-        <a href="#" class="list-group-item list-group-item-action">Aggregate Orders</a>
+        <a href="adminSellerDashboard" class="list-group-item list-group-item-action active">Dashboard</a>
+        <a href="SellingAdminDashboardMembers" class="list-group-item list-group-item-action">Members</a>
+        <a href="SellingAdminDashboardAddMember" class="list-group-item list-group-item-action">Add Member</a>
+        <a href="SellingAdminDashboardBuyOrder" class="list-group-item list-group-item-action">Buy Order</a>
+        <a href="SellingAdminDashboardBuyRequest" class="list-group-item list-group-item-action">Buy Request</a>
+        <a href="SellingAdminDashboardMatchedOrders" class="list-group-item list-group-item-action">Matced Orders</a>
+        <a href="SellingAdminDashboardFinalOrders" class="list-group-item list-group-item-action">Final Orders</a>
+        <a href="SellingAdminDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated Orders</a>        
       </div>
     </div>
-    <div class="col-md-6">
+
+
+    <div class="col-md-9">
       <!-- Main content area -->
-      <h2>Buying Circle Members</h2>
-      <div>
-        <br>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone No</th>
-                    <th>Joining Date</th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-                <!-- Table rows will be dynamically populated here -->
-            </tbody>
-        </table>
-    </div>
-    
-    <script>
-    // JSON data
-    var jsonData = [
-        { Name: "Ramu", Email: "ramu@gmail.com", PhNo: 1237123, JoinDate: "10/07/2022"},
-        { Name: "Krishna", Email: "krishna@gmail.com", PhNo: 6751673, JoinDate: "05/10/2022"},
-        { Name: "Vijay", Email: "vijay@gmail.com", PhNo: 376128, JoinDate: "26/03/2002"}
-    ];
-    
-    // Parse JSON data and dynamically populate the table
-    var tableBody = document.getElementById("table-body");
-    jsonData.forEach(function(ele) {
-        var row = document.createElement("tr");
-        row.innerHTML = "<td>" + ele.Name + "</td>" +
-                        "<td>" + ele.Email + "</td>" +
-                        "<td>" + ele.PhNo + "</td>" +
-                        "<td>" + ele.JoinDate + "</td>";
-        tableBody.appendChild(row);
-        
-    });
-    </script>
-    </div>
-  </div>
-  
+      <h2 style="text-align: center;">Members details</h2>
+    </div> 
+
 </div>
 
 </body>

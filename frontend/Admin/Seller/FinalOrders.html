@@ -42,52 +42,13 @@
         <a href="SellingAdminDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated Orders</a>        
       </div>
     </div>
+
+
     <div class="col-md-9">
       <!-- Main content area -->
-      <h2>Welcome to the Seller Admin Dashboard</h2>
-      <p>This is the main content area where you can view and manage your products, members, and orders.</p>
-      <div>
-        <h4>Sale Announcements</h4>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Circle</th>
-                    <th>Category</th>
-                    <th>Item</th>
-                    <th>Quantity</th>
-                    <th>₹Range</th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-                <!-- Table rows will be dynamically populated here -->
-            </tbody>
-        </table>
-    </div>
-    
-    <script>
-    // JSON data
-    var jsonData = [
-        { circle: "Grainbowl", category: "Grains", item: "Rice", quantity: 100, range: 30 },
-        { circle: "Grainbowl", category: "Grains", item: "Rice", quantity: 100, range: 30 },
-        { circle: "Grainbowl", category: "Grains", item: "Rice", quantity: 100, range: 30 }
-    ];
-    
-    // Parse JSON data and dynamically populate the table
-    var tableBody = document.getElementById("table-body");
-    jsonData.forEach(function(ele) {
-        var row = document.createElement("tr");
-        row.innerHTML = "<td>" + ele.circle + "</td>" +
-                        "<td>" + ele.category + "</td>" +
-                        "<td>" + ele.item + "</td>" +
-                        "<td>" + ele.quantity + "</td>" +
-                        "<td>" + ele.range + "</td>";
-        tableBody.appendChild(row);
-        
-    });
-    </script>
-    </div>
-  </div>
-  
+      <h2 style="text-align: center;">Final Orders Details</h2>
+    </div> 
+
 </div>
 
 </body>

@@ -1,6 +1,6 @@
 const BuyingCirlce = require("../models/BuyingCircleModel")
 const BuyingCirlceMembers = require("../models/BuyingCircleMembersModel")
-const Notifications=require("../models/NotificationsModel")
+const Notifications = require("../models/NotificationsModel")
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ErrorHandler = require("../utils/errorhandler")
 const sendToken = require("../utils/jwtToken");
@@ -13,6 +13,7 @@ exports.registerCirlce = catchAsyncErrors(async (req, res, next) => {
     // );
 
     // console.log("in register");
+    // console.log(req.body);
     const circle = new BuyingCirlce(
         req.body
     )
@@ -313,7 +314,7 @@ exports.getAllBuyingCircles = catchAsyncErrors(async (req, res, next) => {
 
 // getting all the order notifications to confirm the order.
 exports.getAllBuyingNotifications = catchAsyncErrors(async (req, res, next) => {
-    const myNotifiactions=await Notifications.find({buyer:req.user._id,isSelected:false,type:"order"})
+    const myNotifiactions = await Notifications.find({ buyer: req.user._id, isSelected: false, type: "order" })
     res.status(200).json({
         myNotifiactions
     })

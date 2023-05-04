@@ -1,65 +1,17 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Registration Form</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
-    <!-- <div class="container mt-5">
-        <h2>Registration Form</h2>
-        <form id="registrationForm" action="api/buyer/addcircle" method="post">
-            <div class="form-group">
-                <label for="circlename">Circle Name</label>
-                <input type="text" class="form-control" id="circlename" placeholder="Enter Circle Name" required>
-                <small class="text-danger" id="circlenameError"></small>
-            </div>
-            <div class="form-group">
-                <label for="circleemail">Circle Email</label>
-                <input type="email" class="form-control" id="circleemail" placeholder="Enter Circle Email" required>
-                <small class="text-danger" id="circleemailError"></small>
-            </div>
-            <div class="form-group">
-                <label for="admin">Admin Name</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter Name" required>
-                <small class="text-danger" id="nameError"></small>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter Password" required>
-                <small class="text-danger" id="passwordError"></small>
-            </div>
-            <div class="form-group">
-                <label for="address">Address</label>
-                <input type="text" class="form-control" id="address" placeholder="Enter Address" required>
-                <small class="text-danger" id="addressError"></small>
-            </div>
-            <div class="form-group">
-                <label for="pincode">Pincode</label>
-                <input type="text" class="form-control" id="pincode" placeholder="Enter Pincode" required>
-                <small class="text-danger" id="pincodeError"></small>
-            </div>
-            
-            <div class="form-group">
-                <label for="area">Area</label>
-                <input type="text" class="form-control" id="area" placeholder="Enter Area">
-                <small class="text-danger" id="areaError"></small>
-            </div>
-            
-            <button type="submit" onclick="myFunction()" class="btn btn-primary">Register</button>
-            <script>
-                function myFunction() {
-                  alert("Successfully registered!");
-                }
-            </script>
-            <a href="adminBuyerLogin" class="btn btn-secondary">Login</a>
-            
-        </form>
-    </div> -->
 
     <div class="container">
         <h2>Registration Form</h2>
-        <form action="api/buyer/addcircle" method="post">
+        <form action="api/buyer/addcircle" method="post" id="registercircle">
             <div class="mb-3">
                 <label for="circlename" class="form-label">Enter Circle name</label>
                 <input type="text" class="form-control" id="circlename" name="circlename"
@@ -92,14 +44,55 @@
                 <input type="number" class="form-control" id="pincode" name="pincode" placeholder="pincode">
             </div>
             <button type="submit" onclick="myFunction()" class="btn btn-primary">Register</button>
-            <script>
-                function myFunction() {
-                  alert("Successfully registered!");
-                }
-            </script>
+
             <a href="adminBuyerLogin" class="btn btn-secondary">Login</a>
         </form>
     </div>
+    <script>
+        const registrationForm = document.querySelector('#registercircle');
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim
-    
+        registrationForm.addEventListener('submit', event => {
+            event.preventDefault(); // Prevent form from submitting and refreshing page
+
+            const circlename = document.querySelector('#circlename').value;
+            const circleemail = document.querySelector('#circleemail').value;
+            const password = document.querySelector('#password').value;
+            const admin = document.querySelector('#admin').value;
+            const address = document.querySelector('#address').value;
+            const area = document.querySelector('#area').value;
+            const pincode = document.querySelector('#pincode').value;
+
+            // Send authentication request to backend server
+            fetch('/api/buyer/addcircle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    circlename: circlename,
+                    circleemail: circleemail,
+                    password: password,
+                    admin: admin,
+                    address: address,
+                    area: area,
+                    pincode: pincode,
+                })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Authentication succeeded, redirect to dashboard page
+                        window.location.href = "/adminBuyerlogin";
+                    } else {
+                        // Authentication failed, show error message
+                        alert('Please provide valid data and email should be unqiue');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred during Registraion');
+                });
+        });
+    </script>
+
+
+</body>

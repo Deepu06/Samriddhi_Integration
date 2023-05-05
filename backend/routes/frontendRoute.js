@@ -244,6 +244,62 @@ router.route("/TransportDashboard").get((req, res) => {
 })
 
 
+// Routing for Seller Dashboard pages:
+router.route("/SellerDashboardAnnounceSales").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Seller", "AnnounceSales.html")
+    res.sendFile(path)
+})
+router.route("/SellerDashboardAggregateBuyOrder").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Seller", "AggregateBuyOrder.html")
+    res.sendFile(path)
+})
+router.route("/SellerDashboardCheckForOrderMatch").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Seller", "CheckForOrderMatch.html")
+    res.sendFile(path)
+})
+router.route("/SellerDashboardOrderConfirmation").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Seller", "OrderConfirmation.html")
+    res.sendFile(path)
+})
+router.route("/SellerDashboardNotifications").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Seller", "Notifications.html")
+    res.sendFile(path)
+})
+
+router.route("/SellerDashboardBuyOrders").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Seller", "BuyOrders.html")
+    res.sendFile(path)
+})
+router.route("/SellerDashboardSales").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Seller", "Sales.html")
+    res.sendFile(path)
+})
+router.route("/SellerDashboardAggregatedOrders").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Seller", "AggregatedOrders.html")
+    res.sendFile(path)
+})
+router.route("/SellerDashboardMatchedOrders").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Seller", "MatchedOrders.html")
+    res.sendFile(path)
+})
+router.route("/SellerDashboardFinalOrders").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Seller", "FinalOrders.html")
+    res.sendFile(path)
+})
+
+
+
+
 
 
 

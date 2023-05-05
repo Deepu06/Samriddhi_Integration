@@ -10,10 +10,10 @@
 <body>
     <div class="container mt-5">
         <h2 class="text-center mb-3">Seller Login Page</h2>
-        <form id="registrationForm" action="/SellerDashboard" >
+        <form id="registrationForm" action="/api/seller/login" method="post" >
             <div class="form-group">
                 <label for="email">Member Email</label>
-                <input type="email" class="form-control" id="admin" name="admin" placeholder="Enter Email" >
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" >
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
@@ -23,6 +23,46 @@
         </form>
         
     </div>
+
+
+    <script>
+        const loginForm = document.querySelector('#registrationForm');
+      
+        loginForm.addEventListener('submit', event => {
+          event.preventDefault(); // Prevent form from submitting and refreshing page
+      
+          const email = document.querySelector('#email').value;
+          const password = document.querySelector('#password').value;
+      
+          // Send authentication request to backend server
+          fetch('/api/seller/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              email: email,
+              password: password
+            })
+          })
+          .then(response => {
+            if (response.ok) {
+              // Authentication succeeded, redirect to dashboard page
+              window.location.href = "/SellerDashboard";
+            } else {
+              // Authentication failed, show error message
+              alert('Invalid Email or Password');
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred during login');
+          });
+        });
+      </script>
+
+
+
 </body>
 
 </html> 

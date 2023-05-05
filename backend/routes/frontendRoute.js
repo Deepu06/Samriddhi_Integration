@@ -250,6 +250,11 @@ router.route("/SellerDashboardAnnounceSales").get((req, res) => {
     path = Path.join(path, "frontend", "Members", "Seller", "AnnounceSales.html")
     res.sendFile(path)
 })
+router.route("/SellerDashboardMySales").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Seller", "MySales.html")
+    res.sendFile(path)
+})
 router.route("/SellerDashboardAggregateBuyOrder").get((req, res) => {
     let path = process.cwd()
     path = Path.join(path, "frontend", "Members", "Seller", "AggregateBuyOrder.html")
@@ -297,6 +302,48 @@ router.route("/SellerDashboardFinalOrders").get((req, res) => {
     res.sendFile(path)
 })
 
+//Routing for Buyer Dashboard pages
+router.route("/BuyerDashboardBuyOrder").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Buyer", "BuyOrder.html")
+    res.sendFile(path)
+})
+router.route("/BuyerDashboardMyOrders").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Buyer", "MyOrders.html")
+    res.sendFile(path)
+})
+router.route("/BuyerDashboardNotifications").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Buyer", "Notifications.html")
+    res.sendFile(path)
+})
+
+router.route("/BuyerDashboardViewBuyOrders").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Buyer", "ViewBuyOrders.html")
+    res.sendFile(path)
+})
+router.route("/BuyerDashboardSales").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Buyer", "Sales.html")
+    res.sendFile(path)
+})
+router.route("/BuyerDashboardAggregatedOrders").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Buyer", "AggregatedOrders.html")
+    res.sendFile(path)
+})
+router.route("/BuyerDashboardMatchedOrders").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Buyer", "MatchedOrders.html")
+    res.sendFile(path)
+})
+router.route("/BuyerDashboardFinalOrders").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Buyer", "FinalOrders.html")
+    res.sendFile(path)
+})
 
 
 

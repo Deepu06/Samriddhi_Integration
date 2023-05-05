@@ -11,50 +11,70 @@ exports.createBuyOrder = catchAsyncErrors(async (req, res, next) => {
     if (!req.user) {
         return next(new ErrorHandler("No buyer found with this email-id!"))
     }
-    // console.log(req.orders.push("ABCD"));
-    // console.log(typeof (req.user.orders));
-    // req.user.orders.push()
 
-    const products = req.body.products
+    // **Note -- this is old code for posting array of products
+    // do not edit or remove this!
+    // const products = req.body.products
 
-    async function fun() {
-        let counter = products.length
-        await new Promise(async (resolve, reject) => {
-            (products.forEach(async (element) => {
-                // console.log(element);
-                const order = new BuyOrder()
-                order.circleId = req.circle._id
-                order.circle = req.circle.circlename
-                order.circleemail = req.circle.circleemail
-                order.buyerId = req.user._id
-                order.buyer = req.user.name
-                order.buyeremail = req.user.email
-                order.product.name = element.name,
-                    order.product.category = element.category,
-                    order.product.minprice = element.minprice,
-                    order.product.maxprice = element.maxprice,
-                    order.product.quantity = element.quantity,
-                    await order.save()
-                req.user.orders.push(order._id)
-                // console.log(req.user.orders);
+    // async function fun() {
+    //     let counter = products.length
+    //     await new Promise(async (resolve, reject) => {
+    //         (products.forEach(async (element) => {
+    //             // console.log(element);
+    //             const order = new BuyOrder()
+    //             order.circleId = req.circle._id
+    //             order.circle = req.circle.circlename
+    //             order.circleemail = req.circle.circleemail
+    //             order.buyerId = req.user._id
+    //             order.buyer = req.user.name
+    //             order.buyeremail = req.user.email
+    //             order.product.name = element.name,
+    //                 order.product.category = element.category,
+    //                 order.product.minprice = element.minprice,
+    //                 order.product.maxprice = element.maxprice,
+    //                 order.product.quantity = element.quantity,
+    //                 await order.save()
+    //             req.user.orders.push(order._id)
+    //             // console.log(req.user.orders);
 
-                --counter;
-                // condition to resolve the promise i.e if all products are added successfully..
-                if (counter == 0)
-                    return resolve("success")
-            }))
-        })
-    }
-    fun().then(async () => {
-        console.log(req.user);
-        await req.user.save()
-        res.status(201).json({
-            success: true,
-        });
+    //             --counter;
+    //             // condition to resolve the promise i.e if all products are added successfully..
+    //             if (counter == 0)
+    //                 return resolve("success")
+    //         }))
+    //     })
+    // }
+    // fun().then(async () => {
+    //     console.log(req.user);
+    //     await req.user.save()
+    //     res.status(201).json({
+    //         success: true,
+    //     });
+    // })
+    //     .catch((err) => {
+    //         return next(new ErrorHandler(err));
+    //     })
+    // console.log(req.body);
+    const order = new BuyOrder()
+    order.circleId = req.circle._id
+    order.circle = req.circle.circlename
+    order.circleemail = req.circle.circleemail
+    order.buyerId = req.user._id
+    order.buyer = req.user.name
+    order.buyeremail = req.user.email
+    order.product.name = req.body.name,
+        order.product.category = req.body.category,
+        order.product.minprice = req.body.minprice,
+        order.product.maxprice = req.body.maxprice,
+        order.product.quantity = req.body.quantity,
+        await order.save()
+    req.user.orders.push(order._id)
+    await req.user.save()
+    res.status(201).json({
+        "message": "added buyOrder Successfully",
+        order
     })
-        .catch((err) => {
-            return next(new ErrorHandler(err));
-        })
+
 })
 
 // 2- getting all current active buyorders..

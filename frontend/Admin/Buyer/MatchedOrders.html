@@ -44,6 +44,12 @@
             Orders</a>
         </div>
       </div>
+      <div class="container-fluid mt-3">
+        <div class="row">
+        </div>
+    
+      </div>
+    
 
 
       <div class="container m-4">
@@ -98,22 +104,23 @@
       </div>
 
     </div>
-    <script>
-      buildMatch()
-      async function buildMatch() {
-        const response = await fetch("/api/buyer/matchedorders")
-        const data = await response.json()
-        const matchedorders = data.orders
+  </div>
+  <script>
+    buildMatch()
+    async function buildMatch() {
+      const response = await fetch("/api/buyer/matchedorders")
+      const data = await response.json()
+      const matchedorders = data.orders
 
-        // console.log(matchedorders)
+      // console.log(matchedorders)
 
 
-        for (let i = 0; i < matchedorders.length; i++) {
-          const users = matchedorders[i].order.users
-          // console.log(users)
+      for (let i = 0; i < matchedorders.length; i++) {
+        const users = matchedorders[i].order.users
+        // console.log(users)
 
-          for (let j = 0; j < users.length; j++) {
-            let row = `<tr>
+        for (let j = 0; j < users.length; j++) {
+          let row = `<tr>
       <td>${i + 1}</td> 
       <td>${matchedorders[i].order.circle}</td> 
       <td>${users[j].name}</td> 
@@ -125,19 +132,19 @@
       <td>${users[j].quantity}</td> 
       <td>${users[j].totalprice}</td> 
         `
-            matchbody.innerHTML += row
-          }
+          matchbody.innerHTML += row
         }
       }
+    }
 
-      buildSales()
-      async function buildSales() {
-        const response = await fetch("/api/buyer/sales")
-        const data = await response.json()
-        const sales = data.sales
-        // console.log(sales)
-        for (let i = 0; i < sales.length; i++) {
-          let row = `<tr>
+    buildSales()
+    async function buildSales() {
+      const response = await fetch("/api/buyer/sales")
+      const data = await response.json()
+      const sales = data.sales
+      // console.log(sales)
+      for (let i = 0; i < sales.length; i++) {
+        let row = `<tr>
       <td>${i + 1}</td> 
       <td>${sales[i]._id}</td> 
       <td>${sales[i].circle}</td> 
@@ -150,11 +157,11 @@
       <td>${sales[i].product.quantity}</td> 
       </tr>
     `
-          salesbody.innerHTML += row
-        }
+        salesbody.innerHTML += row
       }
+    }
 
-    </script>
+  </script>
 </body>
 
 </html>

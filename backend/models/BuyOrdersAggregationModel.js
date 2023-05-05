@@ -54,6 +54,9 @@ const buyOrdersAggregationSchema = new mongoose.Schema({
             buyorderid: {
                 type: mongoose.Schema.ObjectId,
                 ref: "BuyOrder"
+            },
+            email:{
+                type:String
             }
         }
     ]

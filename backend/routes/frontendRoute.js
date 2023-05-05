@@ -97,6 +97,7 @@ router.route("/BuyerAdminDashboardFinalOrders").get((req, res) => {
     res.sendFile(path)
 })
 router.route("/BuyerAdminDashboardAggregatedOrders").get((req, res) => {
+
     let path = process.cwd()
     path = Path.join(path, "frontend", "Admin", "Buyer", "AggregatedOrders.html")
     res.sendFile(path)

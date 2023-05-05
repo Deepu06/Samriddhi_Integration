@@ -43,10 +43,13 @@ exports.createAggregation = catchAsyncErrors(async (req, res, next) => {
                     price: req.body.price,
                     quantity: order.product.quantity,
                     totalprice: order.product.quantity * req.body.price,
-                    buyorderid: element
+                    buyorderid: element,
+                    email: order.buyeremail
                 }
+                // console.log(obj);
                 Order.users.push(obj)
                 // console.log(obj);
+                console.log(Order.users);
                 --counter
                 // condition to resolve promise i.e if all the user details are updated in user arrray only then resolve and save ORDER document
                 if (counter == 0) return resolve("success")
@@ -54,6 +57,7 @@ exports.createAggregation = catchAsyncErrors(async (req, res, next) => {
             )
         })
     }
+    // fun()
 
     // to synchronize the ORDER document properly..
     fun().then(async () => {
@@ -74,6 +78,6 @@ exports.createAggregation = catchAsyncErrors(async (req, res, next) => {
 //  2- to get all aggregated Orders..
 exports.getAggregatedOrders = catchAsyncErrors(async (req, res, next) => {
     const allOrders = await BuyOrdersAggregation.find()
-    res.status(200).json({ "Aggregated-Orders": allOrders })
+    res.status(200).json({ "Orders": allOrders })
 })
 

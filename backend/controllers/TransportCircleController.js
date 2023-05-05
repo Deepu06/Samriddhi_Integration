@@ -63,21 +63,31 @@ exports.Logout = catchAsyncErrors(async (req, res, next) => {
 
 // Register a CircleMember
 exports.registerCirlceMember = catchAsyncErrors(async (req, res, next) => {
-    const { circleemail, circlename } = req.body;
-    const circle = await TransportCircle.findOne({ circleemail, circlename })
+    // const { circleemail, circlename } = req.body;
+    // const circle = await TransportCircle.findOne({ circleemail, circlename })
     // console.log(circle);
-    if (!circle) {
-        return next(new ErrorHandler("the given circle doesn't exist , wromg circle name or email", 401));
-    }
+    
+
+    // if (!circle) {
+    //     return next(new ErrorHandler("the given circle doesn't exist , wromg circle name or email", 401));
+    // }
     const user = new TransportCircleMembers(
         req.body
     );
+
+    user.circle = req.circle._id
+    user.circleemail = req.circle.circleemail
+    user.circlename = req.circle.circlename
     // console.log(req.circle._id);
     user.circle = req.circle._id
     await user.save();
-    circle.members.push(user)
-    await circle.save();
-    sendToken(user, 201, res);
+    req.circle.members.push(user)
+    await req.circle.save();
+    // sendToken(user, 201, res);
+    res.status(200).json({
+        message:"Added user to circle successfully",
+        user
+    })
 });
 
 exports.membersOfCircle = catchAsyncErrors(async (req, res, next) => {

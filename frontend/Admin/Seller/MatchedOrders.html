@@ -36,17 +36,79 @@
         <a href="SellingAdminDashboardAddMember" class="list-group-item list-group-item-action">Add Member</a>
         <a href="SellingAdminDashboardBuyOrder" class="list-group-item list-group-item-action">Buy Order</a>
         <a href="SellingAdminDashboardSales" class="list-group-item list-group-item-action">Sales</a>
-        <a href="SellingAdminDashboardMatchedOrders" class="list-group-item list-group-item-action">Matced Orders</a>
+        <a href="SellingAdminDashboardMatchedOrders" class="list-group-item list-group-item-action">Matched Orders</a>
         <a href="SellingAdminDashboardFinalOrders" class="list-group-item list-group-item-action">Final Orders</a>
         <a href="SellingAdminDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated Orders</a>           
       </div>
     </div>
 
 
-    <div class="col-md-9">
-      <!-- Main content area -->
-      <h2 style="text-align: center;">Matched Orders Details</h2>
-    </div> 
+    <div class="container m-4" >
+      <h4 style="text-align: center;">Matched Orders Details</h4>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Matched Order No.</th>
+            <th>Buying Circle</th>
+            <th>Buyer</th>
+            <!-- <th>Buyer Email</th> -->
+            <th>Category</th>
+            <th>Product</th>
+            <th>Matched Sale ID</th>
+            <th>Seller Email</th>
+
+                      
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total Price</th>   
+          </tr>
+        </thead>
+        <tbody id="matchbody">
+          <!-- Table rows will be dynamically populated here -->
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      buildMatch()
+      async function buildMatch() {
+        const response = await fetch("/api/buyer/matchedorders")
+        const data = await response.json()
+        const matchedorders = data.orders
+
+        console.log(matchedorders)
+
+
+        for (let i = 0; i < matchedorders.length; i++) {
+          const users = matchedorders[i].order.users
+          console.log(users)
+          
+            for (let j = 0; j < users.length; j++) {
+            let row = `<tr>
+            <td>${i + 1}</td> 
+            <td>${matchedorders[i]}</td> 
+            <td>${matchedorders[i].order.circle}</td> 
+            <td>${matchedorders[i].users.name}</td> 
+            <td>${matchedorders[i].order.category}</td> 
+            <td>${matchedorders[i].order.product}</td> 
+            <td>${matchedorders[i].sale._id}</td> 
+            <td>${matchedorders[i].sale.selleremail}</td> 
+            <td>${matchedorders[i].users.price}</td>
+            <td>${matchedorders[i].users.quantity}</td>
+            <td>${matchedorders[i].users.totalprice}</td>
+              `
+            }
+            
+            
+         
+          matchbody.innerHTML += row
+
+         
+
+        }
+      }
+
+    </script> 
 
 </div>
 

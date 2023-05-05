@@ -36,17 +36,66 @@
         <a href="/TransportAdminDashboardAddMember" class="list-group-item list-group-item-action">Add Member</a>
         <a href="/TransportAdminDashboardBuyOrder" class="list-group-item list-group-item-action">Buy Order</a>
         <a href="/TransportAdminDashboardSales" class="list-group-item list-group-item-action">Sales</a>
-        <a href="/TransportAdminDashboardMatchedOrders" class="list-group-item list-group-item-action">Matced Orders</a>
+        <a href="/TransportAdminDashboardMatchedOrders" class="list-group-item list-group-item-action">Matched Orders</a>
         <a href="/TransportAdminDashboardFinalOrders" class="list-group-item list-group-item-action">Final Orders</a>
         <a href="/TransportAdminDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated Orders</a>        
       </div>
     </div>
 
 
-    <div class="col-md-9">
-      <!-- Main content area -->
-      <h2 style="text-align: center;">Matched Orders Details</h2>
-    </div> 
+    
+
+    <div class="container m-4" >
+      <h4 style="text-align: center;">Matched Orders Details</h4>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Id</th>
+            <th>Circle</th>
+            <th>Seller</th>
+            <th>Seller Email</th>
+            <th>Category</th>
+            <th>Product</th>
+            <th>Min Price</th>
+            <th>Min Order</th>
+            <th>Quantity</th>
+            
+          </tr>
+        </thead>
+        <tbody id="matchbody">
+          <!-- Table rows will be dynamically populated here -->
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      buildMatch()
+      async function buildMatch() {
+        const response = await fetch("/api/buyer/matchedorders")
+        const data = await response.json()
+        const matchedorders = data.matchedorders
+        console.log(matchedorders)
+        for (let i = 0; i < sales.length; i++) {
+          let row = `<tr>
+            <td>${i + 1}</td> 
+            <td>${sales[i]._id}</td> 
+            <td>${sales[i].circle}</td> 
+            <td>${sales[i].seller}</td> 
+            <td>${sales[i].selleremail}</td> 
+            <td>${sales[i].product.category}</td> 
+            <td>${sales[i].product.name}</td> 
+            <td>${sales[i].product.minprice}</td> 
+            <td>${sales[i].product.minorder}</td> 
+            <td>${sales[i].product.quantity}</td> 
+            </tr>
+          `
+          salesbody.innerHTML += row
+        }
+      }
+
+    </script>
+
 
 </div>
 

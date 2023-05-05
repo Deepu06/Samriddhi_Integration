@@ -5,7 +5,7 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 
 // 1-creating a buyorder
 exports.createBuyOrder = catchAsyncErrors(async (req, res, next) => {
-
+    // console.log("in fun");
     // const user = await BuyingCircleMembers.findOne({ email: req.body.email })
     // console.log(req.user);
     if (!req.user) {
@@ -55,6 +55,9 @@ exports.createBuyOrder = catchAsyncErrors(async (req, res, next) => {
     //         return next(new ErrorHandler(err));
     //     })
     // console.log(req.body);
+    // console.log(req.body);
+    // console.log(req.user);
+    // console.log(req.circle);
     const order = new BuyOrder()
     order.circleId = req.circle._id
     order.circle = req.circle.circlename
@@ -68,8 +71,11 @@ exports.createBuyOrder = catchAsyncErrors(async (req, res, next) => {
         order.product.maxprice = req.body.maxprice,
         order.product.quantity = req.body.quantity,
         await order.save()
+    // console.log(order);
+    // console.log(req.user);
     req.user.orders.push(order._id)
-    await req.user.save()
+    // await req.user.save()
+    // console.log(req.user);
     res.status(201).json({
         "message": "added buyOrder Successfully",
         order

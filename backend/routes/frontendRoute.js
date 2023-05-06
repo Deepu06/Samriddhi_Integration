@@ -202,7 +202,7 @@ router.route("/TransportAdminDashboardFinalOrders").get((req, res) => {
 })
 router.route("/TransportAdminDashboardAggregatedOrders").get((req, res) => {
     let path = process.cwd()
-    path = Path.join(path, "frontend", "Admin", "Buyer", "AggregatedOrders.html")
+    path = Path.join(path, "frontend", "Admin", "Transport", "AggregatedOrders.html")
     res.sendFile(path)
 })
 

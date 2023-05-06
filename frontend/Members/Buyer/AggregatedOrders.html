@@ -47,17 +47,40 @@
         </div>
       </div>
 
-
       <div class="col-md-9">
         <!-- Main content area -->
         <h2 style="text-align: center;">Aggregated Orders Details</h2>
         <!-- here -->
         <div class="container mt-5">
-          <h4>All Aggregated Orders from all Buying circles</h4>
+          <h4>All Aggregated Orders Details</h4>
+          <table class="table table-striped mt-4">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Aggregate Id</th>
+                <th>Circle</th>
+                <th>No Of Buyers</th>
+                <th>Category</th>
+                <th>Product</th>
+                <th>Total Qunatity</th>
+                <th>Price</th>
+                <th>Total Price</th>
+                <th>Is Delivered</th>
+              </tr>
+            </thead>
+            </thead>
+            <tbody id="aggregatebody">
+              <!-- Table rows will be dynamically populated here -->
+            </tbody>
+          </table>
+        </div>
+        <div class="container mt-5">
+          <h4>Detailed View of All Aggregated Orders from all Buying circles</h4>
           <table class="table table-striped mt-4">
             <thead>
               <tr>
                 <th>Aggregate No</th>
+                <th>Aggregate Id</th>
                 <th>Circle</th>
                 <th>Buyer</th>
                 <th>Buyer Email</th>
@@ -76,25 +99,50 @@
       </div>
 
     </div>
-    <script>
-      buildAggregateOrders()
-      async function buildAggregateOrders() {
-        const response = await fetch("/api/buyer/buyordersAggregate")
-        const data = await response.json()
-        const orders = data.Orders
-        // console.log(orders);
-        // console.log(data.Aggregated-Orders);
-        // const orders=data.Aggregated-Orders
-        // console.log(orders);
-        //   const members = data.circle[0].members
-        //   console.log(members);
-        for (let i = 0; i < orders.length; i++) {
-          // console.log(orders[i]);
-          const users = orders[i].users
-          // console.log(users);
-          for (let j = 0; j < users.length; j++) {
-            let row = `<tr>
+  </div>
+  <script>
+    buildAggregate()
+    async function buildAggregate() {
+      const response = await fetch("/api/buyer/buyordersAggregate")
+      const data = await response.json()
+      const orders = data.Orders
+      // console.log(orders);
+      for (let i = 0; i < orders.length; i++) {
+        // console.log(orders[i]);
+        // const users = orders[i].users
+        // console.log(users);
+        // for (let j = 0; j < users.length; j++) {
+        let row = `<tr>
           <td>${i + 1}</td> 
+          <td>${orders[i]._id}</td> 
+          <td>${orders[i].circle}</td> 
+          <td>${orders[i].users.length}</td> 
+          <td>${orders[i].category}</td> 
+          <td>${orders[i].product}</td> 
+          <td>${orders[i].quantity}</td> 
+          <td>${orders[i].price}</td> 
+          <td>${orders[i].totalprice}</td> 
+          <td>${orders[i].isDelivered}</td> 
+          </tr>
+        `
+        aggregatebody.innerHTML += row
+        // }
+      }
+    }
+    buildAggregateOrders()
+    async function buildAggregateOrders() {
+      const response = await fetch("/api/buyer/buyordersAggregate")
+      const data = await response.json()
+      const orders = data.Orders
+      // console.log(orders);
+      for (let i = 0; i < orders.length; i++) {
+        // console.log(orders[i]);
+        const users = orders[i].users
+        // console.log(users);
+        for (let j = 0; j < users.length; j++) {
+          let row = `<tr>
+          <td>${i + 1}</td> 
+          <td>${orders[i]._id}</td> 
           <td>${orders[i].circle}</td> 
           <td>${users[j].name}</td> 
           <td>${users[j].email}</td> 
@@ -103,15 +151,17 @@
           <td>${users[j].quantity}</td> 
           <td>${users[j].totalprice}</td> 
           <td>${orders[j].isDelivered}</td> 
-           
           </tr>
         `
-            aggregatedordersbody.innerHTML += row
-          }
+          aggregatedordersbody.innerHTML += row
         }
       }
+    }
 
-    </script>
+  </script>
+      
+
+
 </body>
 
 </html>

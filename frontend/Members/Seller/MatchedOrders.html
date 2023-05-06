@@ -51,9 +51,11 @@
       </div>
 
 
-      <div class="container m-4">
-        <h4 style="text-align: center;">Matched Orders Details</h4>
-        <table class="table table-striped">
+      <div class="col-md-9">
+        <h2 style="text-align: center;">Matched Orders Details</h2>
+
+        <div class="container mt-5">
+        <table class="table table-striped mt-4">
           <thead>
             <tr>
               <th>Matched Order No.</th>
@@ -76,11 +78,9 @@
           </tbody>
         </table>
       </div>
-      <div class="container">
+      <div class="container mt-5">
         <h4 style="text-align: center;">Sales Details</h4>
-      </div>
-      <div class="container ">
-        <table class="table table-striped">
+        <table class="table table-striped mt-4">
           <thead>
             <tr>
               <th>No.</th>
@@ -101,24 +101,25 @@
           </tbody>
         </table>
       </div>
-
+      </div>
     </div>
-    <script>
-      buildMatch()
-      async function buildMatch() {
-        const response = await fetch("/api/buyer/matchedorders")
-        const data = await response.json()
-        const matchedorders = data.orders
+  </div>
+  <script>
+    buildMatch()
+    async function buildMatch() {
+      const response = await fetch("/api/buyer/matchedorders")
+      const data = await response.json()
+      const matchedorders = data.orders
 
-        // console.log(matchedorders)
+      // console.log(matchedorders)
 
 
-        for (let i = 0; i < matchedorders.length; i++) {
-          const users = matchedorders[i].order.users
-          // console.log(users)
+      for (let i = 0; i < matchedorders.length; i++) {
+        const users = matchedorders[i].order.users
+        // console.log(users)
 
-          for (let j = 0; j < users.length; j++) {
-            let row = `<tr>
+        for (let j = 0; j < users.length; j++) {
+          let row = `<tr>
       <td>${i + 1}</td> 
       <td>${matchedorders[i].order.circle}</td> 
       <td>${users[j].name}</td> 
@@ -130,19 +131,19 @@
       <td>${users[j].quantity}</td> 
       <td>${users[j].totalprice}</td> 
         `
-            matchbody.innerHTML += row
-          }
+          matchbody.innerHTML += row
         }
       }
+    }
 
-      buildSales()
-      async function buildSales() {
-        const response = await fetch("/api/buyer/sales")
-        const data = await response.json()
-        const sales = data.sales
-        // console.log(sales)
-        for (let i = 0; i < sales.length; i++) {
-          let row = `<tr>
+    buildSales()
+    async function buildSales() {
+      const response = await fetch("/api/buyer/sales")
+      const data = await response.json()
+      const sales = data.sales
+      // console.log(sales)
+      for (let i = 0; i < sales.length; i++) {
+        let row = `<tr>
       <td>${i + 1}</td> 
       <td>${sales[i]._id}</td> 
       <td>${sales[i].circle}</td> 
@@ -155,11 +156,13 @@
       <td>${sales[i].product.quantity}</td> 
       </tr>
     `
-          salesbody.innerHTML += row
-        }
+        salesbody.innerHTML += row
       }
+    }
 
-    </script>
+  </script>
+
+
 </body>
 
 </html>

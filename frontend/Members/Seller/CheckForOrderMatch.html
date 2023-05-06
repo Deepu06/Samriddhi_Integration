@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Seller Dashboard</title>
   <meta charset="utf-8">
@@ -9,52 +10,202 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+
 <body>
 
-<!-- Navigation bar -->
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <a class="navbar-brand" href="#">Seller Dashboard</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Logout</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  <!-- Navigation bar -->
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <a class="navbar-brand" href="#">Seller Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-<!-- Main content -->
-<div class="container-fluid mt-3">
-  <div class="row">
-    <div class="col-md-2">
-      <!-- Sidebar menu -->
-      <div class="list-group">
-        <a href="/SellerDashboard" class="list-group-item list-group-item-action active">Dashboard</a>
+  <!-- Main content -->
+  <div class="container-fluid mt-3">
+    <div class="row">
+      <div class="col-md-2">
+        <!-- Sidebar menu -->
+        <div class="list-group">
+          <a href="/SellerDashboard" class="list-group-item list-group-item-action active">Dashboard</a>
           <a href="/SellerDashboardAnnounceSales" class="list-group-item list-group-item-action">Announce Sales</a>
           <a href="/SellerDashboardMySales" class="list-group-item list-group-item-action">My Sales</a>
-          <a href="/SellerDashboardAggregateBuyOrder" class="list-group-item list-group-item-action">Aggregate Buy Order</a>
-          <a href="/SellerDashboardCheckForOrderMatch" class="list-group-item list-group-item-action">Check for Order Match</a>
-          <a href="/SellerDashboardOrderConfirmation" class="list-group-item list-group-item-action">Order Confirmation</a>
+          <a href="/SellerDashboardAggregateBuyOrder" class="list-group-item list-group-item-action">Aggregate Buy
+            Order</a>
+          <a href="/SellerDashboardCheckForOrderMatch" class="list-group-item list-group-item-action">Check for Order
+            Match</a>
+          <a href="/SellerDashboardOrderConfirmation" class="list-group-item list-group-item-action">Order
+            Confirmation</a>
           <a href="/SellerDashboardNotifications" class="list-group-item list-group-item-action">Notifications</a>
 
           <a href="/SellerDashboardBuyOrders" class="list-group-item list-group-item-action">Buy Orders</a>
           <a href="/SellerDashboardSales" class="list-group-item list-group-item-action">Sales</a>
-          <a href="/SellerDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated Orders</a>
+          <a href="/SellerDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated
+            Orders</a>
           <a href="/SellerDashboardMatchedOrders" class="list-group-item list-group-item-action">Matched Orders</a>
-          <a href="/SellerDashboardFinalOrders" class="list-group-item list-group-item-action">Final Orders</a>       
+          <a href="/SellerDashboardFinalOrders" class="list-group-item list-group-item-action">Final Orders</a>
+        </div>
       </div>
+
+
+      <div class="col-md-9">
+        <!-- Main content area -->
+        <h2 style="text-align: center;">Check For Order Match</h2>
+        <!-- here -->
+        <div class="container mt-5">
+          <h4>All Aggregated Orders Details</h4>
+          <table class="table table-striped mt-4">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Aggregate Id</th>
+                <th>Circle</th>
+                <th>No Of Buyers</th>
+                <th>Category</th>
+                <th>Product</th>
+                <th>Total Qunatity</th>
+                <th>Price</th>
+                <th>Total Price</th>
+                <th>Is Delivered</th>
+              </tr>
+            </thead>
+            </thead>
+            <tbody id="aggregatebody">
+              <!-- Table rows will be dynamically populated here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+      <div class="container mt-5">
+        <h4 style="text-align: center;">My Sales</h4>
+        <table class="table table-striped mt-4">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Id</th>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Min Price</th>
+              <th>Max Price</th>
+              <th>Min Order</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody id="salesbody">
+            <!-- Table rows will be dynamically populated here -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="container mt-5">
+        <h4>Detailed View of All Aggregated Orders from all Buying circles</h4>
+        <table class="table table-striped mt-4">
+          <thead>
+            <tr>
+              <th>Aggregate No</th>
+              <th>Aggregate Id</th>
+              <th>Circle</th>
+              <th>Buyer</th>
+              <th>Buyer Email</th>
+              <th>Category</th>
+              <th>Product</th>
+              <th>Qunatity</th>
+              <th>Total Price</th>
+              <th>Is Delivered</th>
+            </tr>
+          </thead>
+          <tbody id="aggregatedordersbody">
+          </tbody>
+        </table>
+      </div>
+
     </div>
 
+    <script>
+      buildAggregate()
+      async function buildAggregate() {
+        const response = await fetch("/api/buyer/buyordersAggregate")
+        const data = await response.json()
+        const orders = data.Orders
+        for (let i = 0; i < orders.length; i++) {
+          let row = `<tr>
+          <td>${i + 1}</td> 
+          <td>${orders[i]._id}</td> 
+          <td>${orders[i].circle}</td> 
+          <td>${orders[i].users.length}</td> 
+          <td>${orders[i].category}</td> 
+          <td>${orders[i].product}</td> 
+          <td>${orders[i].quantity}</td> 
+          <td>${orders[i].price}</td> 
+          <td>${orders[i].totalprice}</td> 
+          <td>${orders[i].isDelivered}</td> 
+          </tr>
+        `
+          aggregatebody.innerHTML += row
+        }
+      }
 
-    <div class="col-md-9">
-      <!-- Main content area -->
-      <h2 style="text-align: center;">Check For Order Match</h2>
-    </div> 
+      buildSales()
+      async function buildSales() {
+        const response = await fetch("/api/seller/mysales")
+        const data = await response.json()
+        const sales = data.sales
+        for (let i = 0; i < sales.length; i++) {
+          let row = `<tr>
+            <td>${i + 1}</td> 
+            <td>${sales[i]._id}</td>  
+            <td>${sales[i].product.name}</td> 
+            <td>${sales[i].product.category}</td> 
+            <td>${sales[i].product.minprice}</td> 
+            <td>${sales[i].product.maxprice}</td> 
+            <td>${sales[i].product.minorder}</td> 
+            <td>${sales[i].product.quantity}</td> 
+            </tr>
+          `
+          salesbody.innerHTML += row
+        }
+      }
 
-</div>
+      buildAggregateOrders()
+      async function buildAggregateOrders() {
+        const response = await fetch("/api/buyer/buyordersAggregate")
+        const data = await response.json()
+        const orders = data.Orders
+        for (let i = 0; i < orders.length; i++) {
+          const users = orders[i].users
+          for (let j = 0; j < users.length; j++) {
+            let row = `<tr>
+          <td>${i + 1}</td> 
+          <td>${orders[i]._id}</td> 
+          <td>${orders[i].circle}</td> 
+          <td>${users[j].name}</td> 
+          <td>${users[j].email}</td> 
+          <td>${orders[i].category}</td> 
+          <td>${orders[i].product}</td> 
+          <td>${users[j].quantity}</td> 
+          <td>${users[j].totalprice}</td> 
+          <td>${orders[j].isDelivered}</td> 
+          </tr>
+        `
+            aggregatedordersbody.innerHTML += row
+          }
+        }
+      }
+
+
+    </script>
+
+  </div>
 
 </body>
+
 </html>

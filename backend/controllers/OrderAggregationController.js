@@ -8,10 +8,12 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 
 exports.createAggregation = catchAsyncErrors(async (req, res, next) => {
     // console.log(req.body);
+    req.body.price = 55
     const Order = new BuyOrdersAggregation()
-    const products = req.body.id
+    const products = req.body.ids
+    // console.log(products);
     const order0 = await BuyOrders.findById(products[0])
-    // console.log(order);
+    // // console.log(order);
     Order.circle = order0.circle
     Order.buyingcircle = order0.circleId
     Order.product = order0.product.name
@@ -49,7 +51,7 @@ exports.createAggregation = catchAsyncErrors(async (req, res, next) => {
                 // console.log(obj);
                 Order.users.push(obj)
                 // console.log(obj);
-                console.log(Order.users);
+                // console.log(Order.users);
                 --counter
                 // condition to resolve promise i.e if all the user details are updated in user arrray only then resolve and save ORDER document
                 if (counter == 0) return resolve("success")
@@ -71,6 +73,7 @@ exports.createAggregation = catchAsyncErrors(async (req, res, next) => {
             Order
         })
     }).catch((error) => {
+        // console.log(error);
         return next(new ErrorHandler(error))
     })
 })

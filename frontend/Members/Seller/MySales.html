@@ -55,16 +55,64 @@
       </div>
 
 
-      <div class="col-md-9">
-        <!-- Main content area -->
-        <h2 style="text-align: center;">My Sales</h2>
+      <div class="container m-4">
+        <h4 style="text-align: center;">My Sales</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Id</th>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Min Price</th>
+              <th>Max Price</th>
+              <th>Min Order</th>
+              <th>Quantity</th>
+
+            </tr>
+          </thead>
+          <tbody id="salesbody">
+            <!-- Table rows will be dynamically populated here -->
+          </tbody>
+        </table>
       </div>
 
     </div>
 
+
+   
+
+
+
     <script>
-      // async 
+      buildSales()
+      async function buildSales() {
+        const response = await fetch("/api/seller/mysales")
+        const data = await response.json()
+        const sales = data.sales
+        // console.log(sales)
+        for (let i = 0; i < sales.length; i++) {
+          let row = `<tr>
+            <td>${i + 1}</td> 
+            <td>${sales[i]._id}</td>  
+            <td>${sales[i].product.name}</td> 
+            <td>${sales[i].product.category}</td> 
+            <td>${sales[i].product.minprice}</td> 
+            <td>${sales[i].product.maxprice}</td> 
+            <td>${sales[i].product.minorder}</td> 
+            <td>${sales[i].product.quantity}</td> 
+            </tr>
+          `
+          salesbody.innerHTML += row
+        }
+      }
+
     </script>
+
+
+
+  </div>
+
 </body>
 
 </html>

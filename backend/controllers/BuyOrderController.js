@@ -74,7 +74,7 @@ exports.createBuyOrder = catchAsyncErrors(async (req, res, next) => {
     // console.log(order);
     // console.log(req.user);
     req.user.orders.push(order._id)
-    // await req.user.save()
+    await req.user.save()
     // console.log(req.user);
     res.status(201).json({
         "message": "added buyOrder Successfully",

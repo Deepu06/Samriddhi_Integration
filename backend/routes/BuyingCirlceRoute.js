@@ -21,7 +21,7 @@ const { createBuyOrder, getAllOrders } = require("../controllers/BuyOrderControl
 const { createCart, updateCart, updateCartAddItems } = require("../controllers/CartController");
 const { getSales } = require("../controllers/SaleController");
 const { isAuthenticatedUser, isAdmin, isValiduser } = require("../middleware/auth");
-const { createAggregation, getAggregatedOrders } = require("../controllers/OrderAggregationController");
+const { createAggregation, getAggregatedOrders, getAggregatedOrderById } = require("../controllers/OrderAggregationController");
 const { orderMatch, getOrders, confirmOrder, isOrderConfirmed, getMatchedOrders, buyerConfirmOrder } = require("../controllers/OrderMatchController");
 const { getAllFinalOrders } = require("../controllers/FinalOrderController");
 const router = express.Router();
@@ -38,7 +38,7 @@ router.route("/login").post(Login)
 router.route("/logout").get(Logout)
 router.get("/me", isAuthenticatedUser, getMyDetails);
 router.get("/myorders", isAuthenticatedUser, getMyOrders);
-router.route("/mydeliveredorders").get(isAuthenticatedUser,myDeliveredOrders)
+router.route("/mydeliveredorders").get(isAuthenticatedUser, myDeliveredOrders)
 router.route("/me/update").put(isAuthenticatedUser, updateProfile);
 
 router.post("/password/forgot", forgotPassword);
@@ -62,6 +62,12 @@ router.route("/buyorders").post(isAuthenticatedUser, createBuyOrder).get(getAllO
 // Aggregation of a single type product, for multiple users.. i/p - array of buyOrders id..
 // here there is aggregation happens only for one type of product at once
 router.route("/buyordersAggregate").post(isAuthenticatedUser, createAggregation).get(getAggregatedOrders)
+
+
+// getting a single aggregatedOrder by its id
+router.route("/getaggregateorder/:id").get(getAggregatedOrderById)
+
+
 
 // Checking for order match of Aggregated order with sale,,  for quantity and price match and place order and update sale cart qunatity
 // Checking orderMatch and placing order.

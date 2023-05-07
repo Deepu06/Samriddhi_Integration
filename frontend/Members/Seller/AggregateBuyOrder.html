@@ -64,8 +64,7 @@
           <button type=" button" class="btn btn-primary" onclick="getCheckBox()">
           Click to Aggregate orders
           </button>
-          <input type="number" name="price" id="price" placeholder="Enter aggregate price" step="1"
-            min="0" required />
+          <input type="number" name="price" id="price" placeholder="Enter aggregate price" step="1" min="0" required />
           <div class=" container mt-5">
             <table class="table table-striped ">
               <thead>
@@ -94,6 +93,7 @@
       </div>
 
     </div>
+  </div>
     <script>
       buildOrders()
       async function buildOrders() {
@@ -122,55 +122,55 @@
         }
       }
       function getCheckBox() {
-        var price=document.getElementById("price").value;
-        if (price === null || price === ""){ 
+        var price = document.getElementById("price").value;
+        if (price === null || price === "") {
           alert("Please enter one common aggregate price");
-        }else{
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        let ids = []
-        checkboxes.forEach((checkbox) => {
-          // checkbox.addEventListener('change', () => {
-          if (checkbox.checked) {
-            const row = checkbox.closest('tr');
-            const columns = row.querySelectorAll('td');
-            // console.log(columns[2].innerText);
-            ids.push(columns[2].innerText)
-          }
-          // });
-        });
-        // console.log(ids);
-        // console.log(input);
-        if(ids.length<2){
-          alert("please select atleast 2 buyorders to aggreate");
-        }
-        // Send authentication request to backend server
-        fetch('/api/seller/buyordersAggregate', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            ids: ids,
-            price:price
-          })
-        })
-          .then(response => {
-            if (response.ok) {
-              // Authentication succeeded, redirect to dashboard page
-              alert("These Buy Orders are Successfully Aggregated into a Single Aggregated Order.")
-              window.location.href = "/SellerDashboardAggregateBuyOrder";
-            } else {
-              // Authentication failed, show error message
-              alert('All Products Should be off Same Category to Aggregate!');
-              // console.log(response);
+        } else {
+          const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+          let ids = []
+          checkboxes.forEach((checkbox) => {
+            // checkbox.addEventListener('change', () => {
+            if (checkbox.checked) {
+              const row = checkbox.closest('tr');
+              const columns = row.querySelectorAll('td');
+              // console.log(columns[2].innerText);
+              ids.push(columns[2].innerText)
             }
-          })
-          .catch(error => {
-            console.error('Error:', error);
-            alert(`An error occurred \n${error}`);
+            // });
           });
+          // console.log(ids);
+          // console.log(input);
+          if (ids.length < 2) {
+            alert("please select atleast 2 buyorders to aggreate");
+          }
+          // Send authentication request to backend server
+          fetch('/api/seller/buyordersAggregate', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              ids: ids,
+              price: price
+            })
+          })
+            .then(response => {
+              if (response.ok) {
+                // Authentication succeeded, redirect to dashboard page
+                alert("These Buy Orders are Successfully Aggregated into a Single Aggregated Order.")
+                window.location.href = "/SellerDashboardAggregateBuyOrder";
+              } else {
+                // Authentication failed, show error message
+                alert('All Products Should be off Same Category to Aggregate!');
+                // console.log(response);
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert(`An error occurred \n${error}`);
+            });
+        }
       }
-    }
 
     </script>
 </body>

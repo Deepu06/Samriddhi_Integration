@@ -78,7 +78,7 @@ exports.createAggregation = catchAsyncErrors(async (req, res, next) => {
             });
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
             return next(new ErrorHandler(error));
         });
 });

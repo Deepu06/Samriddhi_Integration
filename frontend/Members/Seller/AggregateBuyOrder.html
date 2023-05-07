@@ -94,16 +94,16 @@
 
     </div>
   </div>
-    <script>
-      buildOrders()
-      async function buildOrders() {
-        const response = await fetch("/api/buyer/buyorders")
-        const data = await response.json()
-        const orders = data.orders
-        // console.log(data);
-        // console.log(orders);
-        for (let i = 0; i < orders.length; i++) {
-          let row = `<tr>
+  <script>
+    buildOrders()
+    async function buildOrders() {
+      const response = await fetch("/api/buyer/buyorders")
+      const data = await response.json()
+      const orders = data.orders
+      // console.log(data);
+      // console.log(orders);
+      for (let i = 0; i < orders.length; i++) {
+        let row = `<tr>
           <td><input type="checkbox" name="subscribe" value="1"></td>
           <td>${i + 1}</td> 
           <td>${orders[i]._id}</td> 
@@ -118,32 +118,31 @@
            
           </tr>
         `
-          ordersbody.innerHTML += row
-        }
+        ordersbody.innerHTML += row
       }
-      function getCheckBox() {
-        var price = document.getElementById("price").value;
-        if (price === null || price === "") {
-          alert("Please enter one common aggregate price");
-        } else {
-          const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-          let ids = []
-          checkboxes.forEach((checkbox) => {
-            // checkbox.addEventListener('change', () => {
-            if (checkbox.checked) {
-              const row = checkbox.closest('tr');
-              const columns = row.querySelectorAll('td');
-              // console.log(columns[2].innerText);
-              ids.push(columns[2].innerText)
-            }
-            // });
-          });
-          // console.log(ids);
-          // console.log(input);
-          if (ids.length < 2) {
-            alert("please select atleast 2 buyorders to aggreate");
+    }
+    function getCheckBox() {
+      var ele = document.getElementById("price")
+      var price = document.getElementById("price").value;
+      if (price === null || price === "") {
+        alert("Please enter one common aggregate price");
+      }
+      else {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        let ids = []
+        checkboxes.forEach((checkbox) => {
+          if (checkbox.checked) {
+            const row = checkbox.closest('tr');
+            const columns = row.querySelectorAll('td');
+            ids.push(columns[2].innerText)
           }
-          // Send authentication request to backend server
+        });
+        if (ids.length < 2) {
+          alert("please select atleast 2 buyorders to aggreate");
+          ele.value = ""
+        }
+        // Send authentication request to backend server
+        else {
           fetch('/api/seller/buyordersAggregate', {
             method: 'POST',
             headers: {
@@ -162,6 +161,7 @@
               } else {
                 // Authentication failed, show error message
                 alert('All Products Should be off Same Category to Aggregate!');
+                ele.value = ""
                 // console.log(response);
               }
             })
@@ -171,8 +171,9 @@
             });
         }
       }
+    }
 
-    </script>
+  </script>
 </body>
 
 </html>

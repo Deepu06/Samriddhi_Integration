@@ -14,7 +14,8 @@ const { registerCirlce,
     updateProfile,
     getMyOrders,
     getAllBuyingCircles,
-    getAllBuyingNotifications
+    getAllBuyingNotifications,
+    myDeliveredOrders
 } = require("../controllers/BuyingCirlceController");
 const { createBuyOrder, getAllOrders } = require("../controllers/BuyOrderController");
 const { createCart, updateCart, updateCartAddItems } = require("../controllers/CartController");
@@ -37,6 +38,7 @@ router.route("/login").post(Login)
 router.route("/logout").get(Logout)
 router.get("/me", isAuthenticatedUser, getMyDetails);
 router.get("/myorders", isAuthenticatedUser, getMyOrders);
+router.route("/mydeliveredorders").get(isAuthenticatedUser,myDeliveredOrders)
 router.route("/me/update").put(isAuthenticatedUser, updateProfile);
 
 router.post("/password/forgot", forgotPassword);

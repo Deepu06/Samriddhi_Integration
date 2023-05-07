@@ -5,6 +5,7 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ErrorHandler = require("../utils/errorhandler")
 const sendToken = require("../utils/jwtToken");
 const crypto = require("crypto");
+const BuyOrderModel = require("../models/BuyOrderModel");
 
 // Register a Circle
 exports.registerCirlce = catchAsyncErrors(async (req, res, next) => {
@@ -47,7 +48,7 @@ exports.registerCirlceMember = catchAsyncErrors(async (req, res, next) => {
     await req.circle.save();
     // sendToken(user, 201, res);
     res.status(200).json({
-        message:"Added user to circle successfully",
+        message: "Added user to circle successfully",
         user
     })
 
@@ -327,4 +328,18 @@ exports.getAllBuyingNotifications = catchAsyncErrors(async (req, res, next) => {
     res.status(200).json({
         myNotifiactions
     })
+})
+
+
+// get all my delivered orders...
+exports.myDeliveredOrders = catchAsyncErrors(async (req, res, next) => {
+    // console.log(req.user);
+
+    const deliveredOrders = await BuyOrderModel.find({ buyerId: req.user._id, isDelivered: true })
+    res.status(200).json({
+        deliveredOrders
+    })
+
+
+
 })

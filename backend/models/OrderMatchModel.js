@@ -21,9 +21,9 @@ const orderMatchSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: "TransportCircleMembers"
     },
-    isDelivered:{
-        type:Boolean,
-        default:false
+    isDelivered: {
+        type: Boolean,
+        default: false
     }
 
 }, { timestamps: true })

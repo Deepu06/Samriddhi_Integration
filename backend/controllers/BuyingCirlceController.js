@@ -324,7 +324,7 @@ exports.getAllBuyingCircles = catchAsyncErrors(async (req, res, next) => {
 
 // getting all the order notifications to confirm the order.
 exports.getAllBuyingNotifications = catchAsyncErrors(async (req, res, next) => {
-    const myNotifiactions = await Notifications.find({ buyer: req.user._id, isSelected: false, type: "order" })
+    const myNotifiactions = await Notifications.find({ buyer: req.user._id, isSelected: false, type: "order" }).populate("order").populate("buyorderId").populate("saleId")
     res.status(200).json({
         myNotifiactions
     })
@@ -339,7 +339,4 @@ exports.myDeliveredOrders = catchAsyncErrors(async (req, res, next) => {
     res.status(200).json({
         deliveredOrders
     })
-
-
-
 })

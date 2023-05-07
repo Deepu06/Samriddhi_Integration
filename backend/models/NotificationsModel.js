@@ -26,7 +26,17 @@ const NotificationsSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
         required: true
+    },
+    "buyorderId": {
+        type: mongoose.Schema.ObjectId,
+        ref: "BuyOrder"
+    },
+    "saleId": {
+        type: mongoose.Schema.ObjectId,
+        ref: "Sale"
     }
+
+
 }, {
     timestamps: true
 })

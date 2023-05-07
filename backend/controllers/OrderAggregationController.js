@@ -84,3 +84,9 @@ exports.getAggregatedOrders = catchAsyncErrors(async (req, res, next) => {
     res.status(200).json({ "Orders": allOrders })
 })
 
+// getting an Aggregated Order by
+exports.getAggregatedOrderById = catchAsyncErrors(async (req, res, next) => {
+    const id = req.params.id
+    const aggregatedOrder = await BuyOrdersAggregation.findById(id)
+    res.status(200).json({ aggregatedOrder })
+})

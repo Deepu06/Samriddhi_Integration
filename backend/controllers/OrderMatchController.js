@@ -40,12 +40,14 @@ exports.orderMatch = catchAsyncErrors(async (req, res, next) => {
     // console.log(order.users.length);
     // await newOrder.save()
 
+    // start
     newOrder.users.push(sale.sellerId)
     await newOrder.save()
     const notification = new Notifications()
     notification.type = "order"
     notification.seller = sale.sellerId
     notification.order = newOrder
+    notification.saleId = sale._id
     await notification.save()
     async function fun() {
         let users = order.users
@@ -60,6 +62,10 @@ exports.orderMatch = catchAsyncErrors(async (req, res, next) => {
                 notification.buyer = element.reference
                 notification.seller = sale.sellerId
                 notification.order = newOrder
+                notification.buyorderId = element.buyorderid
+                notification.saleId = sale._id
+                // console.log(element.buyorderid);
+                // console.log("sale is ", sale._id);
                 await notification.save()
                 counter--
                 if (counter == 0) return resolve("success")
@@ -90,6 +96,35 @@ exports.orderMatch = catchAsyncErrors(async (req, res, next) => {
     }).catch((error) => {
         return next(new ErrorHandler(error))
     })
+    // end
+
+    // fun()
+    // async function fun() {
+    //     let users = order.users
+    //     let counter = users.length
+    //     await new Promise(async (resolve, reject) => {
+    //         (users.forEach(async (element) => {
+
+    //             // console.log(element);
+    //             // newOrder.users.push(element.reference)
+    //             // const notification = new Notifications()
+    //             // notification.type = "order"
+    //             // notification.buyer = element.reference
+    //             // notification.seller = sale.sellerId
+    //             // notification.order = newOrder
+    //             // await notification.save()
+    //             console.log(element.buyorderid);
+    //             console.log("sale is ", sale._id);
+    //             counter--
+    //             if (counter == 0) return resolve("success")
+    //         })
+    //         )
+    //     }
+    //     )
+    // }
+
+
+    // end2
 
     // sale.product.quantity -= order.quantity
     // await sale.save()

@@ -46,10 +46,20 @@
       <h2 style="text-align: center;">Final Orders Details</h2>
       <!-- here -->
       <div class="container mt-5">
-        <h4>All Final Orders</h4>
+        
+        <div>
+        <button type=" button" class="btn btn-info" onclick="getCheckBox()">
+          Request
+        </button>
+        <!-- <span>Select Final Order(s) and click Request to send Transport Order Request to Seller.</span> -->
+        <div>Please select the Final order(s) that you wish to proceed with and click on the "Request" button. </div>
+          <span>This will initiate the process of communicating your request to the Seller.</span>
+      </div>
+          <h4 style="margin-top: 2%;">All Final Orders</h4>
         <table class="table table-striped mt-4">
           <thead>
             <tr>
+              <th>Click</th>
               <th>No</th>
               <th>order Id</th>
               <th>Circle</th>
@@ -117,6 +127,7 @@
         status = "Yes"
       }
       let row = `<tr>
+        <td><input type="checkbox" name="subscribe" value="1"></td>
         <td>${i + 1}</td> 
         <td>${orders[i]._id}</td> 
         <td>${orders[i].order.circle}</td> 
@@ -173,6 +184,56 @@
       }
     }
   }
+
+  function getCheckBox() {
+      
+       
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        let ids = []
+        checkboxes.forEach((checkbox) => {
+          if (checkbox.checked) {
+            const row = checkbox.closest('tr');
+            const columns = row.querySelectorAll('td');
+            ids.push(columns[2].innerText)
+          }
+        });
+        if (ids.length < 1) {
+          alert("Please select Order(s)");
+          ele.value = ""
+        }
+          console.log(ids)
+
+        // Send authentication request to backend server
+        // else {
+        //   fetch('/api/seller/buyordersAggregate', {
+        //     method: 'POST',
+        //     headers: {
+        //       'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //       ids: ids,
+        //       price: price
+        //     })
+        //   })
+        //     .then(response => {
+        //       if (response.ok) {
+        //         // Authentication succeeded, redirect to dashboard page
+        //         alert("These Buy Orders are Successfully Aggregated into a Single Aggregated Order.")
+        //         window.location.href = "/SellerDashboardAggregateBuyOrder";
+        //       } else {
+        //         // Authentication failed, show error message
+        //         alert('All Products Should be off Same Category to Aggregate!');
+        //         ele.value = ""
+        //         // console.log(response);
+        //       }
+        //     })
+        //     .catch(error => {
+        //       console.error('Error:', error);
+        //       alert(`An error occurred \n${error}`);
+        //     });
+        // }
+      
+    }
 
 </script>
 

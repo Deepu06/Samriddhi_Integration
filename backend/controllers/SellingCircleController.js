@@ -342,7 +342,7 @@ exports.transportNotifictaions = catchAsyncErrors(async (req, res, next) => {
 
 // getting all the order notifications to confirm the order.
 exports.getAllBuyingNotifications = catchAsyncErrors(async (req, res, next) => {
-    const myNotifiactions = await Notifications.find({ seller: req.user._id, isSelected: false, type: "order" })
+    const myNotifiactions = await Notifications.find({ seller: req.user._id, isSelected: false, type: "order" }).populate("saleId").populate("order")
     res.status(200).json({
         myNotifiactions
     })

@@ -85,7 +85,7 @@ router.route("/isorderconfirmed/:id").get(isOrderConfirmed)
 // placing final order by seller
 // this is final order which reduces the stock and proceeds to the next phase of transport and delivery to the buyers..
 // ** post request
-router.route("/placeorder/:id").post(isSAuthenticatedUser, isValiduser, isOrderValidConfirmed, placeOrder)
+router.route("/placeorder/:id").post(isSAuthenticatedUser, isOrderValidConfirmed, placeOrder)
 
 //  to get all final orders
 router.route("/orders").get(getAllFinalOrders)

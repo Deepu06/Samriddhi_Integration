@@ -59,11 +59,17 @@
               <b>
                 These Notifications are Being Displayed Because, Seller has Aggregated Your Request and ,Order Match is
                 Succefully Done <br>Kindly Confirm These Requests for confirmation from your side , For placinng Final
-                Order By Seller.
+                Order By Seller. <br><br>
+                <i>Note</i> <b>You can Only Confirm one product at a time ,So select only select one checkbox at a
+                  time</b>
               </b>
             </p>
           </div>
           <br>
+          <button type=" button" class="btn btn-primary" onclick="getCheckBox()">
+            Click to Confirm this Notification
+          </button>
+          <br><br>
           <table class="table table-striped">
             <thead>
               <tr>
@@ -89,6 +95,49 @@
 
     </div>
     <script>
+
+      async function getCheckBox() {
+        // alert("clicked")
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        let ids = []
+        checkboxes.forEach((checkbox) => {
+          if (checkbox.checked) {
+            const row = checkbox.closest('tr');
+            const columns = row.querySelectorAll('td');
+            ids.push(columns[2].innerText)
+          }
+        });
+        // console.log(ids);
+        if (ids.length < 1) {
+          alert("Please Select one Notification to confirm")
+        }
+        else if (ids.length > 1) {
+          alert("Please Select Only one Notification to confirm, Not more than once.")
+        }
+        else {
+          const id = ids[0]
+          console.log(id);
+          fetch(`/api/buyer/confirmorder/${id}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+            .then(response => {
+              if (response.ok) {
+                // Authentication succeeded, redirect to dashboard page
+                alert("Your Confirmation For this Order is Successfully Recorded, Now Seller will place Final Order and ready for delivery")
+                window.location.href = "/BuyerDashboardNotifications";
+              } else {
+                alert('An Error Ocuured Please Try Again!');
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert(`An error occurred \n${error}`);
+            });
+        }
+      }
       buildNotifications()
       async function buildNotifications() {
         const response = await fetch("/api/buyer/mynotifications")
@@ -100,6 +149,7 @@
           const d = await agg.json()
           const dd = d.aggregatedOrder
           let row = `
+          <td><input type="checkbox" name="subscribe" value="1"></td>
                   <td>${i + 1}</td>
                   <td>${notifications[i]._id}</td>
                   <td>${notifications[i].buyorderId.product.category}</td>

@@ -162,12 +162,14 @@
                 // Authentication failed, show error message
                 alert('All Products Should be off Same Category to Aggregate!');
                 ele.value = ""
+                window.location.href = "/SellerDashboardAggregateBuyOrder";
                 // console.log(response);
               }
             })
             .catch(error => {
               console.error('Error:', error);
               alert(`An error occurred \n${error}`);
+              window.location.href = "/SellerDashboardAggregateBuyOrder";
             });
         }
       }

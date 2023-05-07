@@ -98,30 +98,7 @@ exports.orderMatch = catchAsyncErrors(async (req, res, next) => {
     })
     // end
 
-    // fun()
-    // async function fun() {
-    //     let users = order.users
-    //     let counter = users.length
-    //     await new Promise(async (resolve, reject) => {
-    //         (users.forEach(async (element) => {
 
-    //             // console.log(element);
-    //             // newOrder.users.push(element.reference)
-    //             // const notification = new Notifications()
-    //             // notification.type = "order"
-    //             // notification.buyer = element.reference
-    //             // notification.seller = sale.sellerId
-    //             // notification.order = newOrder
-    //             // await notification.save()
-    //             console.log(element.buyorderid);
-    //             console.log("sale is ", sale._id);
-    //             counter--
-    //             if (counter == 0) return resolve("success")
-    //         })
-    //         )
-    //     }
-    //     )
-    // }
 
 
     // end2
@@ -153,9 +130,14 @@ exports.getMatchedOrders = catchAsyncErrors(async (req, res, next) => {
 // 3- to confirm order match by a seller and all buyers (associated with the sale) for finalising the order
 // and finally the order is confirmed by both buyers and sellers then proceed to next phase of placing final order
 exports.buyerConfirmOrder = catchAsyncErrors(async (req, res, next) => {
-    // console.log("inorder");
+    // console.log("in buyer cofirm order");
     const id = req.params.id
-    const confirmorder = await ConfirmOrder.findOne({ order: id })
+    const notification = await Notifications.findById(id)
+    // console.log(notification);
+    const cid = notification.order
+    // const confirmorder = await ConfirmOrder.findById(cid)
+    const confirmorder = await ConfirmOrder.findOne({ order: cid })
+    // console.log(confirmorder);
     // console.log(req.user._id);
     // console.log(confirmorder.users.includes(req.user._id));
 
@@ -164,7 +146,6 @@ exports.buyerConfirmOrder = catchAsyncErrors(async (req, res, next) => {
         confirmorder.users.push(req.user._id)
         confirmorder.counter += 1
         await confirmorder.save()
-        const notification = await Notifications.findOne({ buyer: req.user._id, type: "order", isSelected: false, order: id })
         notification.isSelected = true
         await notification.save()
         res.status(200).json({
@@ -172,13 +153,14 @@ exports.buyerConfirmOrder = catchAsyncErrors(async (req, res, next) => {
             success: true
         })
     } else {
+        console.log("done");
         res.status(200).json({
             message: `Dear ${name} You have already confirmed your order`
         })
     }
 })
 exports.sellerConfirmOrder = catchAsyncErrors(async (req, res, next) => {
-    // console.log("inorder");
+    // console.log("confirm inorder");
     const id = req.params.id
     const confirmorder = await ConfirmOrder.findOne({ order: id })
     // console.log(req.user._id);

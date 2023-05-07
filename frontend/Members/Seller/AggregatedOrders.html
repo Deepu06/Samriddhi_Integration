@@ -37,14 +37,18 @@
           <a href="/SellerDashboard" class="list-group-item list-group-item-action active">Dashboard</a>
           <a href="/SellerDashboardAnnounceSales" class="list-group-item list-group-item-action">Announce Sales</a>
           <a href="/SellerDashboardMySales" class="list-group-item list-group-item-action">My Sales</a>
-          <a href="/SellerDashboardAggregateBuyOrder" class="list-group-item list-group-item-action">Aggregate Buy Order</a>
-          <a href="/SellerDashboardCheckForOrderMatch" class="list-group-item list-group-item-action">Check for Order Match</a>
-          <a href="/SellerDashboardOrderConfirmation" class="list-group-item list-group-item-action">Order Confirmation</a>
+          <a href="/SellerDashboardAggregateBuyOrder" class="list-group-item list-group-item-action">Aggregate Buy
+            Order</a>
+          <a href="/SellerDashboardCheckForOrderMatch" class="list-group-item list-group-item-action">Check for Order
+            Match</a>
+          <a href="/SellerDashboardOrderConfirmation" class="list-group-item list-group-item-action">Order
+            Confirmation</a>
           <a href="/SellerDashboardNotifications" class="list-group-item list-group-item-action">Notifications</a>
 
           <a href="/SellerDashboardBuyOrders" class="list-group-item list-group-item-action">Buy Orders</a>
           <a href="/SellerDashboardSales" class="list-group-item list-group-item-action">Sales</a>
-          <a href="/SellerDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated Orders</a>
+          <a href="/SellerDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated
+            Orders</a>
           <a href="/SellerDashboardMatchedOrders" class="list-group-item list-group-item-action">Matched Orders</a>
           <a href="/SellerDashboardFinalOrders" class="list-group-item list-group-item-action">Final Orders</a>
         </div>
@@ -78,6 +82,7 @@
             </tbody>
           </table>
         </div>
+        
         <div class="container mt-5">
           <h4>Detailed View of All Aggregated Orders from all Buying circles</h4>
           <table class="table table-striped mt-4">
@@ -101,7 +106,6 @@
           </table>
         </div>
       </div>
-
     </div>
   </div>
   <script>
@@ -110,12 +114,7 @@
       const response = await fetch("/api/buyer/buyordersAggregate")
       const data = await response.json()
       const orders = data.Orders
-      // console.log(orders);
       for (let i = 0; i < orders.length; i++) {
-        // console.log(orders[i]);
-        // const users = orders[i].users
-        // console.log(users);
-        // for (let j = 0; j < users.length; j++) {
         let row = `<tr>
           <td>${i + 1}</td> 
           <td>${orders[i]._id}</td> 
@@ -130,7 +129,6 @@
           </tr>
         `
         aggregatebody.innerHTML += row
-        // }
       }
     }
     buildAggregateOrders()
@@ -138,11 +136,8 @@
       const response = await fetch("/api/buyer/buyordersAggregate")
       const data = await response.json()
       const orders = data.Orders
-      // console.log(orders);
       for (let i = 0; i < orders.length; i++) {
-        // console.log(orders[i]);
         const users = orders[i].users
-        // console.log(users);
         for (let j = 0; j < users.length; j++) {
           let row = `<tr>
           <td>${i + 1}</td> 
@@ -163,7 +158,7 @@
     }
 
   </script>
-      
+
 
 </body>
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 
+
 <head>
   <title>Seller Dashboard</title>
   <meta charset="utf-8">
@@ -59,10 +60,12 @@
         <!-- Main content area -->
         <h2 style="text-align: center;">Buy Order Details</h2>
         <hr>
-        <h4 style="text-align: center; margin-top: 1em;" ">Buy Order Requests From Users Of All Circle</h2>
+        <h2 style="text-align: center; margin-top: 1em;" ">Buy Order Requests From Users Of All Circle</h2>
           <button type=" button" class="btn btn-primary" onclick="getCheckBox()">
           Click to Aggregate orders
           </button>
+          <input type="number" name="price" id="price" placeholder="Enter aggregate price" step="1"
+            min="0" required />
           <div class=" container mt-5">
             <table class="table table-striped ">
               <thead>
@@ -119,6 +122,10 @@
         }
       }
       function getCheckBox() {
+        var price=document.getElementById("price").value;
+        if (price === null || price === ""){ 
+          alert("Please enter one common aggregate price");
+        }else{
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
         let ids = []
         checkboxes.forEach((checkbox) => {
@@ -132,6 +139,10 @@
           // });
         });
         // console.log(ids);
+        // console.log(input);
+        if(ids.length<2){
+          alert("please select atleast 2 buyorders to aggreate");
+        }
         // Send authentication request to backend server
         fetch('/api/seller/buyordersAggregate', {
           method: 'POST',
@@ -139,7 +150,8 @@
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            ids: ids
+            ids: ids,
+            price:price
           })
         })
           .then(response => {
@@ -158,7 +170,9 @@
             alert(`An error occurred \n${error}`);
           });
       }
+    }
 
     </script>
 </body>
+
 </html>

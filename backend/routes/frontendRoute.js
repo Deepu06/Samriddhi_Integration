@@ -270,9 +270,14 @@ router.route("/SellerDashboardOrderConfirmation").get((req, res) => {
     path = Path.join(path, "frontend", "Members", "Seller", "OrderConfirmation.html")
     res.sendFile(path)
 })
-router.route("/SellerDashboardNotifications").get((req, res) => {
+router.route("/SellerDashboardBuyOrderNotifications").get((req, res) => {
     let path = process.cwd()
-    path = Path.join(path, "frontend", "Members", "Seller", "Notifications.html")
+    path = Path.join(path, "frontend", "Members", "Seller", "BuyOrderNotifications.html")
+    res.sendFile(path)
+})
+router.route("/SellerDashboardTransportOrderNotifications").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Seller", "TransportOrderNotifications.html")
     res.sendFile(path)
 })
 

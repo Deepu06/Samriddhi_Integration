@@ -349,6 +349,11 @@ router.route("/BuyerDashboardFinalOrders").get((req, res) => {
     path = Path.join(path, "frontend", "Members", "Buyer", "FinalOrders.html")
     res.sendFile(path)
 })
+router.route("/BuyerDashboardOrderFulfillment").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Buyer", "OrderFulfillment.html")
+    res.sendFile(path)
+})
 
 
 //Routing for Transporter Dashboard pages

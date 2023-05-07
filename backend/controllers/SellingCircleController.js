@@ -334,10 +334,10 @@ exports.getAllSellingCircles = catchAsyncErrors(async (req, res, next) => {
 // getting all the transport notifications of a seller
 exports.transportNotifictaions = catchAsyncErrors(async (req, res, next) => {
     // console.log(req.user);
-    const notifications = await TransportNotificationsModel.find({ seller: req.user._id, isSelected: false, type: "transport" })
-    res.status(200).json(
+    const notifications = await TransportNotificationsModel.find({ seller: req.user._id, isSelected: false, type: "transport" }).populate("order").populate("transporter")
+    res.status(200).json({
         notifications
-    )
+    })
 })
 
 // getting all the order notifications to confirm the order.

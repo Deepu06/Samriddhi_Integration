@@ -43,68 +43,19 @@
           <a href="/BuyerDashboardSales" class="list-group-item list-group-item-action">Sales</a>
           <a href="/BuyerDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated Orders</a>
           <a href="/BuyerDashboardMatchedOrders" class="list-group-item list-group-item-action">Matched Orders</a>
-          <a href="/BuyerDashboardFinalOrders" class="list-group-item list-group-item-action">Final Orders</a>   
-          <a href="/BuyerDashboardOrderFulfillment" class="list-group-item list-group-item-action">Order Fulfillment</a>   
+          <a href="/BuyerDashboardFinalOrders" class="list-group-item list-group-item-action">Final Orders</a>     
+          <a href="/BuyerDashboardOrderFulfillment" class="list-group-item list-group-item-action">Order Fulfillment</a>     
       </div>
 
     </div>
 
-    <div class="container m-4" >
-      <h4 style="text-align: center;">Sales Details</h4>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>No.</th>
-            <th>Id</th>
-            <th>Circle</th>
-            <th>Seller</th>
-            <th>Seller Email</th>
-            <th>Category</th>
-            <th>Product</th>
-            <th>Min Price</th>
-            <th>Min Order</th>
-            <th>Quantity</th>
-            
-          </tr>
-        </thead>
-        <tbody id="salesbody">
-          <!-- Table rows will be dynamically populated here -->
-        </tbody>
-      </table>
+    
+    <div>
+        <h2 style="text-align: center;">Order Fulfillment</h2>
     </div>
-
-
-
-    <script>
-      buildSales()
-      async function buildSales() {
-        const response = await fetch("/api/buyer/sales")
-        const data = await response.json()
-        const sales = data.sales
-       // console.log(sales)
-        for (let i = 0; i < sales.length; i++) {
-          let row = `<tr>
-            <td>${i + 1}</td> 
-            <td>${sales[i]._id}</td> 
-            <td>${sales[i].circle}</td> 
-            <td>${sales[i].seller}</td> 
-            <td>${sales[i].selleremail}</td> 
-            <td>${sales[i].product.category}</td> 
-            <td>${sales[i].product.name}</td> 
-            <td>${sales[i].product.minprice}</td> 
-            <td>${sales[i].product.minorder}</td> 
-            <td>${sales[i].product.quantity}</td> 
-            </tr>
-          `
-          salesbody.innerHTML += row
-        }
-      }
-
-    </script>
-
-     
-
 </div>
+
+
 
 </body>
 

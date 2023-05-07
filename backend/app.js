@@ -7,8 +7,7 @@ const path = require("path");
 
 const errorMiddleware = require("./middleware/error");
 
-
-const dotenv = require("dotenv")
+const dotenv = require("dotenv");
 dotenv.config({ path: "backend/config/config.env" });
 
 // Config
@@ -25,17 +24,13 @@ app.use(fileUpload());
 
 const BuyingCircle = require("./routes/BuyingCirlceRoute");
 const SellingCircle = require("./routes/SellingCircleRoute");
-const TransportCircle = require("./routes/TransportCircleRoute")
-const frontend = require("./routes/frontendRoute")
-app.use("/", frontend)
+const TransportCircle = require("./routes/TransportCircleRoute");
+const frontend = require("./routes/frontendRoute");
+app.use("/", frontend);
 
 app.use("/api/buyer", BuyingCircle);
 app.use("/api/seller", SellingCircle);
-app.use("/api/transport", TransportCircle)
-
-
-
-
+app.use("/api/transport", TransportCircle);
 
 // app.use(express.static(path.join(__dirname, "../frontend/build")));
 

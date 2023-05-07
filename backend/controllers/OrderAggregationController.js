@@ -8,37 +8,41 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 
 exports.createAggregation = catchAsyncErrors(async (req, res, next) => {
     // console.log(req.body);
-    req.body.price = 55
-    const Order = new BuyOrdersAggregation()
-    const products = req.body.ids
+    // req.body.price = 55;
+    const Order = new BuyOrdersAggregation();
+    const products = req.body.ids;
     // console.log(products);
-    const order0 = await BuyOrders.findById(products[0])
+    const order0 = await BuyOrders.findById(products[0]);
     // // console.log(order);
-    Order.circle = order0.circle
-    Order.buyingcircle = order0.circleId
-    Order.product = order0.product.name
-    Order.category = order0.product.category
-    Order.price = req.body.price
-    let totalQuantity = 0
+    Order.circle = order0.circle;
+    Order.buyingcircle = order0.circleId;
+    Order.product = order0.product.name;
+    Order.category = order0.product.category;
+    Order.price = req.body.price;
+    let totalQuantity = 0;
     // console.log(Order);
     // console.log(products);
 
-
     async function fun() {
-        let counter = products.length
+        let counter = products.length;
         await new Promise(async (resolve, reject) => {
-            (products.forEach(async (element) => {
-
+            products.forEach(async (element) => {
                 // console.log(element);
-                const order = await BuyOrders.findById(element)
-                if (!order || order0.product.name != order.product.name || order0.product.category != order.product.category) {
-                    return reject("Error!!, All products should be off same catgeroy to aggregate!")
+                const order = await BuyOrders.findById(element);
+                if (
+                    !order ||
+                    order0.product.name != order.product.name ||
+                    order0.product.category != order.product.category
+                ) {
+                    return reject(
+                        "Error!!, All products should be off same catgeroy to aggregate!"
+                    );
                 }
-                order.isSelected = true
-                await order.save()
+                order.isSelected = true;
+                await order.save();
                 // console.log(order);
                 // console.log(order0.product.name, order.product.name, order0.product.category , order.product.category);
-                totalQuantity += order.product.quantity
+                totalQuantity += order.product.quantity;
                 const obj = {
                     name: order.buyer,
                     reference: order.buyerId,
@@ -46,37 +50,38 @@ exports.createAggregation = catchAsyncErrors(async (req, res, next) => {
                     quantity: order.product.quantity,
                     totalprice: order.product.quantity * req.body.price,
                     buyorderid: element,
-                    email: order.buyeremail
-                }
+                    email: order.buyeremail,
+                };
                 // console.log(obj);
-                Order.users.push(obj)
+                Order.users.push(obj);
                 // console.log(obj);
                 // console.log(Order.users);
-                --counter
+                --counter;
                 // condition to resolve promise i.e if all the user details are updated in user arrray only then resolve and save ORDER document
-                if (counter == 0) return resolve("success")
-            })
-            )
-        })
+                if (counter == 0) return resolve("success");
+            });
+        });
     }
     // fun()
 
     // to synchronize the ORDER document properly..
-    fun().then(async () => {
-        Order.quantity = totalQuantity
-        Order.totalprice = totalQuantity * req.body.price
-        // console.log(Order);
-        await Order.save()
-        res.status(201).json({
-            message: "Successfully aggregated",
-            sucess: true,
-            Order
+    fun()
+        .then(async () => {
+            Order.quantity = totalQuantity;
+            Order.totalprice = totalQuantity * req.body.price;
+            // console.log(Order);
+            await Order.save();
+            res.status(201).json({
+                message: "Successfully aggregated",
+                sucess: true,
+                Order,
+            });
         })
-    }).catch((error) => {
-        // console.log(error);
-        return next(new ErrorHandler(error))
-    })
-})
+        .catch((error) => {
+            console.log(error);
+            return next(new ErrorHandler(error));
+        });
+});
 
 //  2- to get all aggregated Orders..
 exports.getAggregatedOrders = catchAsyncErrors(async (req, res, next) => {

@@ -1,4 +1,5 @@
 const OrderMatch = require("../models/OrderMatchModel")
+const Notifications = require("../models/NotificationsModel")
 const Sale = require("../models/SaleModel")
 const FinalOrder = require("../models/FinalorderModel")
 // const OrderMatch = require("../models/Orders")
@@ -9,7 +10,12 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 // 1- placing final order by seller
 // this is final order which reduces the stock and proceeds to the next phase of transport and delivery to the buyers..
 exports.placeOrder = catchAsyncErrors(async (req, res, next) => {
-    const order = await OrderMatch.findById(req.params.id).populate("sale").populate("order")
+    const id = req.params.id
+    const notification = await Notifications.findById(id)
+    notification.isSelected=true
+    await notification.save()
+    const oid = notification.order
+    const order = await OrderMatch.findById(oid).populate("sale").populate("order")
     if (!order) {
         return next(new ErrorHandler("This ORDER doesn't exists!!"))
     }

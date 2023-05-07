@@ -22,16 +22,22 @@ exports.orderMatch = catchAsyncErrors(async (req, res, next) => {
     // console.log(order);
 
     if (order.category != sale.product.category || order.product != sale.product.name) {
-        return next(new ErrorHandler("Order Mis-Match ,between order request and sale, they are off differnt category and product!"))
+        return res.status(400).json({
+            message: "Order Mis-Match ,between order request and sale, they are off differnt category and product!"
+        })
     }
 
 
     if (order.quantity > sale.product.quantity) {
-        return next(new ErrorHandler("Order Requirement quantity is greater than available sale qunatity so can't place order!!"))
+        return res.status(400).json({
+            message: "Order Requirement quantity is greater than available sale qunatity so can't place order!!"
+        })
     }
 
     if (order.quantity < sale.product.minorder || order.price < sale.product.minprice) {
-        return next(new ErrorHandler("Order Mis-Match There is either No minimum order match or price match between sale and order.."))
+        return res.status(400).json({
+            message: "Order Mis-Match There is either No minimum order match or price match between sale and order.."
+        })
     }
     const newOrder = new OrderMatch()
 
@@ -153,7 +159,7 @@ exports.buyerConfirmOrder = catchAsyncErrors(async (req, res, next) => {
             success: true
         })
     } else {
-        console.log("done");
+        // console.log("done");
         res.status(200).json({
             message: `Dear ${name} You have already confirmed your order`
         })
@@ -188,15 +194,19 @@ exports.sellerConfirmOrder = catchAsyncErrors(async (req, res, next) => {
 // 4- to check if the order match is confirmes by all users i.e by both sellers and all buyers associated with that particular order
 exports.isOrderConfirmed = catchAsyncErrors(async (req, res, next) => {
     const id = req.params.id
-    const order = await ConfirmOrder.findOne({ order: id })
+    const notification = await Notifications.findById(id)
+    // const order = await ConfirmOrder.findOne({ order: id })
     // console.log(order);
-    if (order.counter == order.noofusers && order.users.length == order.noofusers) {
+    const cid = notification.order
+    const order = await ConfirmOrder.findOne({ order: cid })
+
+    if (order.counter + 1 == order.noofusers && order.users.length + 1 == order.noofusers) {
         res.status(200).json({
             message: "This order is Sucessfully confirmed by all Sellers and Buyers associated with this sale."
         })
     }
     else {
-        res.status(200).json({
+        res.status(400).json({
             message: `This order is not yet confirmed by all users and , number of confirmed users - ${order.counter} , number of users yet to confirm - ${order.noofusers - order.counter}`
         })
     }
@@ -205,13 +215,16 @@ exports.isOrderConfirmed = catchAsyncErrors(async (req, res, next) => {
 
 exports.isOrderValidConfirmed = catchAsyncErrors(async (req, res, next) => {
     const id = req.params.id
-    const order = await ConfirmOrder.findOne({ order: id })
+    const notification = await Notifications.findById(id)
+    const cid = notification.order
+    const order = await ConfirmOrder.findOne({ order: cid })
+    // const order = await ConfirmOrder.findOne({ order: id })
     // console.log(order);
-    if (order.counter == order.noofusers && order.users.length == order.noofusers) {
+    if (order.counter + 1 == order.noofusers && order.users.length + 1 == order.noofusers) {
         next()
     }
     else {
-        res.status(200).json({
+        return res.status(400).json({
             message: `This order is not yet confirmed by all users and , number of confirmed users - ${order.counter} , number of users yet to confirm - ${order.noofusers - order.counter}`
         })
     }

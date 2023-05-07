@@ -73,6 +73,7 @@
           <table class="table table-striped">
             <thead>
               <tr>
+                <th>click</th>
                 <th>No.</th>
                 <th>Notification Id</th>
                 <th>Category</th>
@@ -129,12 +130,15 @@
                 alert("Your Confirmation For this Order is Successfully Recorded, Now Seller will place Final Order and ready for delivery")
                 window.location.href = "/BuyerDashboardNotifications";
               } else {
+                window.location.href = "/BuyerDashboardNotifications";
                 alert('An Error Ocuured Please Try Again!');
               }
             })
             .catch(error => {
               console.error('Error:', error);
               alert(`An error occurred \n${error}`);
+              window.location.href = "/BuyerDashboardNotifications";
+              
             });
         }
       }

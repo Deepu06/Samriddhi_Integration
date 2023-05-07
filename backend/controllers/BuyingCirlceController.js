@@ -284,6 +284,8 @@ exports.getMyDetails = catchAsyncErrors(async (req, res, next) => {
     });
 });
 
+
+
 // update User Profile
 exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
     // const newUserData = {

@@ -6,6 +6,8 @@ const { getAllFinalOrders } = require("../controllers/FinalOrderController");
 const { getSales } = require("../controllers/SaleController");
 const { getAllOrders } = require("../controllers/BuyOrderController");
 const { getAggregatedOrders } = require("../controllers/OrderAggregationController");
+const { getMyDetails } = require("../controllers/TransportCircleController");
+
 const router = express.Router();
 
 // to get all existing transport circles
@@ -30,7 +32,8 @@ router.route("/getmembers").get(isTAdmin, membersOfCircle)
 router.route("/login").post(Login)
 // Member logout
 router.route("/logout").get(Logout)
-
+// Get member details- My details
+router.get("/me", isTAuthenticatedUser, getMyDetails);
 // to get all sales
 router.route("/sales").get(getSales)
 // to get all buyOrders

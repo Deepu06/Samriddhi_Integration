@@ -65,6 +65,25 @@
           <!-- Table rows will be dynamically populated here -->
         </tbody>
       </table>
+
+    
+      <h4 style="text-align: center; margin-top:5%;">My Delivered Orders</h4>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Id</th>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Max Price</th>
+            <th>Min Price</th>
+          </tr>
+        </thead>
+        <tbody id="deliveredbody">
+          <!-- Table rows will be dynamically populated here -->
+        </tbody>
+      </table>
     </div>
 
   </div>
@@ -80,7 +99,7 @@
       const response = await fetch("/api/buyer/myorders")
       const data = await response.json()
       const orders = data.orders
-      // console.log(sales)
+      // console.log(orders)
       for (let i = 0; i < orders.length; i++) {
         let status = "No"
         if (orders[i].isDelivered) {
@@ -89,8 +108,8 @@
 
         let row = `<tr>
           <td>${i + 1}</td> 
-          <td>${orders[i].product.name}</td> 
           <td>${orders[i]._id}</td>  
+          <td>${orders[i].product.name}</td> 
           <td>${orders[i].product.category}</td> 
           <td>${orders[i].product.quantity}</td> 
           <td>${orders[i].product.maxprice}</td> 
@@ -99,6 +118,28 @@
           </tr>
         `
         ordersbody.innerHTML += row
+      }
+    }
+
+
+    buildOrders1()
+    async function buildOrders1() {
+      const response = await fetch("/api/buyer/mydeliveredorders")
+      const data = await response.json()
+      const orders = data.deliveredOrders
+      // console.log(orders)
+      for (let i = 0; i < orders.length; i++) {
+        let row = `<tr>
+          <td>${i + 1}</td> 
+          <td>${orders[i]._id}</td>  
+          <td>${orders[i].product.name}</td> 
+          <td>${orders[i].product.category}</td> 
+          <td>${orders[i].product.quantity}</td> 
+          <td>${orders[i].product.maxprice}</td> 
+          <td>${orders[i].product.minprice}</td>   
+          </tr>
+        `
+        deliveredbody.innerHTML += row
       }
     }
 

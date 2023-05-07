@@ -61,6 +61,18 @@ exports.Logout = catchAsyncErrors(async (req, res, next) => {
     });
 })
 
+
+//Get Transporter details - My details
+exports.getMyDetails = catchAsyncErrors(async (req, res, next) => {
+    const user = await TransportCircleMembers.findById(req.user.id);
+
+    res.status(200).json({
+        success: true,
+        user,
+    });
+});
+
+
 // Register a CircleMember
 exports.registerCirlceMember = catchAsyncErrors(async (req, res, next) => {
     // const { circleemail, circlename } = req.body;

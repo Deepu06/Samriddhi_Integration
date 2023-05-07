@@ -157,7 +157,7 @@ router.route("/SellingAdminDashboardAggregatedOrders").get((req, res) => {
 
 
 
-// This is for Transport routing
+// This is for Transport Admin routing
 router.route("/adminTransportLogin").get((req, res) => {
     let path = process.cwd()
     path = Path.join(path, "frontend", "Admin", "Transport", "login.html")
@@ -344,6 +344,25 @@ router.route("/BuyerDashboardFinalOrders").get((req, res) => {
     path = Path.join(path, "frontend", "Members", "Buyer", "FinalOrders.html")
     res.sendFile(path)
 })
+
+
+//Routing for Transporter Dashboard pages
+router.route("/TransportDashboardFinalOrders").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Transport", "FinalOrders.html")
+    res.sendFile(path)
+})
+router.route("/TransportDashboardNotifications").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Transport", "Notifications.html")
+    res.sendFile(path)
+})
+router.route("/TransportDashboardMatchedOrders").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Transport", "MatchedOrders.html")
+    res.sendFile(path)
+})
+
 
 
 

@@ -60,6 +60,7 @@
       </div>
 
 
+      
       <div class="col-md-9 mt-5">
         <!-- Main content area -->
         <h2 style="text-align: center;">Final Orders Details</h2>
@@ -71,7 +72,6 @@
               <tr>
                 <th>No</th>
                 <th>order Id</th>
-                <th>Circle</th>
                 <th>No Of Buyers</th>
                 <th>Seller</th>
                 <th>Seller Email</th>
@@ -96,7 +96,7 @@
               <tr>
                 <th>No</th>
                 <th>Order Id</th>
-                <th>Circle</th>
+                <th>Buying Circle</th>
                 <th>Buyer</th>
                 <th>Buyer Email</th>
                 <th>Seller</th>
@@ -115,7 +115,7 @@
           </table>
         </div>
       </div>
-
+  
     </div>
   </div>
   <script>
@@ -138,7 +138,6 @@
         let row = `<tr>
           <td>${i + 1}</td> 
           <td>${orders[i]._id}</td> 
-          <td>${orders[i].order.circle}</td> 
           <td>${orders[i].order.users.length}</td> 
           <td>${orders[i].sale.seller}</td> 
           <td>${orders[i].sale.selleremail}</td> 
@@ -166,7 +165,7 @@
         // console.log(orders[i]);
         const users = orders[i].order.users
         // console.log(users);
-
+  
         for (let j = 0; j < users.length; j++, counter++) {
           let status = "No"
           if (orders[i].isDelivered) {
@@ -175,7 +174,7 @@
           let row = `<tr>
           <td>${counter}</td> 
           <td>${orders[i]._id}</td> 
-          <td>${orders[i].order.circle}</td> 
+          <td>${users[j].circle}</td> 
           <td>${users[j].name}</td> 
           <td>${users[j].email}</td> 
           <td>${orders[i].sale.seller}</td> 
@@ -192,7 +191,7 @@
         }
       }
     }
-
+  
   </script>
 </body>
 

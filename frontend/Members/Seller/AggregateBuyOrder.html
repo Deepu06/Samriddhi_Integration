@@ -69,12 +69,14 @@
         <!-- Main content area -->
         <h2 style="text-align: center;">Buy Order Details</h2>
         <hr>
-        <h2 style="text-align: center; margin-top: 1em;" ">Buy Order Requests From Users Of All Circle</h2>
-          <button type=" button" class="btn btn-primary" onclick="getCheckBox()">
+        <h4 style=" margin-top: 1em;">Buy Order Requests From Users Of All Circle</h4>
+        <div class="container mt-4">
+          <button type=" button" class="btn btn-info" onclick="getCheckBox()">
           Click to Aggregate orders
           </button>
           <input type="number" name="price" id="price" placeholder="Enter aggregate price" step="1" min="0" required />
-          <div class=" container mt-5">
+        </div>
+          <div class=" container mt-3">
             <table class="table table-striped ">
               <thead>
                 <tr>

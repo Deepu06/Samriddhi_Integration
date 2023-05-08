@@ -56,6 +56,7 @@
     </div>
 
 
+    
     <div class="col-md-9 mt-5">
       <!-- Main content area -->
       <h2 style="text-align: center;">Aggregated Orders Details</h2>
@@ -67,7 +68,6 @@
             <tr>
               <th>No</th>
               <th>Aggregate Id</th>
-              <th>Circle</th>
               <th>No Of Buyers</th>
               <th>Category</th>
               <th>Product</th>
@@ -83,6 +83,7 @@
           </tbody>
         </table>
       </div>
+
       <div class="container mt-5">
         <h4>Detailed View of All Aggregated Orders from all Buying circles</h4>
         <table class="table table-striped mt-4">
@@ -90,8 +91,8 @@
             <tr>
               <th>Aggregate No</th>
               <th>Aggregate Id</th>
-              <th>Circle</th>
-              <th>Buyer</th>
+              <th>Buying Circle</th>
+              <th>Buyer </th>
               <th>Buyer Email</th>
               <th>Category</th>
               <th>Product</th>
@@ -106,7 +107,6 @@
         </table>
       </div>
     </div>
-
   </div>
 </div>
 <script>
@@ -115,16 +115,10 @@
     const response = await fetch("/api/buyer/buyordersAggregate")
     const data = await response.json()
     const orders = data.Orders
-    // console.log(orders);
     for (let i = 0; i < orders.length; i++) {
-      // console.log(orders[i]);
-      // const users = orders[i].users
-      // console.log(users);
-      // for (let j = 0; j < users.length; j++) {
       let row = `<tr>
         <td>${i + 1}</td> 
         <td>${orders[i]._id}</td> 
-        <td>${orders[i].circle}</td> 
         <td>${orders[i].users.length}</td> 
         <td>${orders[i].category}</td> 
         <td>${orders[i].product}</td> 
@@ -135,24 +129,27 @@
         </tr>
       `
       aggregatebody.innerHTML += row
-      // }
     }
   }
   buildAggregateOrders()
   async function buildAggregateOrders() {
     const response = await fetch("/api/buyer/buyordersAggregate")
     const data = await response.json()
+    // <td>${users[i].circle}</td> 
     const orders = data.Orders
-    // console.log(orders);
     for (let i = 0; i < orders.length; i++) {
-      // console.log(orders[i]);
       const users = orders[i].users
-      // console.log(users);
       for (let j = 0; j < users.length; j++) {
+        // let s = "Null"
+        // console.log(users[i]);
+        // if(!users[i].circle)
+        // {
+        //   s=users[i].circle
+        // }
         let row = `<tr>
         <td>${i + 1}</td> 
         <td>${orders[i]._id}</td> 
-        <td>${orders[i].circle}</td> 
+        <td>${users[j].circle}</td> 
         <td>${users[j].name}</td> 
         <td>${users[j].email}</td> 
         <td>${orders[i].category}</td> 

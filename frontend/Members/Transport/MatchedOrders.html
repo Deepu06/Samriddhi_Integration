@@ -62,6 +62,7 @@
       </div>
 
 
+      
       <div class="col-md-9 mt-5">
         <h2 style="text-align: center;">Matched Orders Details</h2>
 
@@ -91,7 +92,7 @@
         </div>
 
         <div class="container mt-5">
-          <h4>Detailed View of All Final Orders from all Buying circles</h4>
+          <h4>Detailed View of All Matched Orders from all Buying circles</h4>
           <table class="table table-striped mt-4">
             <thead>
               <tr>
@@ -197,7 +198,7 @@
           let row = `<tr>
       <td>${counter}</td> 
       <td>${matchedorders[i]._id}</td> 
-      <td>${matchedorders[i].order.circle}</td> 
+      <td>${users[j].circle}</td> 
       <td>${users[j].name}</td> 
       <td>${matchedorders[i].order.category}</td> 
       <td>${matchedorders[i].order.product}</td> 

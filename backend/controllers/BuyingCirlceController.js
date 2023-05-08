@@ -342,3 +342,13 @@ exports.myDeliveredOrders = catchAsyncErrors(async (req, res, next) => {
         deliveredOrders
     })
 })
+
+// getting all order that should be acknoledged
+exports.myAcknowledgedOrders = catchAsyncErrors(async (req, res, next) => {
+    // console.log(req.user);
+
+    const deliveredOrders = await BuyOrderModel.find({ buyerId: req.user._id, isTDelivered: true })
+    res.status(200).json({
+        deliveredOrders
+    })
+})

@@ -17,8 +17,9 @@
       overflow: hidden;
       z-index: 1;
     }
+
     .list-group {
-      position: fixed; 
+      position: fixed;
       margin-top: 4%;
       width: 15%;
     }
@@ -61,7 +62,7 @@
         </div>
       </div>
 
-      <div class="col-md-9">
+      <div class="col-md-9 mt-5">
         <h2 style="text-align: center;">My Delivery Orders</h2>
         <div class="container mt-5">
           <h4>My Transport Orders</h4>
@@ -73,10 +74,10 @@
                 <th>No Of Buyers</th>
                 <th>Seller</th>
                 <th>Seller Email</th>
+                <th>Seller Circle</th>
                 <th>Category</th>
                 <th>Product</th>
                 <th>Total Quantity</th>
-                <th>Price</th>
                 <th>Total Price</th>
               </tr>
             </thead>
@@ -86,7 +87,7 @@
             </tbody>
           </table>
         </div>
-
+        
         <div class="container mt-5">
           <h4>Detailed View of All My Transport Orders</h4>
           <table class="table table-striped mt-4">
@@ -99,10 +100,10 @@
                 <th>Buyer Email</th>
                 <th>Seller</th>
                 <th>Seller Email</th>
+                <th>Seller Circle</th>
                 <th>Category</th>
                 <th>Product</th>
                 <th>Quantity</th>
-                <th>Price</th>
                 <th>Total Price</th>
               </tr>
             </thead>
@@ -113,14 +114,63 @@
         </div>
       </div>
     </div>
-<<<<<<< HEAD
-=======
+    <script>
+      buildorders()
+      async function buildorders() {
+        const response = await fetch("/api/transport/mytransportorders")
+        const data = await response.json()
+        const orders = data.orders
+        // console.log(orders);
+        for (let i = 0; i < orders.length; i++) {
+          const users = orders[i].order.users
+          // console.log(users);
+          let row = `
+                  <td>${i + 1}</td>
+                  <td>${orders[i]._id}</td>
+                  <td>${orders[i].order.users.length}</td>
+                  <td>${orders[i].sale.seller}</td>
+                  <td>${orders[i].sale.selleremail}</td>
+                  <td>${orders[i].sale.circle}</td>
+                  <td>${orders[i].order.category}</td>
+                  <td>${orders[i].order.product}</td>
+                  <td>${orders[i].order.quantity}</td>
+                  <td>${orders[i].order.totalprice}</td>
+                  <td>${i + 1}</td>
+          `
+          ordersbody.innerHTML += row
+        }
+      }
+      buildorders1()
+      async function buildorders1() {
+        const response = await fetch("/api/transport/mytransportorders")
+        const data = await response.json()
+        const orders = data.orders
+        // console.log(orders);
+        let counter = 1
+        for (let i = 0; i < orders.length; i++) {
+          const users = orders[i].order.users
+          for (let j = 0; j < users.length; j++, counter++) {
+            // console.log(users[j]);
+            let row = `
+                  <td>${counter}</td>
+                  <td>${orders[i]._id}</td>
+                  <td>${users[j].circle}</td>
+                  <td>${users[j].name}</td>
+                  <td>${users[j].email}</td>
+                  <td>${orders[i].sale.seller}</td>
+                  <td>${orders[i].sale.selleremail}</td>
+                  <td>${orders[i].sale.circle}</td>
+                  <td>${orders[i].order.category}</td>
+                  <td>${orders[i].order.product}</td>
+                  <td>${users[j].quantity}</td>
+                  <td>${users[j].totalprice}</td>
+          `
+            finalordersbody.innerHTML += row
+          }
 
-    <div class="col-md-9 mt-5">
-        <h2 style="text-align: center;">My Delivery Orders</h2>
-    </div>
-</div>  
->>>>>>> ad7b62f56bcedc57a13776430984f183bbba2035
+        }
+      }
+    </script>
 </body>
 
 </html>

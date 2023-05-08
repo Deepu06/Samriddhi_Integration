@@ -63,9 +63,54 @@
     </div>
 
     
-    <div class="col-md-9 mt-5">
-        <h2 style="text-align: center;">Order Fulfillment</h2>
+    <div class="container m-4 mt-5" >
+      <h2 style="text-align: center;">Order Fulfillment</h2>
+
+      <button type=" button" class="btn btn-info" onclick="OrderFulfillment()">
+        Click here to Acknowledge
+      </button>
+
+      <table class="table table-striped mt-4">
+        <thead>
+          <tr>
+            <th>Click</th>
+            <th>No.</th>
+            <th>Id</th>
+            <th>Category</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Transporter Id</th>           
+          </tr>
+        </thead>
+        <tbody id="salesbody">
+          <!-- Table rows will be dynamically populated here -->
+        </tbody>
+      </table>
     </div>
+
+    <script>
+      buildSales()
+      async function buildSales() {
+        const response = await fetch("/api/buyer/acknowledgeOrders")
+        const data = await response.json()
+        const sales = data.deliveredOrders
+       // console.log(sales)
+        for (let i = 0; i < sales.length; i++) {
+          let row = `<tr>
+            <td><input type="radio" id="buildAggOrders" name="buildAggOrders" value="1"></td>
+            <td>${i + 1}</td> 
+            <td>${sales[i]._id}</td>  
+            <td>${sales[i].product.category}</td> 
+            <td>${sales[i].product.name}</td> 
+            <td>${sales[i].product.quantity}</td> 
+            <td>${sales[i].transporter}</td> 
+            </tr>
+          `
+          salesbody.innerHTML += row
+        }
+      }
+
+    </script>
 </div>
 
 

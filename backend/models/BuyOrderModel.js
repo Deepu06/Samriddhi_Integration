@@ -57,6 +57,15 @@ const buyOrderSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
         required: true
+    },
+    isTDelivered: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    transporter:{
+        type:mongoose.Schema.ObjectId,
+        ref:"TransportCircleMembers"
     }
 
 }, { timestamps: true })

@@ -173,12 +173,17 @@ exports.transportRequest = catchAsyncErrors(async (req, res, next) => {
 
 // acknowledging that order is delivered to all users successfuly
 exports.isDeliverd = catchAsyncErrors(async (req, res, next) => {
+    // console.log("inside fun");
     const id = req.params.id
     const order = await OrderMatchModel.findById(id).populate("order").populate("sale")
+    // console.log(order);
     order.isDelivered = true
     const aggregatedOrder = await BuyOrdersAggregationModel.findById(order.order._id)
+    // console.log(aggregatedOrder);
     aggregatedOrder.isDelivered = true
-    await aggregatedOrder.save()
+    // console.log("error here");
+    // await aggregatedOrder.save()
+    // console.log("out");
     const users = aggregatedOrder.users
     // console.log(users);
     let counter = users.length
@@ -187,7 +192,8 @@ exports.isDeliverd = catchAsyncErrors(async (req, res, next) => {
             (users.forEach(async (element) => {
                 const order = await BuyOrderModel.findById(element.buyorderid)
                 // console.log(order);
-                order.isDelivered = true
+                order.transporter = req.user._id
+                order.isTDelivered = true
                 await order.save()
                 counter--
                 if (counter == 0)

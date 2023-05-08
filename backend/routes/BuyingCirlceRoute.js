@@ -15,7 +15,8 @@ const { registerCirlce,
     getMyOrders,
     getAllBuyingCircles,
     getAllBuyingNotifications,
-    myDeliveredOrders
+    myDeliveredOrders,
+    myAcknowledgedOrders
 } = require("../controllers/BuyingCirlceController");
 const { createBuyOrder, getAllOrders } = require("../controllers/BuyOrderController");
 const { createCart, updateCart, updateCartAddItems } = require("../controllers/CartController");
@@ -80,7 +81,7 @@ router.route("/matchedorders").get(getMatchedOrders)
 // to confirm order match by a buyer for finalising the order
 // change it to post**
 
-router.route("/confirmorder/:id").post(isAuthenticatedUser,  buyerConfirmOrder)
+router.route("/confirmorder/:id").post(isAuthenticatedUser, buyerConfirmOrder)
 
 // to check if the order match is confirmes by all users i.e by both sellers and all buyers associated with that particular order
 router.route("/isorderconfirmed/:id").get(isOrderConfirmed)
@@ -91,4 +92,6 @@ router.route("/orders").get(getAllFinalOrders)
 // getting all the order notifications to confirm the order.
 router.route("/mynotifications").get(isAuthenticatedUser, getAllBuyingNotifications)
 
+// getting all order that should be acknoledged
+router.route("/acknowledgeOrders").get(isAuthenticatedUser, myAcknowledgedOrders)
 module.exports = router;

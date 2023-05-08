@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 const buyOrdersAggregationSchema = new mongoose.Schema({
-    circle: {
-        type: String,
-        required: true
-    },
-    buyingcircle: {
-        type: mongoose.Schema.ObjectId,
-        ref: "BuyingCircle",
-        required: true
-    },
+    // circle: {
+    //     type: String,
+    //     required: true
+    // },
+    // buyingcircle: {
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: "BuyingCircle",
+    //     required: true
+    // },
     product: {
         type: String,
         required: true
@@ -55,8 +55,18 @@ const buyOrdersAggregationSchema = new mongoose.Schema({
                 type: mongoose.Schema.ObjectId,
                 ref: "BuyOrder"
             },
-            email:{
-                type:String
+            email: {
+                type: String,
+                required: true
+            },
+            circleId: {
+                type: mongoose.Schema.ObjectId,
+                ref: "BuyingCirlce",
+                required: true
+            },
+            circle:{
+                type:String,
+                required:true
             }
         }
     ]

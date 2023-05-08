@@ -1,5 +1,5 @@
 const express = require("express");
-const { registerCirlce, getAllTransportcircles, adminLogin, Logout, registerCirlceMember, Login, transportRequest, isDeliverd, membersOfCircle } = require("../controllers/TransportCircleController");
+const { registerCirlce, getAllTransportcircles, adminLogin, Logout, registerCirlceMember, Login, transportRequest, isDeliverd, membersOfCircle, getMyTransportOrders } = require("../controllers/TransportCircleController");
 const { isTAdmin, isTAuthenticatedUser } = require("../middleware/auth");
 const { getMatchedOrders } = require("../controllers/OrderMatchController");
 const { getAllFinalOrders } = require("../controllers/FinalOrderController");
@@ -50,7 +50,9 @@ router.route("/transportrequest").post(isTAuthenticatedUser, transportRequest)
 
 // acknowledging that order is delivered to all users successfuly
 // *post
-router.route("/delivered/:id").get(isDeliverd)
+router.route("/delivered/:id").post(isDeliverd)
 
+// to get all my tranport orders
+router.route("/mytransportorders").get(isTAuthenticatedUser, getMyTransportOrders)
 
 module.exports = router;

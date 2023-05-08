@@ -37,14 +37,19 @@
           <a href="/SellerDashboard" class="list-group-item list-group-item-action active">Dashboard</a>
           <a href="/SellerDashboardAnnounceSales" class="list-group-item list-group-item-action">Announce Sales</a>
           <a href="/SellerDashboardMySales" class="list-group-item list-group-item-action">My Sales</a>
-          <a href="/SellerDashboardAggregateBuyOrder" class="list-group-item list-group-item-action">Aggregate Buy Order</a>
-          <a href="/SellerDashboardCheckForOrderMatch" class="list-group-item list-group-item-action">Check for Order Match</a>  
-          <a href="/SellerDashboardBuyOrderNotifications" class="list-group-item list-group-item-action">Confirm Buy Order Notifications to place Final Order</a>
-          <a href="/SellerDashboardTransportOrderNotifications" class="list-group-item list-group-item-action">Confirm Transport Order Notifications for Transport Confirmation</a>
-            
+          <a href="/SellerDashboardAggregateBuyOrder" class="list-group-item list-group-item-action">Aggregate Buy
+            Order</a>
+          <a href="/SellerDashboardCheckForOrderMatch" class="list-group-item list-group-item-action">Check for Order
+            Match</a>
+          <a href="/SellerDashboardBuyOrderNotifications" class="list-group-item list-group-item-action">Confirm Buy
+            Order Notifications to place Final Order</a>
+          <a href="/SellerDashboardTransportOrderNotifications" class="list-group-item list-group-item-action">Confirm
+            Transport Order Notifications for Transport Confirmation</a>
+
           <a href="/SellerDashboardBuyOrders" class="list-group-item list-group-item-action">Buy Orders</a>
           <a href="/SellerDashboardSales" class="list-group-item list-group-item-action">Sales</a>
-          <a href="/SellerDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated Orders</a>
+          <a href="/SellerDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated
+            Orders</a>
           <a href="/SellerDashboardMatchedOrders" class="list-group-item list-group-item-action">Matched Orders</a>
           <a href="/SellerDashboardFinalOrders" class="list-group-item list-group-item-action">Final Orders</a>
         </div>
@@ -61,7 +66,6 @@
               <tr>
                 <th>No</th>
                 <th>Matched Order Id</th>
-                <th>Buying Circle</th>
                 <th>No Of Buyers</th>
                 <th>Seller</th>
                 <th>Seller Email</th>
@@ -81,7 +85,7 @@
         </div>
 
         <div class="container mt-5">
-          <h4>Detailed View of All Final Orders from all Buying circles</h4>
+          <h4>Detailed View of All Matched Orders from all Buying circles</h4>
           <table class="table table-striped mt-4">
             <thead>
               <tr>
@@ -153,7 +157,6 @@
         let row = `<tr>
           <td>${i + 1}</td> 
           <td>${orders[i]._id}</td> 
-          <td>${orders[i].order.circle}</td> 
           <td>${orders[i].order.users.length}</td> 
           <td>${orders[i].sale.seller}</td> 
           <td>${orders[i].sale.selleremail}</td> 
@@ -188,7 +191,7 @@
           let row = `<tr>
       <td>${counter}</td> 
       <td>${matchedorders[i]._id}</td> 
-      <td>${matchedorders[i].order.circle}</td> 
+      <td>${users[j].circle}</td> 
       <td>${users[j].name}</td> 
       <td>${matchedorders[i].order.category}</td> 
       <td>${matchedorders[i].order.product}</td> 

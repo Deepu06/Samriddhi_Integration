@@ -14,8 +14,8 @@ exports.createAggregation = catchAsyncErrors(async (req, res, next) => {
     // console.log(products);
     const order0 = await BuyOrders.findById(products[0]);
     // // console.log(order);
-    Order.circle = order0.circle;
-    Order.buyingcircle = order0.circleId;
+    // Order.circle = order0.circle;
+    // Order.buyingcircle = order0.circleId;
     Order.product = order0.product.name;
     Order.category = order0.product.category;
     Order.price = req.body.price;
@@ -51,6 +51,8 @@ exports.createAggregation = catchAsyncErrors(async (req, res, next) => {
                     totalprice: order.product.quantity * req.body.price,
                     buyorderid: element,
                     email: order.buyeremail,
+                    circleId: order.circleId,
+                    circle: order.circle
                 };
                 // console.log(obj);
                 Order.users.push(obj);

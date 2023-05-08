@@ -37,14 +37,19 @@
           <a href="/SellerDashboard" class="list-group-item list-group-item-action active">Dashboard</a>
           <a href="/SellerDashboardAnnounceSales" class="list-group-item list-group-item-action">Announce Sales</a>
           <a href="/SellerDashboardMySales" class="list-group-item list-group-item-action">My Sales</a>
-          <a href="/SellerDashboardAggregateBuyOrder" class="list-group-item list-group-item-action">Aggregate Buy Order</a>
-          <a href="/SellerDashboardCheckForOrderMatch" class="list-group-item list-group-item-action">Check for Order Match</a>  
-          <a href="/SellerDashboardBuyOrderNotifications" class="list-group-item list-group-item-action">Confirm Buy Order Notifications to place Final Order</a>
-          <a href="/SellerDashboardTransportOrderNotifications" class="list-group-item list-group-item-action">Confirm Transport Order Notifications for Transport Confirmation</a>
-            
+          <a href="/SellerDashboardAggregateBuyOrder" class="list-group-item list-group-item-action">Aggregate Buy
+            Order</a>
+          <a href="/SellerDashboardCheckForOrderMatch" class="list-group-item list-group-item-action">Check for Order
+            Match</a>
+          <a href="/SellerDashboardBuyOrderNotifications" class="list-group-item list-group-item-action">Confirm Buy
+            Order Notifications to place Final Order</a>
+          <a href="/SellerDashboardTransportOrderNotifications" class="list-group-item list-group-item-action">Confirm
+            Transport Order Notifications for Transport Confirmation</a>
+
           <a href="/SellerDashboardBuyOrders" class="list-group-item list-group-item-action">Buy Orders</a>
           <a href="/SellerDashboardSales" class="list-group-item list-group-item-action">Sales</a>
-          <a href="/SellerDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated Orders</a>
+          <a href="/SellerDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated
+            Orders</a>
           <a href="/SellerDashboardMatchedOrders" class="list-group-item list-group-item-action">Matched Orders</a>
           <a href="/SellerDashboardFinalOrders" class="list-group-item list-group-item-action">Final Orders</a>
         </div>
@@ -62,7 +67,6 @@
               <tr>
                 <th>No</th>
                 <th>Aggregate Id</th>
-                <th>Circle</th>
                 <th>No Of Buyers</th>
                 <th>Category</th>
                 <th>Product</th>
@@ -78,7 +82,7 @@
             </tbody>
           </table>
         </div>
-        
+
         <div class="container mt-5">
           <h4>Detailed View of All Aggregated Orders from all Buying circles</h4>
           <table class="table table-striped mt-4">
@@ -86,8 +90,8 @@
               <tr>
                 <th>Aggregate No</th>
                 <th>Aggregate Id</th>
-                <th>Circle</th>
-                <th>Buyer</th>
+                <th>Buying Circle</th>
+                <th>Buyer </th>
                 <th>Buyer Email</th>
                 <th>Category</th>
                 <th>Product</th>
@@ -114,7 +118,6 @@
         let row = `<tr>
           <td>${i + 1}</td> 
           <td>${orders[i]._id}</td> 
-          <td>${orders[i].circle}</td> 
           <td>${orders[i].users.length}</td> 
           <td>${orders[i].category}</td> 
           <td>${orders[i].product}</td> 
@@ -131,14 +134,21 @@
     async function buildAggregateOrders() {
       const response = await fetch("/api/buyer/buyordersAggregate")
       const data = await response.json()
+      // <td>${users[i].circle}</td> 
       const orders = data.Orders
       for (let i = 0; i < orders.length; i++) {
         const users = orders[i].users
         for (let j = 0; j < users.length; j++) {
+          // let s = "Null"
+          // console.log(users[i]);
+          // if(!users[i].circle)
+          // {
+          //   s=users[i].circle
+          // }
           let row = `<tr>
           <td>${i + 1}</td> 
           <td>${orders[i]._id}</td> 
-          <td>${orders[i].circle}</td> 
+          <td>${users[j].circle}</td> 
           <td>${users[j].name}</td> 
           <td>${users[j].email}</td> 
           <td>${orders[i].category}</td> 

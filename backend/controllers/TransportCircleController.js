@@ -201,3 +201,11 @@ exports.isDeliverd = catchAsyncErrors(async (req, res, next) => {
         order
     })
 })
+
+// getting all my transport orders
+exports.getMyTransportOrders = catchAsyncErrors(async (req, res, next) => {
+    const orders = await OrderMatchModel.find({ transporter: req.user._id }).populate("order").populate("sale")
+    res.status(200).json({
+        orders
+    })
+})

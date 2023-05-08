@@ -71,7 +71,6 @@
                 <th>Click</th>
                 <th>No</th>
                 <th>Aggregate Id</th>
-                <th>Circle</th>
                 <th>No Of Buyers</th>
                 <th>Category</th>
                 <th>Product</th>
@@ -212,7 +211,6 @@
           <td><input type="radio" id="buildAggOrders" name="buildAggOrders" value="1"></td>
           <td>${i + 1}</td> 
           <td>${orders[i]._id}</td> 
-          <td>${orders[i].circle}</td> 
           <td>${orders[i].users.length}</td> 
           <td>${orders[i].category}</td> 
           <td>${orders[i].product}</td> 
@@ -259,7 +257,7 @@
           let row = `<tr>
           <td>${i + 1}</td> 
           <td>${orders[i]._id}</td> 
-          <td>${orders[i].circle}</td> 
+          <td>${users[j].circle}</td> 
           <td>${users[j].name}</td> 
           <td>${users[j].email}</td> 
           <td>${orders[i].category}</td> 

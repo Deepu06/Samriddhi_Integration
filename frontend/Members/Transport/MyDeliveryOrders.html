@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Transporter Dashboard</title>
   <meta charset="utf-8">
@@ -9,42 +10,95 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+
 <body>
 
-<!-- Navigation bar -->
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <a class="navbar-brand" href="#">Transporter Dashboard</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Logout</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  <!-- Navigation bar -->
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <a class="navbar-brand" href="#">Transporter Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-<!-- Main content -->
-<div class="container-fluid mt-3">
-  <div class="row">
-    <div class="col-md-2">
-      <!-- Sidebar menu -->
-      <div class="list-group">
-        <a href="/TransportDashboard" class="list-group-item list-group-item-action active">Dashboard</a>
-        <a href="/TransportDashboardNotifications" class="list-group-item list-group-item-action">Notifications</a>
-        <a href="/TransportDashboardMatchedOrders" class="list-group-item list-group-item-action">Matched Orders</a>
-        <a href="/TransportDashboardFinalOrders" class="list-group-item list-group-item-action">View Final Orders</a>
-        <a href="/TransportDashboardRequestOrders" class="list-group-item list-group-item-action">Request For Order Transportation</a>        
-        <a href="/TransportDashboardMyDeliveryOrders" class="list-group-item list-group-item-action">My Delivery Orders</a>        
-        <a href="/TransportDashboardAcknowledgeDelivery" class="list-group-item list-group-item-action">Acknowledge Delivery</a>        
+  <!-- Main content -->
+  <div class="container-fluid mt-3">
+    <div class="row">
+      <div class="col-md-2">
+        <!-- Sidebar menu -->
+        <div class="list-group">
+          <a href="/TransportDashboard" class="list-group-item list-group-item-action active">Dashboard</a>
+          <a href="/TransportDashboardNotifications" class="list-group-item list-group-item-action">Notifications</a>
+          <a href="/TransportDashboardMatchedOrders" class="list-group-item list-group-item-action">Matched Orders</a>
+          <a href="/TransportDashboardFinalOrders" class="list-group-item list-group-item-action">View Final Orders</a>
+          <a href="/TransportDashboardRequestOrders" class="list-group-item list-group-item-action">Request For Order
+            Transportation</a>
+          <a href="/TransportDashboardMyDeliveryOrders" class="list-group-item list-group-item-action">My Delivery
+            Orders</a>
+          <a href="/TransportDashboardAcknowledgeDelivery" class="list-group-item list-group-item-action">Acknowledge
+            Delivery</a>
+        </div>
+      </div>
+
+      <div class="col-md-9">
+        <h2 style="text-align: center;">My Delivery Orders</h2>
+        <div class="container mt-5">
+          <h4>My Transport Orders</h4>
+          <table class="table table-striped mt-4">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>order Id</th>
+                <th>No Of Buyers</th>
+                <th>Seller</th>
+                <th>Seller Email</th>
+                <th>Category</th>
+                <th>Product</th>
+                <th>Total Quantity</th>
+                <th>Price</th>
+                <th>Total Price</th>
+              </tr>
+            </thead>
+            </thead>
+            <tbody id="ordersbody">
+              <!-- Table rows will be dynamically populated here -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="container mt-5">
+          <h4>Detailed View of All My Transport Orders</h4>
+          <table class="table table-striped mt-4">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Order Id</th>
+                <th>Buying Circle</th>
+                <th>Buyer</th>
+                <th>Buyer Email</th>
+                <th>Seller</th>
+                <th>Seller Email</th>
+                <th>Category</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total Price</th>
+              </tr>
+            </thead>
+            <tbody id="finalordersbody">
+              <!-- Table rows will be dynamically populated here -->
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-
-    <div class="col-md-9">
-        <h2 style="text-align: center;">My Delivery Orders</h2>
-    </div>
-</div>  
 </body>
+
 </html>

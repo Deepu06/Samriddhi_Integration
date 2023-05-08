@@ -9,6 +9,19 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .list-group {
+      position: fixed; 
+      margin-top: 4%;
+    }
+  </style>
 </head>
 
 <body>
@@ -43,7 +56,7 @@
           <a href="/TransportAdminDashboardFinalOrders" class="list-group-item list-group-item-action">Final Orders</a>
         </div>
       </div>
-      <div class="col-md-9">
+      <div class="col-md-9 mt-5">
         <!-- Main content area -->
         <h2>Welcome to the Transport Admin Dashboard</h2>
         <p>This is the main content area where you can view and manage your products, members, and orders.</p>

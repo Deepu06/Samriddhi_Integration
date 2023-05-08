@@ -377,6 +377,16 @@ router.route("/TransportDashboardRequestOrders").get((req, res) => {
     path = Path.join(path, "frontend", "Members", "Transport", "RequestOrders.html")
     res.sendFile(path)
 })
+router.route("/TransportDashboardMyDeliveryOrders").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Transport", "MyDeliveryOrders.html")
+    res.sendFile(path)
+})
+router.route("/TransportDashboardAcknowledgeDelivery").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "Members", "Transport", "AcknowledgeDelivery.html")
+    res.sendFile(path)
+})
 
 
 

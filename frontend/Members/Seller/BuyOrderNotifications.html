@@ -9,6 +9,19 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .list-group {
+      
+      margin-top: 30%;
+    }
+  </style>
 </head>
 
 <body>
@@ -34,7 +47,7 @@
       <div class="col-md-2">
         <!-- Sidebar menu -->
         <div class="list-group">
-          <a href="/SellerDashboard" class="list-group-item list-group-item-action active">Dashboard</a>
+          <a href="/SellerDashboard" class="list-group-item list-group-item-action active" style="z-index: 0;">Dashboard</a>
           <a href="/SellerDashboardAnnounceSales" class="list-group-item list-group-item-action">Announce Sales</a>
           <a href="/SellerDashboardMySales" class="list-group-item list-group-item-action">My Sales</a>
           <a href="/SellerDashboardAggregateBuyOrder" class="list-group-item list-group-item-action">Aggregate Buy
@@ -56,7 +69,7 @@
       </div>
 
 
-      <div class="col-md-9">
+      <div class="col-md-9 mt-5">
         <!-- Main content area -->
         <h2 style="text-align: center;">Buy Order Notifications</h2>
         <div class="container m-4">

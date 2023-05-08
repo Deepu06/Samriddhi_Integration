@@ -37,7 +37,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Logout</a>
+          <a class="nav-link" onclick="logout()">Logout</a>
         </li>
       </ul>
     </div>
@@ -134,6 +134,12 @@
       </div>
     </div>
     <script>
+
+      async function logout() {
+        await fetch("/api/buyer/logout")
+        window.location.href = "/"
+      }
+
       async function getCheckBox() {
         var noti = document.querySelectorAll('input[type=radio][name=buildAggOrders]');
 

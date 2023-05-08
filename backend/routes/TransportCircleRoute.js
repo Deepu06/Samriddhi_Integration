@@ -50,7 +50,7 @@ router.route("/transportrequest").post(isTAuthenticatedUser, transportRequest)
 
 // acknowledging that order is delivered to all users successfuly
 // *post
-router.route("/delivered/:id").post(isTAuthenticatedUser,isDeliverd)
+router.route("/delivered/:id").post(isTAuthenticatedUser, isDeliverd)
 
 // to get all my tranport orders
 router.route("/mytransportorders").get(isTAuthenticatedUser, getMyTransportOrders)

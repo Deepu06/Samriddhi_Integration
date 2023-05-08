@@ -19,25 +19,20 @@
     /* align-items: center; */
     /* justify-content: center; */
   }
-
-  
-   
-  
-
 </style>
 
 <body>
 
   <!-- Navigation bar -->
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-    <a class="navbar-brand" href="#">Buyer Dashboard</a>
+    <a class="navbar-brand" onclick="logout()">Buyer Dashboard</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Logout</a>
+          <a class="nav-link" onclick="logout()">Logout</a>
         </li>
       </ul>
     </div>
@@ -59,7 +54,7 @@
           <a href="/BuyerDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated Orders</a>
           <a href="/BuyerDashboardMatchedOrders" class="list-group-item list-group-item-action">Matched Orders</a>
           <a href="/BuyerDashboardFinalOrders" class="list-group-item list-group-item-action">Final Orders</a>
-          <a href="/BuyerDashboardOrderFulfillment" class="list-group-item list-group-item-action">Order Fulfillment</a> 
+          <a href="/BuyerDashboardOrderFulfillment" class="list-group-item list-group-item-action">Order Fulfillment</a>
         </div>
       </div>
 
@@ -74,6 +69,10 @@
       </div>
     </div>
     <script>
+      async function logout() {
+        await fetch("/api/buyer/logout")
+        window.location.href = "/"
+      }
       myDetails()
       async function myDetails() {
         const response = await fetch("/api/buyer/me")

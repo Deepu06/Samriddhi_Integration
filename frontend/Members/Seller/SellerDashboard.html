@@ -13,13 +13,11 @@
     #mydetails {
       background-color: rgb(130, 172, 210);
       border: 3px solid black;
-  
+
       /* display: flex; */
       /* align-items: center; */
       /* justify-content: center; */
     }
-  
-  
   </style>
 </head>
 
@@ -35,7 +33,7 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
         <li class="nav-item">
-          <a class="nav-link" href="#">Logout</a>
+          <a class="nav-link" onclick="logout()">Logout</a>
         </li>
       </ul>
     </div>
@@ -48,17 +46,23 @@
       <div class="col-md-2">
         <!-- Sidebar menu -->
         <div class="list-group">
-          <a href="/SellerDashboard" class="list-group-item list-group-item-action active" style="z-index: 0;">Dashboard</a>
+          <a href="/SellerDashboard" class="list-group-item list-group-item-action active"
+            style="z-index: 0;">Dashboard</a>
           <a href="/SellerDashboardAnnounceSales" class="list-group-item list-group-item-action">Announce Sales</a>
           <a href="/SellerDashboardMySales" class="list-group-item list-group-item-action">My Sales</a>
-          <a href="/SellerDashboardAggregateBuyOrder" class="list-group-item list-group-item-action">Aggregate Buy Order</a>
-          <a href="/SellerDashboardCheckForOrderMatch" class="list-group-item list-group-item-action">Check for Order Match</a>  
-          <a href="/SellerDashboardBuyOrderNotifications" class="list-group-item list-group-item-action">Confirm Buy Order Notifications to place Final Order</a>
-          <a href="/SellerDashboardTransportOrderNotifications" class="list-group-item list-group-item-action">Confirm Transport Order Notifications for Transport Confirmation</a>
-            
+          <a href="/SellerDashboardAggregateBuyOrder" class="list-group-item list-group-item-action">Aggregate Buy
+            Order</a>
+          <a href="/SellerDashboardCheckForOrderMatch" class="list-group-item list-group-item-action">Check for Order
+            Match</a>
+          <a href="/SellerDashboardBuyOrderNotifications" class="list-group-item list-group-item-action">Confirm Buy
+            Order Notifications to place Final Order</a>
+          <a href="/SellerDashboardTransportOrderNotifications" class="list-group-item list-group-item-action">Confirm
+            Transport Order Notifications for Transport Confirmation</a>
+
           <a href="/SellerDashboardBuyOrders" class="list-group-item list-group-item-action">Buy Orders</a>
           <a href="/SellerDashboardSales" class="list-group-item list-group-item-action">Sales</a>
-          <a href="/SellerDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated Orders</a>
+          <a href="/SellerDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated
+            Orders</a>
           <a href="/SellerDashboardMatchedOrders" class="list-group-item list-group-item-action">Matched Orders</a>
           <a href="/SellerDashboardFinalOrders" class="list-group-item list-group-item-action">Final Orders</a>
         </div>
@@ -76,6 +80,10 @@
 
     </div>
     <script>
+      async function logout() {
+        await fetch("/api/buyer/logout")
+        window.location.href = "/"
+      }
       myDetails()
       async function myDetails() {
         const response = await fetch("/api/seller/me")

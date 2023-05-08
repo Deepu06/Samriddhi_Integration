@@ -17,8 +17,9 @@
       overflow: hidden;
       z-index: 1;
     }
+
     .list-group {
-      position: fixed; 
+      position: fixed;
       margin-top: 4%;
     }
   </style>
@@ -28,26 +29,26 @@
 
   <!-- Navigation bar -->
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-    <a class="navbar-brand" href="#">Buyer Dashboard</a>
+    <a class="navbar-brand">Buyer Dashboard</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Logout</a>
+          <a class="nav-link" onclick="logout()">Logout</a>
         </li>
       </ul>
     </div>
   </nav>
 
-<!-- Main content -->
-<div class="container-fluid mt-3">
-  <div class="row">
-    <div class="col-md-2">
-      <!-- Sidebar menu -->
-      <div class="list-group">
-        <a href="/BuyerDashboard" class="list-group-item list-group-item-action active">Dashboard</a>
+  <!-- Main content -->
+  <div class="container-fluid mt-3">
+    <div class="row">
+      <div class="col-md-2">
+        <!-- Sidebar menu -->
+        <div class="list-group">
+          <a href="/BuyerDashboard" class="list-group-item list-group-item-action active">Dashboard</a>
           <a href="/BuyerDashboardBuyOrder" class="list-group-item list-group-item-action">Buy Order</a>
           <a href="/BuyerDashboardMyOrders" class="list-group-item list-group-item-action">My Orders</a>
           <a href="/BuyerDashboardNotifications" class="list-group-item list-group-item-action">Notifications</a>
@@ -56,47 +57,62 @@
           <a href="/BuyerDashboardSales" class="list-group-item list-group-item-action">Sales</a>
           <a href="/BuyerDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated Orders</a>
           <a href="/BuyerDashboardMatchedOrders" class="list-group-item list-group-item-action">Matched Orders</a>
-          <a href="/BuyerDashboardFinalOrders" class="list-group-item list-group-item-action">Final Orders</a>     
-          <a href="/BuyerDashboardOrderFulfillment" class="list-group-item list-group-item-action">Order Fulfillment</a>     
+          <a href="/BuyerDashboardFinalOrders" class="list-group-item list-group-item-action">Final Orders</a>
+          <a href="/BuyerDashboardOrderFulfillment" class="list-group-item list-group-item-action">Order Fulfillment</a>
+        </div>
+
       </div>
 
-    </div>
 
-    
-    <div class="container m-4 mt-5" >
-      <h2 style="text-align: center;">Order Fulfillment</h2>
+      <div class="container m-4 mt-5">
+        <h2 style="text-align: center;">Order Fulfillment</h2>
 
-      <button type=" button" class="btn btn-info" onclick="OrderFulfillment()">
-        Click here to Acknowledge
-      </button>
+        <button type=" button" class="btn btn-info" onclick="OrderFulfillment()">
+          Click here to Acknowledge
+        </button>
 
-      <table class="table table-striped mt-4">
-        <thead>
-          <tr>
-            <th>Click</th>
-            <th>No.</th>
-            <th>Id</th>
-            <th>Category</th>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Transporter Id</th>           
-          </tr>
-        </thead>
-        <tbody id="salesbody">
-          <!-- Table rows will be dynamically populated here -->
-        </tbody>
-      </table>
-    </div>
+        <div>
+          <br>
+          <p>
+            <i>Note</i>
+            <b>
+              Kindly Acknowledge Only If You have Recieved Your Order Successfully.
+            </b>
+          </p>
+          <br>
+        </div>
 
-    <script>
-      buildSales()
-      async function buildSales() {
-        const response = await fetch("/api/buyer/acknowledgeOrders")
-        const data = await response.json()
-        const sales = data.deliveredOrders
-       // console.log(sales)
-        for (let i = 0; i < sales.length; i++) {
-          let row = `<tr>
+        <table class="table table-striped mt-4">
+          <thead>
+            <tr>
+              <th>Click</th>
+              <th>No.</th>
+              <th>Id</th>
+              <th>Category</th>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Transporter Id</th>
+            </tr>
+          </thead>
+          <tbody id="salesbody">
+            <!-- Table rows will be dynamically populated here -->
+          </tbody>
+        </table>
+      </div>
+
+      <script>
+        async function logout() {
+          await fetch("/api/buyer/logout")
+          window.location.href = "/"
+        }
+        buildSales()
+        async function buildSales() {
+          const response = await fetch("/api/buyer/acknowledgeOrders")
+          const data = await response.json()
+          const sales = data.deliveredOrders
+          // console.log(sales)
+          for (let i = 0; i < sales.length; i++) {
+            let row = `<tr>
             <td><input type="radio" id="buildAggOrders" name="buildAggOrders" value="1"></td>
             <td>${i + 1}</td> 
             <td>${sales[i]._id}</td>  
@@ -106,12 +122,12 @@
             <td>${sales[i].transporter}</td> 
             </tr>
           `
-          salesbody.innerHTML += row
+            salesbody.innerHTML += row
+          }
         }
-      }
 
-    </script>
-</div>
+      </script>
+    </div>
 
 
 

@@ -78,7 +78,7 @@ exports.registerCirlceMember = catchAsyncErrors(async (req, res, next) => {
     // const { circleemail, circlename } = req.body;
     // const circle = await TransportCircle.findOne({ circleemail, circlename })
     // console.log(circle);
-    
+
 
     // if (!circle) {
     //     return next(new ErrorHandler("the given circle doesn't exist , wromg circle name or email", 401));
@@ -97,7 +97,7 @@ exports.registerCirlceMember = catchAsyncErrors(async (req, res, next) => {
     await req.circle.save();
     // sendToken(user, 201, res);
     res.status(200).json({
-        message:"Added user to circle successfully",
+        message: "Added user to circle successfully",
         user
     })
 });
@@ -142,6 +142,7 @@ exports.Login = catchAsyncErrors(async (req, res, next) => {
 
 // to request for transport order of final orders
 exports.transportRequest = catchAsyncErrors(async (req, res, next) => {
+    // console.log("in request");
     // console.log(req.user);
     const orders = req.body.orders
     let counter = orders.length

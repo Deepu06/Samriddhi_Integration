@@ -56,7 +56,7 @@ exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
 
 // is the user a Transport circle member
 exports.isTAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
-
+  // console.log("in");
   const { token } = req.cookies;
 
   if (!token) {
@@ -65,6 +65,7 @@ exports.isTAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
 
   const decodedData = jwt.verify(token, process.env.JWT_SECRET);
   const user = await TransportCircleMembersModel.findById(decodedData.id);
+  // console.log(user);
   if (!user) {
     return next(new ErrorHander("you are not Authorized to use this service!"))
   }
@@ -72,6 +73,7 @@ exports.isTAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   // console.log(req.user);
   req.circle = await TransportCircle.findById(req.user.circle)
   // console.log(req.circle);
+  // console.log("out");
   next();
 });
 

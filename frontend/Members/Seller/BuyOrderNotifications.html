@@ -37,14 +37,19 @@
           <a href="/SellerDashboard" class="list-group-item list-group-item-action active">Dashboard</a>
           <a href="/SellerDashboardAnnounceSales" class="list-group-item list-group-item-action">Announce Sales</a>
           <a href="/SellerDashboardMySales" class="list-group-item list-group-item-action">My Sales</a>
-          <a href="/SellerDashboardAggregateBuyOrder" class="list-group-item list-group-item-action">Aggregate Buy Order</a>
-          <a href="/SellerDashboardCheckForOrderMatch" class="list-group-item list-group-item-action">Check for Order Match</a>  
-          <a href="/SellerDashboardBuyOrderNotifications" class="list-group-item list-group-item-action">Confirm Buy Order Notifications to place Final Order</a>
-          <a href="/SellerDashboardTransportOrderNotifications" class="list-group-item list-group-item-action">Confirm Transport Order Notifications for Transport Confirmation</a>
-            
+          <a href="/SellerDashboardAggregateBuyOrder" class="list-group-item list-group-item-action">Aggregate Buy
+            Order</a>
+          <a href="/SellerDashboardCheckForOrderMatch" class="list-group-item list-group-item-action">Check for Order
+            Match</a>
+          <a href="/SellerDashboardBuyOrderNotifications" class="list-group-item list-group-item-action">Confirm Buy
+            Order Notifications to place Final Order</a>
+          <a href="/SellerDashboardTransportOrderNotifications" class="list-group-item list-group-item-action">Confirm
+            Transport Order Notifications for Transport Confirmation</a>
+
           <a href="/SellerDashboardBuyOrders" class="list-group-item list-group-item-action">Buy Orders</a>
           <a href="/SellerDashboardSales" class="list-group-item list-group-item-action">Sales</a>
-          <a href="/SellerDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated Orders</a>
+          <a href="/SellerDashboardAggregatedOrders" class="list-group-item list-group-item-action">Aggregated
+            Orders</a>
           <a href="/SellerDashboardMatchedOrders" class="list-group-item list-group-item-action">Matched Orders</a>
           <a href="/SellerDashboardFinalOrders" class="list-group-item list-group-item-action">Final Orders</a>
         </div>
@@ -98,9 +103,11 @@
     <script>
       async function getCheckBox() {
         // alert("clicked")
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        // const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        var noti = document.querySelectorAll('input[type=radio][name=buildAggOrders]');
+
         let ids = []
-        checkboxes.forEach((checkbox) => {
+        noti.forEach((checkbox) => {
           if (checkbox.checked) {
             const row = checkbox.closest('tr');
             const columns = row.querySelectorAll('td');
@@ -113,11 +120,11 @@
           window.location.href = "/SellerDashboardBuyOrderNotifications";
 
         }
-        else if (ids.length > 1) {
-          alert("Please Select Only one Notification to confirm, Not more than one.")
-          window.location.href = "/SellerDashboardBuyOrderNotifications";
+        // else if (ids.length > 1) {
+        //   alert("Please Select Only one Notification to confirm, Not more than one.")
+        //   window.location.href = "/SellerDashboardBuyOrderNotifications";
 
-        }
+        // }
         else {
           const id = ids[0]
           // console.log(id);
@@ -160,8 +167,9 @@
           const d = await agg.json()
           const dd = d.aggregatedOrder
           // console.log(notifications[i].saleId);
+          // <td><input type="checkbox" name="subscribe" value="1"></td>
           let row = `
-          <td><input type="checkbox" name="subscribe" value="1"></td>
+          <td><input type="radio" id="buildAggOrders" name="buildAggOrders" value="1"></td>
                   <td>${i + 1}</td>
                   <td>${notifications[i]._id}</td>
                   <td>${notifications[i].saleId._id}</td>

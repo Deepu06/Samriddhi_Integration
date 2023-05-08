@@ -55,12 +55,15 @@
             <!-- <span>Select Final Order(s) and click Request to send Transport Order Request to Seller.</span> -->
             <div>
               <p>
-                <b>Please select the Final order(s) that you wish to proceed with and click on the "Request" button.
+                <b>Please select the Final orders that you wish to proceed with and click on the "Request" button.
                   <br> This will initiate the process of communicating your request to the Seller.</b>
+                <br> <br>
+                <i>Note</i> <b>This is Aggregated Order There Are Be Multiple Small Orders in it, Hence it is mandatory
+                  to deliver all the Orders that are present in the Aggregated Final Order!</b>
               </p>
             </div>
           </div>
-          <br> 
+          <br>
           <button type=" button" class="btn btn-info" onclick="getCheckBox()">
             Request
           </button>
@@ -123,14 +126,8 @@
     async function buildFinal() {
       const response = await fetch("/api/buyer/orders")
       const data = await response.json()
-      // console.log(data);
       const orders = data.orders
-      // console.log(orders);
       for (let i = 0; i < orders.length; i++) {
-        // console.log(orders[i]);
-        // const users = orders[i].users
-        // console.log(users);
-        // for (let j = 0; j < users.length; j++) {
         let status = "No"
         if (orders[i].isDelivered) {
           status = "Yes"
@@ -152,22 +149,16 @@
         </tr>
       `
         ordersbody.innerHTML += row
-        // }
       }
     }
     buildFinalOrders()
     async function buildFinalOrders() {
       const response = await fetch("/api/buyer/orders")
       const data = await response.json()
-      // console.log(data);
       const orders = data.orders
-      // console.log(orders);
       let counter = 1
       for (let i = 0; i < orders.length; i++) {
-        // console.log(orders[i]);
         const users = orders[i].order.users
-        // console.log(users);
-
         for (let j = 0; j < users.length; j++, counter++) {
           let status = "No"
           if (orders[i].isDelivered) {
@@ -195,51 +186,78 @@
     }
 
     function getCheckBox() {
-
-
       const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-      let ids = []
+      let orders = []
       checkboxes.forEach((checkbox) => {
         if (checkbox.checked) {
           const row = checkbox.closest('tr');
           const columns = row.querySelectorAll('td');
-          ids.push(columns[2].innerText)
+          orders.push(columns[2].innerText)
         }
       });
-      if (ids.length < 1) {
-        alert("Please select Order(s)");
-        ele.value = ""
+      if (orders.length < 1) {
+        alert("Please select atleast One Order");
+        window.location.href = "/TransportDashboardRequestOrders"
       }
-      console.log(ids)
+      else {
+        console.log(orders)
+        fetch
+          ('/api/transport/transportrequest', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              orders: orders
+            })
+          })
+          .then(response => {
+            if (response.ok) {
+              alert("Your request and Your Contact Details have been Sent to All Respected Sellers, Now Wait Until Seller Contact You and Have Communication Regarding Transporting and Delivering All Orders.")
+              window.location.href = "/TransportDashboardRequestOrders";
+            } else {
+              alert('Some Error Occured Please Try Again.');
+              window.location.href = "/TransportDashboardRequestOrders";
+
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert(`An error occurred \n${error}`);
+            window.location.href = "/TransportDashboardRequestOrders";
+
+          });
+      }
 
       // Send authentication request to backend server
       // else {
-      //   fetch('/api/seller/buyordersAggregate', {
-      //     method: 'POST',
-      //     headers: {
-      //       'Content-Type': 'application/json'
-      //     },
-      //     body: JSON.stringify({
-      //       ids: ids,
-      //       price: price
-      //     })
+      // fetch
+      // ('/api/seller/buyordersAggregate', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify({
+      //     ids: ids,
+      //     price: price
       //   })
-      //     .then(response => {
-      //       if (response.ok) {
-      //         // Authentication succeeded, redirect to dashboard page
-      //         alert("These Buy Orders are Successfully Aggregated into a Single Aggregated Order.")
-      //         window.location.href = "/SellerDashboardAggregateBuyOrder";
-      //       } else {
-      //         // Authentication failed, show error message
-      //         alert('All Products Should be off Same Category to Aggregate!');
-      //         ele.value = ""
-      //         // console.log(response);
-      //       }
-      //     })
-      //     .catch(error => {
-      //       console.error('Error:', error);
-      //       alert(`An error occurred \n${error}`);
-      //     });
+      // })
+      //   .then(response => {
+      //     if (response.ok) {
+      //       // Authentication succeeded, redirect to dashboard page
+      //       alert("These Buy Orders are Successfully Aggregated into a Single Aggregated Order.")
+      //       window.location.href = "/SellerDashboardAggregateBuyOrder";
+      //     } else {
+      //       // Authentication failed, show error message
+      //       alert('All Products Should be off Same Category to Aggregate!');
+      //       ele.value = ""
+      //       // console.log(response);
+      //     }
+      //   })
+      //   .catch(error => {
+      //     console.error('Error:', error);
+      //     alert(`An error occurred \n${error}`);
+      //   });
       // }
 
     }

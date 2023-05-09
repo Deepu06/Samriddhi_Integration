@@ -352,3 +352,8 @@ exports.myAcknowledgedOrders = catchAsyncErrors(async (req, res, next) => {
         deliveredOrders
     })
 })
+
+// acknowleding the delivery by buyers
+exports.acknowledgeDelivery=catchAsyncErrors(async(req,res,next)=>{
+    
+})

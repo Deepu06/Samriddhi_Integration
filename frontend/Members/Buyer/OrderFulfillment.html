@@ -87,7 +87,7 @@
             <tr>
               <th>Click</th>
               <th>No.</th>
-              <th>Id</th>
+              <th>BuyOrder Id</th>
               <th>Category</th>
               <th>Product</th>
               <th>Quantity</th>
@@ -101,6 +101,7 @@
       </div>
 
       <script>
+
         async function logout() {
           await fetch("/api/buyer/logout")
           window.location.href = "/"
@@ -125,6 +126,61 @@
             salesbody.innerHTML += row
           }
         }
+
+        async function OrderFulfillment() {
+          // alert("clicked")
+          // const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+          var noti = document.querySelectorAll('input[type=radio][name=buildAggOrders]');
+
+          let ids = []
+          noti.forEach((checkbox) => {
+            if (checkbox.checked) {
+              const row = checkbox.closest('tr');
+              const columns = row.querySelectorAll('td');
+              ids.push(columns[2].innerText)
+            }
+          });
+          // console.log(ids);
+          if (ids.length < 1) {
+            alert("Please Select one Notification to confirm")
+            window.location.href = "/SellerDashboardBuyOrderNotifications";
+
+          }
+          // else if (ids.length > 1) {
+          //   alert("Please Select Only one Notification to confirm, Not more than one.")
+          //   window.location.href = "/SellerDashboardBuyOrderNotifications";
+
+          // }
+          else {
+            const id = ids[0]
+            console.log(id);
+            alert("Your Response Has Been Recorded ThankYou, Hope you Have Recieved Your Order, ThankYou!")
+            window.location.href="/BuyerDashboard"
+            // fetch(`/api/seller/placeorder/${id}`, {
+            //   method: 'POST',
+            //   headers: {
+            //     'Content-Type': 'application/json'
+            //   },
+            // })
+            //   .then(response => {
+            //     if (response.ok) {
+            //       // Authentication succeeded, redirect to dashboard page
+            //       alert("Final Order is Placed Now,stock is reduced and waiting for Transporter for Delivering the order, ThankYou!!")
+            //       window.location.href = "/SellerDashboardBuyOrderNotifications";
+            //     } else {
+            //       alert(`Either All Buyers haven't Confirmed yet, or the Required Qunatity is Greater than Stock left So Sorry, can't Place Final Order Now, Please Try Again Later!`);
+            //       window.location.href = "/SellerDashboardBuyOrderNotifications";
+            //     }
+            //   })
+            //   .catch(error => {
+            //     console.error('Error:', error);
+            //     alert(`An error occurred \n${error}`);
+            //     window.location.href = "/SellerDashboardBuyOrderNotifications";
+
+            //   });
+          }
+        }
+
 
       </script>
     </div>

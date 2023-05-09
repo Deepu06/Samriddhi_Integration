@@ -16,7 +16,8 @@ const { registerCirlce,
     getAllBuyingCircles,
     getAllBuyingNotifications,
     myDeliveredOrders,
-    myAcknowledgedOrders
+    myAcknowledgedOrders,
+    acknowledgeDelivery
 } = require("../controllers/BuyingCirlceController");
 const { createBuyOrder, getAllOrders } = require("../controllers/BuyOrderController");
 const { createCart, updateCart, updateCartAddItems } = require("../controllers/CartController");
@@ -94,4 +95,7 @@ router.route("/mynotifications").get(isAuthenticatedUser, getAllBuyingNotificati
 
 // getting all order that should be acknoledged
 router.route("/acknowledgeOrders").get(isAuthenticatedUser, myAcknowledgedOrders)
+
+// acknowleding that the order is delivered
+router.route("/acknowledge").post(isAuthenticatedUser,acknowledgeDelivery)
 module.exports = router;

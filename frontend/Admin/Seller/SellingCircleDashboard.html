@@ -88,6 +88,11 @@
     </div>
   </div>
   <script>
+    async function logout() {
+        await fetch("/api/buyer/logout")
+        window.location.href = "/"
+      }
+      
     buildMembers()
     async function buildMembers() {
       const response = await fetch("/api/seller/getmembers")

@@ -4,10 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Buyer Login</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">\
+    <style>
+      body {		
+			background-image: url('login_background');
+			height: 580px;
+			background-position: center;
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+    .logo{
+			background-image: url('logo');
+			height: 100px;
+			width: 120px;
+			background-position: center;
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+    </style>
+
 </head>
 
 <body>
+  <div class="logo m-3"></div>
     <div class="container mt-5">
         <h2 class="text-center mb-3">Buyer Login Page</h2>
         <form id="registrationForm" action="/api/buyer/login" method="post" >

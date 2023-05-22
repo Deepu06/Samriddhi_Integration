@@ -31,6 +31,16 @@ router.route("/background").get((req, res) => {
     path = Path.join(path, "frontend", "img", "background.jpg")
     res.sendFile(path)
 })
+router.route("/login_background").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "img", "login_background.webp")
+    res.sendFile(path)
+})
+router.route("/logo").get((req, res) => {
+    let path = process.cwd()
+    path = Path.join(path, "frontend", "img", "logo.png")
+    res.sendFile(path)
+})
 router.route("/img_buyer").get((req, res) => {
     let path = process.cwd()
     path = Path.join(path, "frontend", "img", "buyer.jpg")

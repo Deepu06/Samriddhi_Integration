@@ -17,7 +17,7 @@ const { registerCirlce,
     transportNotifictaions,
     getAllBuyingNotifications
 } = require("../controllers/SellingCircleController");
-const { addProduct, getAllProducts, updateProduct, deleteProduct, getSingleProduct } = require("../controllers/ProductController");
+
 const { isSAuthenticatedUser, isSAdmin, isSameUser, isValiduser } = require("../middleware/auth");
 const { createSale, getSales } = require("../controllers/SaleController");
 const { getAllOrders } = require("../controllers/BuyOrderController");
@@ -46,13 +46,8 @@ router.post("/password/forgot", forgotPassword);
 router.put("/password/reset/:token", resetPassword);
 router.put("/password/update", isSAuthenticatedUser, updatePassword);
 
-// updating stock by sellingCircleMembers
-router.route("/products").get(getAllProducts)
-router.route("/product/:id").get(getSingleProduct)
 
-// should complete this isSameUser aswell!! ... completed this feature :)
-router.route("/addproduct").post(isSAuthenticatedUser, addProduct)
-router.route("/product/:id").put(isSAuthenticatedUser, isSameUser, updateProduct).delete(isSAuthenticatedUser, isSameUser, deleteProduct)
+
 
 
 

@@ -76,7 +76,6 @@
               <th>Total Quantity</th>
               <th>Price</th>
               <th>Total Price</th>
-              <th>Is Delivered</th>
             </tr>
           </thead>
           </thead>
@@ -132,10 +131,7 @@
       // const users = orders[i].users
       // console.log(users);
       // for (let j = 0; j < users.length; j++) {
-      let status = "No"
-      if (orders[i].isDelivered) {
-        status = "Yes"
-      }
+      
       let row = `<tr>
         <td>${i + 1}</td> 
         <td>${orders[i]._id}</td> 
@@ -147,7 +143,6 @@
         <td>${orders[i].order.quantity}</td> 
         <td>${orders[i].order.price}</td> 
         <td>${orders[i].order.totalprice}</td> 
-        <td>${status}</td> 
         </tr>
       `
       ordersbody.innerHTML += row

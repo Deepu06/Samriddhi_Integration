@@ -17,8 +17,9 @@
       overflow: hidden;
       z-index: 1;
     }
+
     .list-group {
-      position: fixed; 
+      position: fixed;
       margin-top: 4%;
       width: 15%;
     }
@@ -61,7 +62,7 @@
       </div>
 
 
-      
+
       <div class="col-md-9 mt-5">
         <h2 style="text-align: center;">Matched Orders Details</h2>
 
@@ -90,32 +91,34 @@
           </table>
         </div>
 
-        <div class="container mt-5">
-          <h4>Detailed View of All Matched Orders from all Buying circles</h4>
-          <table class="table table-striped mt-4">
-            <thead>
-              <tr>
-                <th>No.</th>
-                <th>Matched Order Id.</th>
-                <th>Buying Circle</th>
-                <th>Buyer</th>
-                <!-- <th>Buyer Email</th> -->
-                <th>Category</th>
-                <th>Product</th>
-                <th>Matched Sale ID</th>
-                <th>Seller Email</th>
+        <!-- <div class="row"> -->
+          <div class="container mt-5">
+            <h4>Detailed View of All Matched Orders from all Buying circles</h4>
+            <table class="table table-striped mt-4">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Matched Order Id.</th>
+                  <th>Buying Circle</th>
+                  <th>Buyer</th>
+                  <!-- <th>Buyer Email</th> -->
+                  <th>Category</th>
+                  <th>Product</th>
+                  <th>Matched Sale ID</th>
+                  <th>Seller Email</th>
 
 
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total Price</th>
-              </tr>
-            </thead>
-            <tbody id="matchbody">
-              <!-- Table rows will be dynamically populated here -->
-            </tbody>
-          </table>
-        </div>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Total Price</th>
+                </tr>
+              </thead>
+              <tbody id="matchbody">
+                <!-- Table rows will be dynamically populated here -->
+              </tbody>
+            </table>
+          </div>
+        <!-- </div> -->
         <div class="container mt-5">
           <h4>Sales Details</h4>
           <table class="table table-striped mt-4">
@@ -144,9 +147,9 @@
   </div>
   <script>
     async function logout() {
-        await fetch("/api/buyer/logout")
-        window.location.href = "/"
-      }
+      await fetch("/api/buyer/logout")
+      window.location.href = "/"
+    }
 
     buildmatch1()
     async function buildmatch1() {

@@ -20,7 +20,6 @@ const { registerCirlce,
     acknowledgeDelivery
 } = require("../controllers/BuyingCirlceController");
 const { createBuyOrder, getAllOrders } = require("../controllers/BuyOrderController");
-const { createCart, updateCart, updateCartAddItems } = require("../controllers/CartController");
 const { getSales } = require("../controllers/SaleController");
 const { isAuthenticatedUser, isAdmin, isValiduser } = require("../middleware/auth");
 const { createAggregation, getAggregatedOrders, getAggregatedOrderById } = require("../controllers/OrderAggregationController");
@@ -48,11 +47,7 @@ router.put("/password/reset/:token", resetPassword);
 router.put("/password/update", isAuthenticatedUser, updatePassword);
 
 
-// updating or creating cart by buyers..
 
-router.route("/cart").post(isAuthenticatedUser, createCart).get()
-router.route("/cart/add").put(isAuthenticatedUser, updateCartAddItems)
-router.route("/cart/update").put(isAuthenticatedUser, updateCartAddItems)
 
 // to get current active sales
 router.route("/sales").get(getSales)

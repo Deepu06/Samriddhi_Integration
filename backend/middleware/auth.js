@@ -7,7 +7,6 @@ const SellingCircle = require("../models/SellingCircleModel");
 const BuyingCircleMembersModel = require("../models/BuyingCircleMembersModel");
 const SellingCircleMembersModel = require("../models/SellingCircleMembersModel");
 const TransportCircleMembersModel = require("../models/TransportCircleMembersModel");
-const Product = require("../models/productModel")
 const ConfirmOrder = require("../models/ConfirmOrderModel")
 
 // is the user a selling circle member

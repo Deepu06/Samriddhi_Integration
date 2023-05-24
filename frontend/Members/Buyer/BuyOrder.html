@@ -96,17 +96,17 @@
                   <td>
                     <input type="number" class="form-control" name="maxprice" step="1" min="0" required />
                   </td>
-                  <td>
+                  <!-- <td>
                     <button type="button" class="btn btn-danger" onclick="removeProduct(this)">
                       Remove
                     </button>
-                  </td>
+                  </td> -->
                 </tr>
               </tbody>
             </table>
-            <button type="button" class="btn btn-primary" onclick="addProduct()">
+            <!-- <button type="button" class="btn btn-primary" onclick="addProduct()">
               Add Product
-            </button>
+            </button> -->
             <button type="submit" class="btn btn-success">Submit</button>
           </form>
         </div>
@@ -156,33 +156,34 @@
             alert('An error occurred while Adding Buy Order, Please Try again with Proper Data and buyer must Login');
           });
       });
-      function addProduct() {
-        var table = document.getElementById("productTable");
-        var newRow = table.insertRow();
-        var nameCell = newRow.insertCell();
-        var categoryCell = newRow.insertCell();
-        var quantityCell = newRow.insertCell();
-        var minPriceCell = newRow.insertCell();
-        var maxPriceCell = newRow.insertCell();
-        var buttonCell = newRow.insertCell();
-        nameCell.innerHTML =
-          '<input type="text" class="form-control" name="name" required>';
-        categoryCell.innerHTML =
-          '<input type="text" class="form-control" name="category" required >';
-        quantityCell.innerHTML =
-          '<input type="number" class="form-control" name="quantity" step="1" min="0" required>';
-        minPriceCell.innerHTML =
-          '<input type="number" class="form-control" name="minprice" step="1" min="0" required>';
-        maxPriceCell.innerHTML =
-          '<input type="number" class="form-control" name="maxprice" step="1" min="0" required>';
-        buttonCell.innerHTML =
-          '<button type="button" class="btn btn-danger" onclick="removeProduct(this)">Remove</button>';
-      }
+      // function addProduct()
+      // {
+      //   var table = document.getElementById("productTable");
+      //   var newRow = table.insertRow();
+      //   var nameCell = newRow.insertCell();
+      //   var categoryCell = newRow.insertCell();
+      //   var quantityCell = newRow.insertCell();
+      //   var minPriceCell = newRow.insertCell();
+      //   var maxPriceCell = newRow.insertCell();
+      //   var buttonCell = newRow.insertCell();
+      //   nameCell.innerHTML =
+      //     '<input type="text" class="form-control" name="name" required>';
+      //   categoryCell.innerHTML =
+      //     '<input type="text" class="form-control" name="category" required >';
+      //   quantityCell.innerHTML =
+      //     '<input type="number" class="form-control" name="quantity" step="1" min="0" required>';
+      //   minPriceCell.innerHTML =
+      //     '<input type="number" class="form-control" name="minprice" step="1" min="0" required>';
+      //   maxPriceCell.innerHTML =
+      //     '<input type="number" class="form-control" name="maxprice" step="1" min="0" required>';
+      //   buttonCell.innerHTML =
+      //     '<button type="button" class="btn btn-danger" onclick="removeProduct(this)">Remove</button>';
+      // }
 
-      function removeProduct(button) {
-        var row = button.parentNode.parentNode;
-        row.parentNode.removeChild(row);
-      }
+      // function removeProduct(button) {
+      //   var row = button.parentNode.parentNode;
+      //   row.parentNode.removeChild(row);
+      // }
     </script>
 </body>
 

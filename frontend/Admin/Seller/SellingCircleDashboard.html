@@ -72,6 +72,7 @@
                 <th>No</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Phone No</th>
                 <th>Address</th>
                 <th>Area</th>
                 <th>Pincode</th>
@@ -99,12 +100,13 @@
       const data = await response.json()
       const members = data.circle[0].members
       //console.log(data);
-      console.log(members);
+      // console.log(members);
       for (let i = 0; i < members.length; i++) {
         let row = `<tr>
           <td>${i + 1}</td> 
           <td>${members[i].name}</td> 
           <td>${members[i].email}</td> 
+          <td>${members[i].phone}</td> 
           <td>${members[i].address}</td> 
           <td>${members[i].area}</td> 
           <td>${members[i].pincode}</td> 

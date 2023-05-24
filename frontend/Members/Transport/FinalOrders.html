@@ -76,7 +76,6 @@
               <th>Total Quantity</th>
               <th>Price</th>
               <th>Total Price</th>
-              <th>Is Delivered</th>
             </tr>
           </thead>
           </thead>
@@ -95,6 +94,7 @@
               <th>Buying Circle</th>
               <th>Buyer</th>
               <th>Buyer Email</th>
+              <th>Address</th>
               <th>Seller</th>
               <th>Seller Email</th>
               <th>Category</th>
@@ -102,7 +102,6 @@
               <th>Quantity</th>
               <th>Price</th>
               <th>Total Price</th>
-              <th>Is Delivered</th>
             </tr>
           </thead>
           <tbody id="finalordersbody">
@@ -131,10 +130,7 @@
       // const users = orders[i].users
       // console.log(users);
       // for (let j = 0; j < users.length; j++) {
-      let status = "No"
-      if (orders[i].isDelivered) {
-        status = "Yes"
-      }
+      
       let row = `<tr>
         <td>${i + 1}</td> 
         <td>${orders[i]._id}</td> 
@@ -146,7 +142,6 @@
         <td>${orders[i].order.quantity}</td> 
         <td>${orders[i].order.price}</td> 
         <td>${orders[i].order.totalprice}</td> 
-        <td>${status}</td> 
         </tr>
       `
       ordersbody.innerHTML += row
@@ -171,16 +166,14 @@
         // console.log(users[j].address);
         // console.log(users[j].phone);
 
-        let status = "No"
-        if (orders[i].isDelivered) {
-          status = "Yes"
-        }
+        
         let row = `<tr>
         <td>${counter}</td> 
         <td>${orders[i]._id}</td> 
         <td>${users[j].circle}</td> 
         <td>${users[j].name}</td> 
         <td>${users[j].email}</td> 
+        <td>${users[j].address}</td> 
         <td>${orders[i].sale.seller}</td> 
         <td>${orders[i].sale.selleremail}</td> 
         <td>${orders[i].order.category}</td> 
@@ -188,7 +181,6 @@
         <td>${users[j].quantity}</td> 
         <td>${users[j].price}</td> 
         <td>${users[j].totalprice}</td> 
-        <td>${status}</td> 
         </tr>
       `
         finalordersbody.innerHTML += row

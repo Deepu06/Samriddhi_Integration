@@ -22,6 +22,11 @@
                     placeholder="Member Email should be unique">
             </div>
             <div class="mb-3">
+                <label for="phone" class="form-label">Enter Member Phone Number</label>
+                <input type="number" class="form-control" id="phone" name="phone"
+                    placeholder="Enter Member's Valid Phone Number">
+            </div>
+            <div class="mb-3">
                 <label for="password" class="form-label">Enter Member Password</label>
                 <input type="password" class="form-control" id="password" name="password"
                     placeholder="Password should have atleast 8 characters">
@@ -42,7 +47,7 @@
                 <label for="community" class="form-label">Enter Member community</label>
                 <input type="text" class="form-control" id="community" name="community" placeholder="community">
             </div>
-            <button type="submit"  class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">Register</button>
 
             <!-- <a href="adminTransportLogin" class="btn btn-secondary">Login</a> -->
         </form>
@@ -60,6 +65,8 @@
             const area = document.querySelector('#area').value;
             const pincode = document.querySelector('#pincode').value;
             const community = document.querySelector('#community').value;
+            const phone = document.querySelector('#phone').value;
+
 
             // Send authentication request to backend server
             fetch('/api/transport/addcirclemember', {
@@ -75,6 +82,7 @@
                     area: area,
                     pincode: pincode,
                     community: community,
+                    phone:phone
                 })
             })
                 .then(response => {

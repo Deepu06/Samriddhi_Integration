@@ -127,9 +127,9 @@
             async function buildMembers() {
               const response = await fetch("/api/transport/getmembers");
               const data = await response.json();
-              console.log(data);
+              // console.log(data);
               const members = data.circle[0].members;
-              console.log(members);
+              // console.log(members);
               for (let i = 0; i < members.length; i++) {
                 let row = `<tr>
               <td>${i + 1}</td> 

@@ -9,7 +9,6 @@ const BuyingCircleMembersSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please Enter Your Name"],
         maxLength: [30, "Name cannot exceed 30 characters"],
-        minLength: [4, "Name should have more than 4 characters"],
     },
     email: {
         type: String,
@@ -50,6 +49,10 @@ const BuyingCircleMembersSchema = new mongoose.Schema({
     },
     area: {
         type: String,
+        required: true
+    },
+    phone: {
+        type: Number,
         required: true
     },
     resetPasswordToken: String,

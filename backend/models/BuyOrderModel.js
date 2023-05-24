@@ -63,9 +63,17 @@ const buyOrderSchema = new mongoose.Schema({
         default: false,
         required: true
     },
-    transporter:{
-        type:mongoose.Schema.ObjectId,
-        ref:"TransportCircleMembers"
+    transporter: {
+        type: mongoose.Schema.ObjectId,
+        ref: "TransportCircleMembers"
+    },
+    address: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: Number,
+        required: true
     }
 
 }, { timestamps: true })

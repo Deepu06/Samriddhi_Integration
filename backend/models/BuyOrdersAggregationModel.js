@@ -64,8 +64,16 @@ const buyOrdersAggregationSchema = new mongoose.Schema({
                 ref: "BuyingCirlce",
                 required: true
             },
-            circle:{
-                type:String,
+            circle: {
+                type: String,
+                required: true
+            },
+            address: {
+                type: String,
+                required: true
+            },
+            phone:{
+                type:Number,
                 required:true
             }
         }

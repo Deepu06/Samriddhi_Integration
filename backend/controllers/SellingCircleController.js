@@ -34,16 +34,16 @@ exports.registerCirlceMember = catchAsyncErrors(async (req, res, next) => {
     // }
     // console.log("in..");
     // console.log(req.circle);
+    // console.log(req.body);
     const user = new SellingCirlceMembers(
         req.body
     );
     // console.log(req.circle._id);
+    // console.log(user);
     user.circle = req.circle._id
     user.circleemail = req.circle.circleemail
     user.circlename = req.circle.circlename
-    // console.log(user);
     await user.save();
-    // console.log("out");
     req.circle.members.push(user)
     await req.circle.save();
     // console.log("out2");

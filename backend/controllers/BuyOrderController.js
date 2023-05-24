@@ -70,7 +70,9 @@ exports.createBuyOrder = catchAsyncErrors(async (req, res, next) => {
         order.product.minprice = req.body.minprice,
         order.product.maxprice = req.body.maxprice,
         order.product.quantity = req.body.quantity,
-        await order.save()
+        order.address = req.user.address
+    order.phone = req.user.phone
+    await order.save()
     // console.log(order);
     // console.log(req.user);
     req.user.orders.push(order._id)

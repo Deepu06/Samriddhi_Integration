@@ -27,6 +27,11 @@
                     placeholder="Password should have atleast 8 characters">
             </div>
             <div class="mb-3">
+                <label for="phone" class="form-label">Enter Member Phone Number</label>
+                <input type="number" class="form-control" id="phone" name="phone"
+                    placeholder="Enter Member's Valid Phone Number">
+            </div>
+            <div class="mb-3">
                 <label for="address" class="form-label">Enter Member Address</label>
                 <input type="text" class="form-control" id="address" name="address" placeholder="circle Addres">
             </div>
@@ -42,9 +47,9 @@
                 <label for="community" class="form-label">Enter Member community</label>
                 <input type="text" class="form-control" id="community" name="community" placeholder="community">
             </div>
-            <button type="submit"  class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">Register</button>
 
-            
+
         </form>
     </div>
     <script>
@@ -56,6 +61,7 @@
             const name = document.querySelector('#name').value;
             const email = document.querySelector('#email').value;
             const password = document.querySelector('#password').value;
+            const phone = document.querySelector('#phone').value;
             const address = document.querySelector('#address').value;
             const area = document.querySelector('#area').value;
             const pincode = document.querySelector('#pincode').value;
@@ -75,6 +81,7 @@
                     area: area,
                     pincode: pincode,
                     community: community,
+                    phone: phone,
                 })
             })
                 .then(response => {

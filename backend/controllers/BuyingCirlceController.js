@@ -36,6 +36,7 @@ exports.registerCirlceMember = catchAsyncErrors(async (req, res, next) => {
     // // const user = await BuyingCirlceMembers.create(
     // //     req.body
     // // );
+    // console.log(req.body);
     const user = new BuyingCirlceMembers(
         req.body
     );

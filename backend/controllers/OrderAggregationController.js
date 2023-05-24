@@ -52,7 +52,9 @@ exports.createAggregation = catchAsyncErrors(async (req, res, next) => {
                     buyorderid: element,
                     email: order.buyeremail,
                     circleId: order.circleId,
-                    circle: order.circle
+                    circle: order.circle,
+                    address: order.address,
+                    phone:order.phone
                 };
                 // console.log(obj);
                 Order.users.push(obj);
@@ -73,6 +75,7 @@ exports.createAggregation = catchAsyncErrors(async (req, res, next) => {
             Order.totalprice = totalQuantity * req.body.price;
             // console.log(Order);
             await Order.save();
+            // console.log("done saving");
             res.status(201).json({
                 message: "Successfully aggregated",
                 sucess: true,

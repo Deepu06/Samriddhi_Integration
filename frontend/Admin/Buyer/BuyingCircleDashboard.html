@@ -97,7 +97,7 @@
       const response = await fetch("/api/buyer/getmembers")
       const data = await response.json()
       const members = data.circle[0].members
-      console.log(members);
+      // console.log(members);
       for (let i = 0; i < members.length; i++) {
         let row = `<tr>
           <td>${i + 1}</td> 

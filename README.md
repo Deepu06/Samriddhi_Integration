@@ -33,6 +33,6 @@ step 2: Create config.env file in config folder and type below requirements,
         SMPT_MAIL = samriddhiagriapp@gmail.com
         SMPT_PASSWORD = samriddhi@123
         SMTP_HOST = smtp.gmail.com
-step 3: run npm init
+step 3: run npm i
 step 4: to run application use below command,
         npm run dev
